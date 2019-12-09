@@ -40,7 +40,8 @@
     [super viewDidLoad];
     self.view.backgroundColor =BACKGROUNDCOLOR;
     [self.view addSubview:self.bgTipButton];
-    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[self.sendDataDictionary[@"startTime"]?:@"",self.sendDataDictionary[@"endTime"]?:@"",self.sendDataDictionary[@"dzNo"]?:@"",@""] forKeys:@[@"startTime",@"endTime",@"orderNo",@"evaluateType"]];
+//    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[self.sendDataDictionary[@"startTime"]?:@"",self.sendDataDictionary[@"endTime"]?:@"",self.sendDataDictionary[@"dzNo"]?:@"",@""] forKeys:@[@"startTime",@"endTime",@"orderNo",@"evaluateType"]];
+    _sendDataDictionary =[NSMutableDictionary dictionary];
     __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if (weakSelf.MsgListArr.count) {
@@ -82,7 +83,7 @@
             _tableView.estimatedSectionFooterHeight = 0;
             self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
-        _tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
+        _tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
         _tableView.backgroundColor =[UIColor clearColor];
          [_tableView registerClass:[LabelCell class] forCellReuseIdentifier:@"cell"];
 //        [_tableView registerClass:[FirstTableViewCell class] forCellReuseIdentifier:@"FirstTableViewCell"];
@@ -163,7 +164,6 @@
         [MBProgressHUD hideHUD];
         
     } failure:^(NSError *error) {
-        
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [MBProgressHUD hideHUD];        
@@ -208,7 +208,7 @@
 #pragma mark 表的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewAutomaticDimension;
+    return WScale(101);
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -220,14 +220,14 @@
      self.orderModel = self.MsgListArr[section];
     if (self.orderModel.kpName.length!=0) {
         
-        return HScale(130);
+        return WScale(156);
     }
-    return HScale(110);
+    return WScale(126);
 }
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 70;
+    return WScale(100);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -272,7 +272,7 @@
             headView.companyClickBlock = ^{
                 CRDetailController *detailVC = [CRDetailController new];
                 self.orderModel = self.MsgListArr[section];
-                detailVC.sellerid=self.orderModel.sellerId;
+                detailVC.sellerId=self.orderModel.sellerId;
                 [self.navigationController pushViewController:detailVC animated:YES];
             };
             headView.orderModel =self.orderModel;
@@ -283,7 +283,7 @@
         headView.companyClickBlock = ^{
             CRDetailController *detailVC = [CRDetailController new];
             self.orderModel = self.MsgListArr[section];
-            detailVC.sellerid=self.orderModel.sellerId;
+            detailVC.sellerId=self.orderModel.sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         };
         headView.orderModel =self.orderModel;
@@ -443,6 +443,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"%ld",(long)indexPath.section);
+    self.orderModel = self.MsgListArr[indexPath.section];
+    DetailOrdervc *detailVC =[[DetailOrdervc alloc]init];
+    detailVC.orderModel =self.orderModel;
+    [self.navigationController pushViewController:detailVC animated:YES];
     
 }
 @end

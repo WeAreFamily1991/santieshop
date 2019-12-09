@@ -108,7 +108,7 @@ UIPickerViewDataSource>
         [_doneBtn setTitle:@"确定" forState:UIControlStateNormal];
         [_doneBtn addTarget:self action:@selector(actionDone) forControlEvents:UIControlEventTouchUpInside];
         _doneBtn.frame = CGRectMake(CGRectGetWidth(self.containerView.bounds)-60, 5, 60, 30);
-        [_doneBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_doneBtn setTitleColor:REDCOLOR forState:UIControlStateNormal];
     }
     return _doneBtn;
 }

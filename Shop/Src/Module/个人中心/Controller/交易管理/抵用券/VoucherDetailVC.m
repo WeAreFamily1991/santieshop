@@ -177,7 +177,7 @@
             cell.selectlickBlock = ^{
                 CRDetailController *detailVC = [CRDetailController new];
                 self.VouchModel =self.MsgListArr[indexPath.row];
-                detailVC.sellerid=self.VouchModel.sellerId;
+                detailVC.sellerId=self.VouchModel.sellerId;
                 [self.navigationController pushViewController:detailVC animated:YES];
             };
             cell.hidenBtn.hidden =YES;

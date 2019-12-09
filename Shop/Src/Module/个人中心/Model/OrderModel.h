@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface OrderModel : DRBaseModel
 
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * order_id;
 @property (nonatomic , copy) NSString              * sellerExpressType;
 @property (nonatomic , assign) CGFloat              realAmt;
@@ -42,7 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign) NSInteger              createTime;
 @property (nonatomic , copy) NSString              * expressType;
 @property (nonatomic , copy) NSString              * kpName;
-@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * ztAddress;
 @property (nonatomic , copy) NSString              * compType;
 @property (nonatomic , copy) NSString              * tradeNo;
@@ -114,7 +113,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * returnExpressTime;
 @property (nonatomic , copy) NSString              * orderservicetype;
 //@property (nonatomic , copy) NSString              * ztAddress;
-//@property (nonatomic , copy) NSString              * compName;
+//@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * fpTitle;
 @property (nonatomic , copy) NSString              * stypeid;
 @property (nonatomic , copy) NSString              * batchNo;
@@ -159,7 +158,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign) NSInteger              sortId;
 @property (nonatomic , assign) CGFloat              baseprice;
 @property (nonatomic , copy) NSString              * orderId;
-@property (nonatomic , copy) NSString              * materialname;
+@property (nonatomic , copy) NSString              * materialName;
 @property (nonatomic , copy) NSString              * good_id;
 @property (nonatomic , copy) NSString              * remark;
 @property (nonatomic , copy) NSString              * standardname;
@@ -173,7 +172,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * storeid;
 @property (nonatomic , copy) NSString              * itemParamId;
 @property (nonatomic , copy) NSString              * diametername;
-@property (nonatomic , copy) NSString              * brandname;
+@property (nonatomic , copy) NSString              * brandName;
 @property (nonatomic , assign) CGFloat              returnedQty;
 @property (nonatomic , copy) NSString              * moneyoff;
 @property (nonatomic , assign) CGFloat              qty;
@@ -183,7 +182,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * standardcode;
 @property (nonatomic , copy) NSString              * erpOrderid;
 @property (nonatomic , copy) NSString              * erpOid;
-@property (nonatomic , copy) NSString              * levelname;
+@property (nonatomic , copy) NSString              * levelName;
 @property (nonatomic , copy) NSString              * orderservicetype;
 @property (nonatomic , copy) NSString              * erpId;
 @property (nonatomic , copy) NSString              * discountPrice;
@@ -198,9 +197,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * discountId;
 @property (nonatomic , copy) NSString              * voucheroff;
 @property (nonatomic , copy) NSString              * spec;
-@property (nonatomic , copy) NSString              * surfacename;
+@property (nonatomic , copy) NSString              * surfaceName;
 @property (nonatomic , copy) NSString              * imgUrl;
-@property (nonatomic , copy) NSString              * imgurl;
 @property (nonatomic , copy) NSString              * itemName;
 @property (nonatomic , copy) NSString              * discount;
 @property (nonatomic , copy) NSString              * pack;
@@ -233,7 +231,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic , assign) CGFloat              voucheroff;
 @property (nonatomic , copy) NSString              * unit5;
 @property (nonatomic , assign) BOOL              inApply;
-//@property (nonatomic , copy) NSString              * levelname;
+//@property (nonatomic , copy) NSString              * levelName;
 @property (nonatomic , copy) NSString              * condition3;
 //@property (nonatomic , assign) CGFloat              price;
 //@property (nonatomic , copy) NSString              * itemName;
@@ -244,7 +242,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic , copy) NSString              * pmid;
 @property (nonatomic , copy) NSString              *unitConversion2;
 @property (nonatomic , copy) NSString              * discount1;
-//@property (nonatomic , copy) NSString              * materialname;
+//@property (nonatomic , copy) NSString              * materialName;
 //@property (nonatomic , copy) NSString              * pmqty;
 @property (nonatomic , copy) NSString              *unitConversion3;
 @property (nonatomic , copy) NSString              * unitConversion4;
@@ -255,7 +253,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * discount3;
 //@property (nonatomic , assign) CGFloat              realAmt;
 @property (nonatomic , copy) NSString              * unit2;
-//@property (nonatomic , copy) NSString              * surfacename;
+//@property (nonatomic , copy) NSString              * surfaceName;
 //@property (nonatomic , copy) NSString              * remark;
 //@property (nonatomic , assign) NSInteger              sortId;
 //@property (nonatomic , copy) NSString              * orderId;
@@ -273,7 +271,7 @@ NS_ASSUME_NONNULL_BEGIN
 //@property (nonatomic , copy) NSString              * erpOid;
 //@property (nonatomic , copy) NSString              * discountPrice;
 //@property (nonatomic , copy) NSString              * orderservicetype;
-//@property (nonatomic , copy) NSString              * brandname;
+//@property (nonatomic , copy) NSString              * brandName;
 //@property (nonatomic , copy) NSString              * discount;
 
 @end

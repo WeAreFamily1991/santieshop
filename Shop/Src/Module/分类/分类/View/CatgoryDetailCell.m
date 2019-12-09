@@ -32,6 +32,13 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CatgoryDetailCell" owner:nil options:nil] firstObject];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.shoucangBtn.layer.cornerRadius =4;
+    cell.shoucangBtn.layer.masksToBounds =4;
+    cell.shoucangBtn.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    cell.shoucangBtn.layer.borderWidth =0.5;
+    cell.shopCarBtn.layer.cornerRadius =4;
+    cell.shopCarBtn.layer.masksToBounds =4;
+    
       [cell.cancelBtn addTarget:cell action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.shoucangBtn addTarget:cell action:@selector(shoucangBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [cell.shopCarBtn addTarget:cell action:@selector(shopCarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -50,12 +57,12 @@
     if (self.shoucangBtn.selected) {
         urlStr =@"buyer/cancelItemFavorite";
         
-        mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.favariteId forKey:@"id"];
+        mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.favouriteId forKey:@"id"];
         [SNIOTTool deleteWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
                 
-                self.goodsModel.favariteId =@"";
+                self.goodsModel.favouriteId =@"";
                 self.shoucangBtn.selected =NO;
                 [MBProgressHUD showSuccess:result.data];
                 if (_shoucangBlock) {
@@ -69,12 +76,12 @@
     else
     {
         urlStr =@"buyer/favoriteItem";
-        NSDictionary *dic =@{@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerid,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
+        NSDictionary *dic =@{@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerId,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
         mudic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"item"];
         [SNAPI postWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
-                self.goodsModel.favariteId=result.data;
+                self.goodsModel.favouriteId=result.data;
                 self.shoucangBtn.selected =YES;
                 [MBProgressHUD showSuccess:@"收藏成功"];
                 //
@@ -87,10 +94,10 @@
 -(void)shopCarBtnClick:(UIButton *)sender
 {
     DRWeakSelf;
-    if (![_goodsModel.qty isEqualToString:@"0"]) {
+    if (_goodsModel.qty!=0) {
         if ([_shoucangStr isEqualToString:@"1"])
         {
-            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerid,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
+            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerId,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
             [SNAPI getWithURL:@"mainPage/getSingleItem" parameters:mudic success:^(SNResult *result) {
                 _shoucangStr =@"";
                 DRAddShopModel *addShopmodel =[DRAddShopModel mj_objectWithKeyValues:result.data];
@@ -119,7 +126,7 @@
             }];
         }else
         {
-            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.goodsModel.payType]?:@"", @"serviceType":self.goodsModel.serviceType?:@"",@"userprice":self.goodsModel.userprice?:@"",@"id":self.goodsModel.goods_id?:@"",@"buyNum":[GoodsShareModel sharedManager].countNumStr?:@"",@"itemUnit":[GoodsShareModel sharedManager].selectcode?:@"",@"sellerid":self.goodsModel.sellerid?:@"",@"storeId":self.goodsModel.storeId?:@"",@"branchId":self.goodsModel.branchId?:@"",@"areaId":self.goodsModel.areaId?:@"",@"qty":self.goodsModel.qty?:@""};
+            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.goodsModel.payType]?:@"", @"serviceType":self.goodsModel.serviceType?:@"",@"userPrice":[NSString stringWithFormat:@"%f",self.goodsModel.userPrice]?:@"",@"id":self.goodsModel.goods_id?:@"",@"buyNum":[GoodsShareModel sharedManager].countNumStr?:@"",@"itemUnit":[GoodsShareModel sharedManager].selectcode?:@"",@"sellerId":self.goodsModel.sellerId?:@"",@"storeId":self.goodsModel.storeId?:@"",@"branchId":self.goodsModel.branchId?:@"",@"areaId":self.goodsModel.areaId?:@"",@"qty":[NSString stringWithFormat:@"%f",self.goodsModel.qty]?:@""};
             
             [SNAPI postWithURL:@"buyer/addCart" parameters:dic.mutableCopy success:^(SNResult *result) {
                 if (result.state==200) {
@@ -156,7 +163,7 @@
             };
             alertView.sureclickBlock = ^{
                 NSArray *hopeDayArr =@[@"5",@"15",@"30",@"60",];
-                NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(6, alertView.sjchlLab.text.length-6-self.goodsModel.basicunitname.length)],@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerid,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
+                NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(6, alertView.sjchlLab.text.length-6-self.goodsModel.basicUnitName.length)],@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerId,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
                 NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"notice"];
                 [SNAPI postWithURL:@"buyer/addArrivalNotice" parameters:muDic success:^(SNResult *result) {
                     if (result.state==200) {
@@ -176,7 +183,7 @@
             [self.superview.superview addSubview:alertView];
         }else
         {
-            if ([_goodsModel.qty intValue]==0) {
+            if (_goodsModel.qty==0) {
                 UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"溫馨提示" message:@"您需要的货品还未到货呦！请耐心等待" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"我知道了", nil];
                 [al show];
             }
@@ -192,22 +199,22 @@
 -(void)setGoodsModel:(GoodsModel *)goodsModel
 {
     _goodsModel =goodsModel;
-    NSLog(@"id =%@",goodsModel.favariteId);
-    if (goodsModel.favariteId.length!=0) {
+    NSLog(@"id =%@",goodsModel.favouriteId);
+    if (goodsModel.favouriteId.length!=0) {
         self.shoucangBtn.selected =YES;
     }
     else
     {
        self.shoucangBtn.selected =NO;
     }
-    if ([goodsModel.qty intValue]==0) {
+    if (_goodsModel.qty==0) {
         self.shopCarBtn.selected =YES;
     }
     else
     {
        self.shopCarBtn.selected =NO;
     }
-    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",[goodsModel.userprice doubleValue],goodsModel.basicunitname];
+    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",goodsModel.userPrice,goodsModel.basicUnitName];
 }
 -(void)setDaohuoTongzhiStr:(NSString *)daohuoTongzhiStr
 {
@@ -223,8 +230,8 @@
 //   
 //    _orderPriceLab.hidden =NO;
 //    _lineView.hidden =NO;
-//    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f/%@",sameModel.userprice,sameModel.basicunitname];
-//    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.bidPrice,sameModel.basicunitname];
+//    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f/%@",sameModel.userPrice,sameModel.basicUnitName];
+//    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.bidPrice,sameModel.basicUnitName];
 //}
 -(void)setShoucangStr:(NSString *)shoucangStr
 {
@@ -258,6 +265,12 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CatgoryDetailCell" owner:nil options:nil] objectAtIndex:1];        
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.shoucangBtn.layer.cornerRadius =4;
+    cell.shoucangBtn.layer.masksToBounds =4;
+    cell.shoucangBtn.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    cell.shoucangBtn.layer.borderWidth =0.5;
+    cell.shopCarBtn.layer.cornerRadius =4;
+    cell.shopCarBtn.layer.masksToBounds =4;
     cell.sourceDic =[NSMutableDictionary dictionary];
     cell.danweiBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
     cell.danweiBtn.layer.borderWidth =1;
@@ -296,12 +309,12 @@
     if (self.shoucangBtn.selected) {
         urlStr =@"buyer/cancelItemFavorite";
         
-        mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.favariteId forKey:@"id"];
+        mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.favouriteId forKey:@"id"];
         [SNIOTTool deleteWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
                 
-                self.goodsModel.favariteId =@"";
+                self.goodsModel.favouriteId =@"";
                 self.shoucangBtn.selected =NO;
                 [MBProgressHUD showSuccess:result.data];
             }
@@ -312,12 +325,12 @@
     else
     {
         urlStr =@"buyer/favoriteItem";
-        NSDictionary *dic =@{@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerid,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
+        NSDictionary *dic =@{@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerId,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
         mudic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"item"];
         [SNAPI postWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
-                self.goodsModel.favariteId=result.data;
+                self.goodsModel.favouriteId=result.data;
                 self.shoucangBtn.selected =YES;
                 [MBProgressHUD showSuccess:@"收藏成功"];
                 //
@@ -332,10 +345,10 @@
 {
     
     DRWeakSelf;
-    if (![_goodsModel.qty isEqualToString:@"0"]) {
+    if (_goodsModel.qty!=0) {
         if ([_shoucangStr isEqualToString:@"1"])
         {
-            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerid,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
+            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerId,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
             [SNAPI getWithURL:@"mainPage/getSingleItem" parameters:mudic success:^(SNResult *result) {
                 DRAddShopModel *addShopmodel =[DRAddShopModel mj_objectWithKeyValues:result.data];
                 DRAddShopView *AddshopView = [[[NSBundle mainBundle]loadNibNamed:@"DRAddShopView" owner:self options:nil] lastObject];
@@ -360,7 +373,7 @@
             }];
         }else
         {
-            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.goodsModel.payType]?:@"", @"serviceType":self.goodsModel.serviceType?:@"",@"userprice":self.goodsModel.userprice?:@"",@"id":self.goodsModel.goods_id?:@"",@"buyNum":self.countNumStr?:@"",@"itemUnit":self.selectDanWei?:@"",@"sellerid":self.goodsModel.sellerid?:@"",@"storeId":self.goodsModel.storeId?:@"",@"branchId":self.goodsModel.branchId?:@"",@"areaId":self.goodsModel.areaId?:@"",@"qty":self.countTF.text};
+            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.goodsModel.payType]?:@"", @"serviceType":self.goodsModel.serviceType?:@"",@"userPrice":[NSString stringWithFormat:@"%f",self.goodsModel.userPrice]?:@"",@"id":self.goodsModel.goods_id?:@"",@"buyNum":self.countNumStr?:@"",@"itemUnit":self.selectDanWei?:@"",@"sellerId":self.goodsModel.sellerId?:@"",@"storeId":self.goodsModel.storeId?:@"",@"branchId":self.goodsModel.branchId?:@"",@"areaId":self.goodsModel.areaId?:@"",@"qty":self.countTF.text};
             
             
             [SNAPI postWithURL:@"buyer/addCart" parameters:dic.mutableCopy success:^(SNResult *result) {
@@ -393,7 +406,7 @@
         alertView.sureclickBlock = ^{
             
             NSArray *hopeDayArr =@[@"5",@"15",@"30",@"60",];
-            NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(10, alertView.sjchlLab.text.length-10)],@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerid,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
+            NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(10, alertView.sjchlLab.text.length-10)],@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerId,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
             NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"notice"];
             [SNAPI postWithURL:@"buyer/addArrivalNotice" parameters:muDic success:^(SNResult *result) {
                 if (result.state==200) {
@@ -425,13 +438,13 @@
     _sameModel =sameModel;
     _orderPriceLab.hidden =NO;
     _lineView.hidden =NO;
-    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",sameModel.userprice,sameModel.basicunitname];
-    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.bidPrice,sameModel.basicunitname];
+    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",sameModel.userPrice,sameModel.basicUnitName];
+    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.bidPrice,sameModel.basicUnitName];
 }
 -(void)setGoodsModel:(GoodsModel *)goodsModel
 {
     _goodsModel =goodsModel;
-    if ([goodsModel.sellerClass intValue]>1) {
+    if (goodsModel.sellerClass>1) {
         self.shopCarBtn.hidden =NO;        
     }
     else
@@ -439,65 +452,65 @@
         self.shopCarBtn.hidden =YES;
         self.shoucangBtn.frame=CGRectMake(290, 8, HScale(70), 25);
     }
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([_goodsModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([_goodsModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([_goodsModel.basicunitid intValue]==6) {
+    if ([_goodsModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([_goodsModel.basicunitid intValue]==7) {
+    if ([_goodsModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
-    _goodsModel.baseName  =baseStr;
+    _goodsModel.basicUnitName  =baseStr;
     self.danweiLab.text =baseStr;
     
     NSMutableArray *unitconversionArr =[NSMutableArray array];
      NSMutableArray *unitNameArr =[NSMutableArray array];
      NSMutableArray *uniDanWeiArr =[NSMutableArray array];
-    if (self.goodsModel.unitconversion1.length!=0&&![self.goodsModel.unitconversion1 isEqualToString:@"0"]) {
-        [unitconversionArr addObject:self.goodsModel.unitconversion1];
-        [unitNameArr addObject:self.goodsModel.unitname1];
+    if (self.goodsModel.unitConversion1!=0) {
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion1]];
+        [unitNameArr addObject:self.goodsModel.unitName1];
         [uniDanWeiArr addObject:self.goodsModel.unit1];
     }
-    if (self.goodsModel.unitconversion2.length!=0&&![self.goodsModel.unitconversion2 isEqualToString:@"0"]) {
-        [unitconversionArr addObject:self.goodsModel.unitconversion2];
-        [unitNameArr addObject:self.goodsModel.unitname2];
+    if (self.goodsModel.unitConversion2!=0) {
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion2]];
+        [unitNameArr addObject:self.goodsModel.unitName2];
          [uniDanWeiArr addObject:self.goodsModel.unit2];
     }
-    if (self.goodsModel.unitconversion3.length!=0&&![self.goodsModel.unitconversion3 isEqualToString:@"0"]) {
+    if (self.goodsModel.unitConversion3!=0) {
         
-      [unitconversionArr addObject:self.goodsModel.unitconversion3];
-      [unitNameArr addObject:self.goodsModel.unitname3];
+      [unitconversionArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion3]];
+      [unitNameArr addObject:self.goodsModel.unitName3];
       [uniDanWeiArr addObject:self.goodsModel.unit3];
     }
-    if (self.goodsModel.unitconversion4.length!=0&&![self.goodsModel.unitconversion4 isEqualToString:@"0"]) {
+    if (self.goodsModel.unitConversion4!=0) {
  
-        [unitconversionArr addObject:self.goodsModel.unitconversion4];
-        [unitNameArr addObject:self.goodsModel.unitname4];
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion4]];
+        [unitNameArr addObject:self.goodsModel.unitName4];
         [uniDanWeiArr addObject:self.goodsModel.unit4];
 
     }
-    if (self.goodsModel.unitconversion5.length!=0&&![self.goodsModel.unitconversion5 isEqualToString:@"0"]) {
-         [unitconversionArr addObject:self.goodsModel.unitconversion5];
-         [unitNameArr addObject:self.goodsModel.unitname5];
+    if (self.goodsModel.unitConversion5!=0) {
+         [unitconversionArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion5]];
+         [unitNameArr addObject:self.goodsModel.unitName5];
          [uniDanWeiArr addObject:self.goodsModel.unit5];
     }
     self.selectNameArr =[NSMutableArray array];
     self.selectCodeArr=[NSMutableArray array];
     self.selectDanweiArr=[NSMutableArray array];
-    if ([self.goodsModel.saleunitid intValue]==5||[self.goodsModel.saleunitid intValue]==6||[self.goodsModel.saleunitid intValue]==7)
+    if ([self.goodsModel.saleUnitId intValue]==5||[self.goodsModel.saleUnitId intValue]==6||[self.goodsModel.saleUnitId intValue]==7)
     {
-        [self.selectCodeArr addObject:self.goodsModel.saleunitconversion];
-        [self.selectNameArr addObject:self.goodsModel.saleunitname];
-        [self.selectDanweiArr addObject:self.goodsModel.saleunitid];
-        if ([self.goodsModel.saleunitid intValue]==5||[self.goodsModel.saleunitid intValue]==7) {
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.saleUnitConversion]];
+        [self.selectNameArr addObject:self.goodsModel.saleUnitName];
+        [self.selectDanweiArr addObject:self.goodsModel.saleUnitId];
+        if ([self.goodsModel.saleUnitId intValue]==5||[self.goodsModel.saleUnitId intValue]==7) {
             self.chooseCountView.multipleNum =0.001;
         }
     }
     NSInteger selectrow = 0;
     for (int i=0; i<unitNameArr.count; i++) {
-        if ([self.goodsModel.saleunitname isEqualToString:unitNameArr[i]]) {
+        if ([self.goodsModel.saleUnitName isEqualToString:unitNameArr[i]]) {
             selectrow =i;
         }
     }
@@ -509,15 +522,15 @@
      self.selectName =[self.selectNameArr firstObject];
     [self.danweiBtn setTitle:[self.selectNameArr firstObject] forState:UIControlStateNormal];
     [self.danweiBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
-    self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",[self.goodsModel.minquantity doubleValue]] doubleValue];
-    self.chooseCountView.minCount =[[NSString stringWithFormat:@"%.3f",[self.goodsModel.minquantity doubleValue]] doubleValue];
+    self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",self.goodsModel.minQuantity] doubleValue];
+    self.chooseCountView.minCount =[[NSString stringWithFormat:@"%.3f",self.goodsModel.minQuantity] doubleValue];
     self.countNumStr = [NSString stringWithFormat:@"%.3f",self.chooseCountView.currentCount];
     self.countTF.text  =[NSString stringWithFormat:@"%.3f",[self.countNumStr intValue]*self.selectcode];
    //处理尾货逻辑
-    if (self.selectcode>[self.goodsModel.qty doubleValue]) {
-        self.countTF.text  =[NSString stringWithFormat:@"%.3f",[self.goodsModel.qty doubleValue]];
+    if (self.selectcode>self.goodsModel.qty) {
+        self.countTF.text  =[NSString stringWithFormat:@"%.3f",self.goodsModel.qty ];
     }
-    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",[self.goodsModel.userprice doubleValue],self.goodsModel.basicunitname];
+    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",self.goodsModel.userPrice,self.goodsModel.basicUnitName];
     self.chooseCountView.canEdit =NO;
     
 }
@@ -541,9 +554,9 @@
         if (self.countNumStr.length!=0&&self.countTF.text.length!=0) {
             self.countTF.text  =[NSString stringWithFormat:@"%.3f",[self.countNumStr intValue]*self.selectcode];
              self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.0f",ceil([self.countTF.text doubleValue]/self.selectcode)] doubleValue];
-             if ([self.countTF.text doubleValue]>=[self.goodsModel.qty doubleValue]) {
-                  self.countTF.text =[NSString stringWithFormat:@"%.3f",[weakSelf.goodsModel.qty doubleValue]];
-                  self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",[weakSelf.goodsModel.qty doubleValue]/self.selectcode] doubleValue];
+             if ([self.countTF.text doubleValue]>=self.goodsModel.qty) {
+                  self.countTF.text =[NSString stringWithFormat:@"%.3f",weakSelf.goodsModel.qty];
+                  self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",weakSelf.goodsModel.qty/self.selectcode] doubleValue];
                  self.countNumStr =[NSString stringWithFormat:@"%.3f",self.chooseCountView.currentCount];
              }
         }
@@ -567,10 +580,10 @@
     self.countTF.text  =[NSString stringWithFormat:@"%.3f",[self.countNumStr doubleValue]*self.selectcode];
     
     
-    if ([[NSString stringWithFormat:@"%.3f",[number doubleValue]*self.selectcode] doubleValue]>=[self.goodsModel.qty doubleValue]) {
-        self.countTF.text =[NSString stringWithFormat:@"%.3f",[_goodsModel.qty doubleValue]];
+    if ([[NSString stringWithFormat:@"%.3f",[number doubleValue]*self.selectcode] doubleValue]>=self.goodsModel.qty) {
+        self.countTF.text =[NSString stringWithFormat:@"%.3f",_goodsModel.qty];
        
-        self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",[_goodsModel.qty doubleValue]/self.selectcode] doubleValue];
+        self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",_goodsModel.qty/self.selectcode] doubleValue];
         self.countNumStr =[NSString stringWithFormat:@"%.3f",self.chooseCountView.currentCount];
     }
 }
@@ -584,10 +597,10 @@
     {
         if (string.length == 0) return YES;
         
-        if ([textField.text doubleValue]>=[_goodsModel.qty doubleValue]) {
-            textField.text =[NSString stringWithFormat:@"%.3f",[_goodsModel.qty doubleValue]];
+        if ([textField.text doubleValue]>=_goodsModel.qty) {
+            textField.text =[NSString stringWithFormat:@"%.3f",_goodsModel.qty];
             
-            self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",[_goodsModel.qty doubleValue]/self.selectcode] doubleValue];
+            self.chooseCountView.currentCount =[[NSString stringWithFormat:@"%.3f",_goodsModel.qty/self.selectcode] doubleValue];
             self.countNumStr =[NSString stringWithFormat:@"%.3f",self.chooseCountView.currentCount];
         }
         else
@@ -633,6 +646,12 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CatgoryDetailCell" owner:nil options:nil] objectAtIndex:2];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.shoucangBtn.layer.cornerRadius =4;
+    cell.shoucangBtn.layer.masksToBounds =4;
+    cell.shoucangBtn.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    cell.shoucangBtn.layer.borderWidth =0.5;
+    cell.shopCarBtn.layer.cornerRadius =4;
+    cell.shopCarBtn.layer.masksToBounds =4;
     cell.sourceDic =[NSMutableDictionary dictionary];
     cell.danweiBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
     cell.danweiBtn.layer.borderWidth =1;
@@ -663,66 +682,66 @@
         self.shopCarBtn.hidden =YES;
          self.shoucangBtn.frame=CGRectMake(290, 8, HScale(70), 25);
     }
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([_sameModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([_sameModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([_sameModel.basicunitid intValue]==6) {
+    if ([_sameModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([_sameModel.basicunitid intValue]==7) {
+    if ([_sameModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
-    _sameModel.basicunitname  =baseStr;
+    _sameModel.basicUnitName  =baseStr;
     self.danweiLab.text =baseStr;
     
     NSMutableArray *unitconversionArr =[NSMutableArray array];
     NSMutableArray *unitNameArr =[NSMutableArray array];
     NSMutableArray *uniDanWeiArr =[NSMutableArray array];
-    if (_sameModel.unitconversion1!=0) {
+    if (_sameModel.unitConversion1!=0) {
         [uniDanWeiArr addObject:_sameModel.unit1];
-        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitconversion1 doubleValue]]];
-        [unitNameArr addObject:_sameModel.unitname1];
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitConversion1 doubleValue]]];
+        [unitNameArr addObject:_sameModel.unitName1];
     }
-    if (_sameModel.unitconversion2!=0) {
+    if (_sameModel.unitConversion2!=0) {
         [uniDanWeiArr addObject:_sameModel.unit2];
-        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitconversion2 doubleValue]]];
-        [unitNameArr addObject:_sameModel.unitname2];
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitConversion2 doubleValue]]];
+        [unitNameArr addObject:_sameModel.unitName2];
         
     }
-    if (_sameModel.unitconversion3!=0) {
+    if (_sameModel.unitConversion3!=0) {
          [uniDanWeiArr addObject:_sameModel.unit3];
-        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitconversion3 doubleValue]]];
-        [unitNameArr addObject:_sameModel.unitname3];
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitConversion3 doubleValue]]];
+        [unitNameArr addObject:_sameModel.unitName3];
     }
-    if (_sameModel.unitconversion4!=0) {
+    if (_sameModel.unitConversion4!=0) {
         
-        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitconversion4 doubleValue]]];
-        [unitNameArr addObject:_sameModel.unitname4];
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitConversion4 doubleValue]]];
+        [unitNameArr addObject:_sameModel.unitName4];
          [uniDanWeiArr addObject:_sameModel.unit4];
   
     }
-    if (_sameModel.unitconversion5.length!=0) {
-        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitconversion5 doubleValue]]];
-        [unitNameArr addObject:_sameModel.unitname5];
+    if (_sameModel.unitConversion5.length!=0) {
+        [unitconversionArr addObject:[NSString stringWithFormat:@"%.3f",[_sameModel.unitConversion5 doubleValue]]];
+        [unitNameArr addObject:_sameModel.unitName5];
          [uniDanWeiArr addObject:_sameModel.unit4];
  
     }
     self.selectNameArr =[NSMutableArray array];
     self.selectCodeArr=[NSMutableArray array];
     self.selectDanweiArr=[NSMutableArray array];
-    if ([_sameModel.saleunitid intValue]==5||[_sameModel.saleunitid intValue]==6||[_sameModel.saleunitid intValue]==7)
+    if ([_sameModel.saleUnitId intValue]==5||[_sameModel.saleUnitId intValue]==6||[_sameModel.saleUnitId intValue]==7)
     {        
-        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%.3f",_sameModel.saleunitconversion]];
-         [self.selectDanweiArr addObject:_sameModel.saleunitid];
-        [self.selectNameArr addObject:_sameModel.saleunitname];
-        if ([_sameModel.saleunitid intValue]==5||[_sameModel.saleunitid intValue]==7) {
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%.3f",_sameModel.saleUnitConversion]];
+         [self.selectDanweiArr addObject:_sameModel.saleUnitId];
+        [self.selectNameArr addObject:_sameModel.saleUnitName];
+        if ([_sameModel.saleUnitId intValue]==5||[_sameModel.saleUnitId intValue]==7) {
             self.chooseCountView.multipleNum =0.001;
         }
     }
     NSInteger selectrow = 0;
     for (int i=0; i<unitNameArr.count; i++) {
-        if ([_sameModel.saleunitname isEqualToString:unitNameArr[i]]) {
+        if ([_sameModel.saleUnitName isEqualToString:unitNameArr[i]]) {
             selectrow =i;
         }
     }
@@ -735,8 +754,8 @@
     [self.danweiBtn setTitle:[self.selectNameArr firstObject] forState:UIControlStateNormal];
     [self.danweiBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:5];
     
-    self.chooseCountView.currentCount =self.sameModel.minquantity;
-    self.chooseCountView.minCount =self.sameModel.minquantity;
+    self.chooseCountView.currentCount =self.sameModel.minQuantity;
+    self.chooseCountView.minCount =self.sameModel.minQuantity;
     self.countNumStr = [NSString stringWithFormat:@"%.3f",self.chooseCountView.currentCount];
     self.countTF.text  =[NSString stringWithFormat:@"%.3f",[self.countNumStr intValue]*self.selectcode];
     //处理尾货逻辑
@@ -745,8 +764,8 @@
     }
     _orderPriceLab.hidden =NO;
     _lineView.hidden =NO;
-    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",sameModel.userprice,sameModel.basicunitname];
-    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.level_price,sameModel.basicunitname];
+    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",sameModel.userPrice,sameModel.basicUnitName];
+    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.level_price,sameModel.basicUnitName];
 }
 -(void)shoucangBtnClick:(UIButton *)sender
 {
@@ -758,12 +777,12 @@
     if (self.shoucangBtn.selected) {
         urlStr =@"buyer/cancelItemFavorite";
         
-        mudic =[NSMutableDictionary dictionaryWithObject:self.sameModel.favariteId forKey:@"id"];
+        mudic =[NSMutableDictionary dictionaryWithObject:self.sameModel.favouriteId forKey:@"id"];
         [SNIOTTool deleteWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
                 
-                self.sameModel.favariteId =@"";
+                self.sameModel.favouriteId =@"";
                 self.shoucangBtn.selected =NO;
                 [MBProgressHUD showSuccess:result.data];
             }
@@ -774,12 +793,12 @@
     else
     {
         urlStr =@"buyer/favoriteItem";
-        NSDictionary *dic =@{@"itemId":self.sameModel.sameID,@"sellerId":self.sameModel.sellerid,@"storeId":self.sameModel.storeId,@"branchId":self.sameModel.branchId,@"areaId":self.sameModel.areaId};
+        NSDictionary *dic =@{@"itemId":self.sameModel.sameID,@"sellerId":self.sameModel.sellerId,@"storeId":self.sameModel.storeId,@"branchId":self.sameModel.branchId,@"areaId":self.sameModel.areaId};
         mudic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"item"];
         [SNAPI postWithURL:urlStr parameters:mudic success:^(SNResult *result) {
             if (result.state==200) {
                 NSLog(@"result=%@",result.data);
-                self.sameModel.favariteId=result.data;
+                self.sameModel.favouriteId=result.data;
                 self.shoucangBtn.selected =YES;
                 [MBProgressHUD showSuccess:@"收藏成功"];
                 //
@@ -797,7 +816,7 @@
     if (_sameModel.qty!=0) {
         if ([_shoucangStr isEqualToString:@"1"])
         {
-            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.sameModel.sellerid,self.sameModel.sameID,self.sameModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
+            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.sameModel.sellerId,self.sameModel.sameID,self.sameModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
             [SNAPI getWithURL:@"mainPage/getSingleItem" parameters:mudic success:^(SNResult *result) {
                 DRAddShopModel *addShopmodel =[DRAddShopModel mj_objectWithKeyValues:result.data];
                 DRAddShopView *AddshopView = [[[NSBundle mainBundle]loadNibNamed:@"DRAddShopView" owner:self options:nil] lastObject];
@@ -822,7 +841,7 @@
             }];
         }else
         {
-            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.sameModel.payType]?:@"", @"serviceType":self.sameModel.serviceType?:@"",@"userprice":[NSString stringWithFormat:@"%.2f",self.sameModel.userprice]?:@"",@"id":self.sameModel.sameID?:@"",@"buyNum":self.countNumStr?:@"",@"itemUnit":self.selectDanWei?:@"",@"sellerid":self.sameModel.sellerid?:@"",@"storeId":self.sameModel.storeId?:@"",@"branchId":self.sameModel.branchId?:@"",@"areaId":self.sameModel.areaId?:@"",@"qty":self.countTF.text};
+            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.sameModel.payType]?:@"", @"serviceType":self.sameModel.serviceType?:@"",@"userPrice":[NSString stringWithFormat:@"%.2f",self.sameModel.userPrice]?:@"",@"id":self.sameModel.sameID?:@"",@"buyNum":self.countNumStr?:@"",@"itemUnit":self.selectDanWei?:@"",@"sellerId":self.sameModel.sellerId?:@"",@"storeId":self.sameModel.storeId?:@"",@"branchId":self.sameModel.branchId?:@"",@"areaId":self.sameModel.areaId?:@"",@"qty":self.countTF.text};
             
             
             [SNAPI postWithURL:@"buyer/addCart" parameters:dic.mutableCopy success:^(SNResult *result) {
@@ -858,7 +877,7 @@
             //                        return ;
             //                    }
             NSArray *hopeDayArr =@[@"5",@"15",@"30",@"60",];
-            NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(10, alertView.sjchlLab.text.length-10)],@"itemId":self.sameModel.sameID,@"sellerId":self.sameModel.sellerid,@"storeId":self.sameModel.storeId,@"branchId":self.sameModel.branchId,@"areaId":self.sameModel.areaId};
+            NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(10, alertView.sjchlLab.text.length-10)],@"itemId":self.sameModel.sameID,@"sellerId":self.sameModel.sellerId,@"storeId":self.sameModel.storeId,@"branchId":self.sameModel.branchId,@"areaId":self.sameModel.areaId};
             
             NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"notice"];
             [SNAPI postWithURL:@"buyer/addArrivalNotice" parameters:muDic success:^(SNResult *result) {
@@ -983,5 +1002,196 @@
     [super setSelected:selected animated:animated];
     
     // Configure the view for the selected state
+}
+@end
+
+
+@implementation CatgoryDetailCell4
+-(NSMutableDictionary *)sourceDic
+{
+    if (!_sourceDic) {
+        _sourceDic =[NSMutableDictionary dictionary];
+    }
+    return _sourceDic;
+}
++(instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identify = @"CatgoryDetailCell";
+    CatgoryDetailCell4 *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (cell == nil)
+    {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"CatgoryDetailCell" owner:nil options:nil] objectAtIndex:3];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.cancelBtn.layer.cornerRadius =4;
+    cell.cancelBtn.layer.masksToBounds =4;
+    cell.cancelBtn.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    cell.cancelBtn.layer.borderWidth =0.5;
+    cell.shopCarBtn.layer.cornerRadius =4;
+    cell.shopCarBtn.layer.masksToBounds =4;
+    
+      [cell.cancelBtn addTarget:cell action:@selector(cancelBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [cell.shopCarBtn addTarget:cell action:@selector(shopCarBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    return cell;
+}
+-(void)cancelBtnClick:(UIButton *)sender
+{
+    if (_cancelBlock) {
+        _cancelBlock(sender.tag);
+    }
+}
+
+-(void)shopCarBtnClick:(UIButton *)sender
+{
+    DRWeakSelf;
+    if (_goodsModel.qty!=0) {
+        if ([_shoucangStr isEqualToString:@"1"])
+        {
+            NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerId,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
+            [SNAPI getWithURL:@"mainPage/getSingleItem" parameters:mudic success:^(SNResult *result) {
+                _shoucangStr =@"";
+                DRAddShopModel *addShopmodel =[DRAddShopModel mj_objectWithKeyValues:result.data];
+                DRAddShopView *AddshopView = [[[NSBundle mainBundle]loadNibNamed:@"DRAddShopView" owner:self options:nil] lastObject];
+                AddshopView.goodsModel =self.goodsModel;
+                AddshopView.addshopModel =addShopmodel;
+                AddshopView.frame =self.superview.superview.bounds;
+                AddshopView.closeclickBlock = ^{
+                    if (AddshopView) {
+                        [AddshopView removeFromSuperview];
+                    }
+                };
+                AddshopView.sureclickBlock = ^{
+                    if (AddshopView) {
+                        [AddshopView removeFromSuperview];
+                    }
+                    if (_shopCarBlock) {
+                        _shopCarBlock(sender.tag);
+                    }
+                };
+                [self.superview.superview addSubview:AddshopView];
+                AddshopView.itemListArr =weakSelf.itemListArr;
+                
+            } failure:^(NSError *error) {
+                [MBProgressHUD showError:error.domain];
+            }];
+        }else
+        {
+            NSDictionary *dic =@{@"sourceType":@"wechat",@"payType":[NSString stringWithFormat:@"%@",self.goodsModel.payType]?:@"", @"serviceType":self.goodsModel.serviceType?:@"",@"userPrice":[NSString stringWithFormat:@"%f",self.goodsModel.userPrice]?:@"",@"id":self.goodsModel.goods_id?:@"",@"buyNum":[GoodsShareModel sharedManager].countNumStr?:@"",@"itemUnit":[GoodsShareModel sharedManager].selectcode?:@"",@"sellerId":self.goodsModel.sellerId?:@"",@"storeId":self.goodsModel.storeId?:@"",@"branchId":self.goodsModel.branchId?:@"",@"areaId":self.goodsModel.areaId?:@"",@"qty":[NSString stringWithFormat:@"%f",self.goodsModel.qty]?:@""};
+            
+            [SNAPI postWithURL:@"buyer/addCart" parameters:dic.mutableCopy success:^(SNResult *result) {
+                if (result.state==200) {
+                    NSLog(@"result=%@",result.data);
+                    [MBProgressHUD showSuccess:result.data];
+                    if (weakSelf.noticeBlock) {
+                        weakSelf.noticeBlock(sender.tag);
+                    }
+                    //                            [MBProgressHUD showSuccess:result]
+                    
+                    //                                [self.tableView reloadData];
+                }
+            } failure:^(NSError *error) {
+                [MBProgressHUD showError:error.domain];
+            }];
+            
+        }
+        
+//        if (_shopCarBlock) {
+//            _shopCarBlock(sender.tag);
+//        }
+    }else
+    {
+        if (self.daohuoTongzhiStr.length==0) {
+            
+            CustomAlertView *alertView = [[[NSBundle mainBundle] loadNibNamed:@"CustomAlertView" owner:self options:nil] lastObject];
+            //                CustomAlertView *alertView =[[CustomAlertView alloc]initWithFrame:self.view.bounds];
+            alertView.goodsModel =self.goodsModel;
+            alertView.frame=self.superview.superview.bounds;
+            alertView.closeclickBlock = ^{
+                if (alertView) {
+                    [alertView removeFromSuperview];
+                }
+            };
+            alertView.sureclickBlock = ^{
+                NSArray *hopeDayArr =@[@"5",@"15",@"30",@"60",];
+                NSDictionary *dic =@{@"noticeMobile":alertView.phoneTF.text?:@"",@"hopeDay":hopeDayArr[alertView.selectBtnTag-1], @"qty":[alertView.sjchlLab.text substringWithRange:NSMakeRange(6, alertView.sjchlLab.text.length-6-self.goodsModel.basicUnitName.length)],@"itemId":self.goodsModel.goods_id,@"sellerId":self.goodsModel.sellerId,@"storeId":self.goodsModel.storeId,@"branchId":self.goodsModel.branchId,@"areaId":self.goodsModel.areaId};
+                NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"notice"];
+                [SNAPI postWithURL:@"buyer/addArrivalNotice" parameters:muDic success:^(SNResult *result) {
+                    if (result.state==200) {
+                        NSLog(@"result=%@",result.data);
+                        [MBProgressHUD showSuccess:result.data];
+                        if (weakSelf.noticeBlock) {
+                            weakSelf.noticeBlock(sender.tag);
+                        }
+                    }
+                } failure:^(NSError *error) {
+                    [MBProgressHUD showError:error.domain];
+                }];
+                if (alertView) {
+                    [alertView removeFromSuperview];
+                }
+            };
+            [self.superview.superview addSubview:alertView];
+        }else
+        {
+            if (_goodsModel.qty==0) {
+                UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"溫馨提示" message:@"您需要的货品还未到货呦！请耐心等待" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"我知道了", nil];
+                [al show];
+            }
+        }
+    }
+}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
+}
+
+-(void)setGoodsModel:(GoodsModel *)goodsModel
+{
+    _goodsModel =goodsModel;
+    NSLog(@"id =%@",goodsModel.favouriteId);
+    if (goodsModel.favouriteId.length!=0) {
+    }
+    else
+    {
+    }
+    if (_goodsModel.qty==0) {
+        self.shopCarBtn.selected =YES;
+    }
+    else
+    {
+       self.shopCarBtn.selected =NO;
+    }
+    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f元/%@",goodsModel.userPrice,goodsModel.basicUnitName];
+}
+-(void)setDaohuoTongzhiStr:(NSString *)daohuoTongzhiStr
+{
+    _daohuoTongzhiStr =daohuoTongzhiStr;
+    self.shopCarBtn.selected =NO;
+    
+    
+}
+//-(void)setSameModel:(DRSameModel *)sameModel
+//{
+//    _sameModel =sameModel;
+//
+//
+//    _orderPriceLab.hidden =NO;
+//    _lineView.hidden =NO;
+//    self.priceAccountLab.text =[NSString stringWithFormat:@"单价：%.2f/%@",sameModel.userPrice,sameModel.basicUnitName];
+//    self.orderPriceLab.text =[NSString stringWithFormat:@"%.2f/%@",sameModel.bidPrice,sameModel.basicUnitName];
+//}
+-(void)setShoucangStr:(NSString *)shoucangStr
+{
+    _shoucangStr =shoucangStr;
+    
+}
+-(void)setTitleStr:(NSString *)titleStr
+{
+    _titleStr =titleStr;
+    _orderPriceLab.hidden =NO;
+    _lineView.hidden =NO;
+    
 }
 @end

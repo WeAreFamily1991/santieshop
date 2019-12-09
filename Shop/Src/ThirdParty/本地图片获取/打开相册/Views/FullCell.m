@@ -47,7 +47,7 @@
     _myScroll.maximumZoomScale = 2.0;
     _myScroll.delegate         = self;
     _myScroll.frame            = self.bounds;
-    _myScroll.backgroundColor  = [UIColor blackColor];
+    _myScroll.backgroundColor  = BLACKCOLOR;
     _myScroll.showsVerticalScrollIndicator = NO;
     [self addSubview:self.myScroll];
     _FullImageView = [[myImageView alloc] init];

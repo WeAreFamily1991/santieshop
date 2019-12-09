@@ -108,7 +108,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     DRCollectionViewCell *cell = (DRCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-    cell.content.textColor =[UIColor blackColor];
+    cell.content.textColor =BLACKCOLOR;
     cell.selImageIc.hidden = YES;
     
 }
@@ -133,12 +133,12 @@
         //设置内容
         [btn setTitle:self.bigCartporyArr[i][@"name"] forState:UIControlStateNormal];
         //设置文字状态颜色
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
-        [btn setTitleColor:[UIColor redColor] forState:UIControlStateHighlighted];
+        [btn setTitleColor:REDCOLOR forState:UIControlStateHighlighted];
         //设置背景状态颜色，这里用到了一个工具类UIButton+BackgroundColor
         [btn setBackgroundColor:BACKGROUNDCOLOR forState:UIControlStateNormal] ;
-        [btn setBackgroundColor:[UIColor redColor] forState:UIControlStateSelected];
+        [btn setBackgroundColor:REDCOLOR forState:UIControlStateSelected];
         [btn setBackgroundColor:[UIColor groupTableViewBackgroundColor] forState:UIControlStateHighlighted];
         //文字大小
         btn.titleLabel.font = [UIFont systemFontOfSize:NeedFont];
@@ -204,7 +204,7 @@
 //            btnY = NeedMargin + (i / NeedNumberOfColumns) * (NeedMargin + btnH);
 //            btn.backgroundColor = [UIColor groupTableViewBackgroundColor];
 //            [btn setTitle:self.bigCartporyArr[i][@"bigCategoryName"] forState:UIControlStateNormal];
-//            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
 //            btn.layer.cornerRadius =3;
 //            btn.layer.masksToBounds =3;
 //            btn.titleLabel.textAlignment = 1 ;
@@ -243,7 +243,7 @@
 //            btnY = NeedMargin + (i / NeedNumberOfColumns) * (NeedMargin + btnH);
 //            btn.backgroundColor = [UIColor groupTableViewBackgroundColor];
 //            [btn setTitle:self.bigCartporyArr[i] forState:UIControlStateNormal];
-//            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            [btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
 //            btn.layer.cornerRadius =3;
 //            btn.layer.masksToBounds =3;
 //            btn.titleLabel.textAlignment = 1 ;
@@ -272,7 +272,7 @@
 //        [sender setBackgroundColor:REDCOLOR];
 //
 //        //将上次点击过的按钮设为默认
-//        [self.btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [self.btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
 //        [self.btn setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 //        if (_buttonClickBlock) {
 //            _buttonClickBlock(sender.tag);
@@ -284,7 +284,7 @@
 //    //多选
 //    //      if (!sender.selected) {//没有选中过的先改变状态，再添加到保存按钮的数组中
 //    //           [sender setBackgroundColor:[UIColor brownColor]];
-//    //           [sender setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    //           [sender setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
 //    //           [self.array addObject:[NSNumber numberWithInteger:sender.tag]];
 //    //        }else{
 //    //           [sender setBackgroundColor:[UIColor groupTableViewBackgroundColor]];

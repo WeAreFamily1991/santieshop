@@ -8,7 +8,8 @@
 
 #import "DRSetVC.h"
 #import "SDImageCache.h"
-
+#import "PasswordChangeVC.h"
+#import "DRUserInfoVC.h"
 @interface DRSetVC ()
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,retain)UIView *customBackView;
@@ -29,16 +30,14 @@
 }
 -(void)addFooterView
 {
-    UIView *backView =[[UIView alloc]initWithFrame:CGRectMake(0, 1, ScreenW, HScale(100))];
+    UIView *backView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, WScale(70))];
     backView.backgroundColor =CLEARCOLOR;
     UIButton *footerBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    footerBtn.frame =CGRectMake(2*DCMargin,3*DCMargin, ScreenW-4*DCMargin, HScale(40));
-    [footerBtn setTitle:@"申请注销账号" forState:UIControlStateNormal];
-    [footerBtn setTitleColor:WHITECOLOR forState:UIControlStateNormal];
-    footerBtn.backgroundColor =REDCOLOR;
-    footerBtn.layer.cornerRadius =HScale(20);
-    footerBtn.layer.masksToBounds =HScale(20);
-    footerBtn.titleLabel.font =DR_FONT(15);
+    footerBtn.frame =CGRectMake(0,WScale(10), ScreenW, WScale(50));
+    [footerBtn setTitle:@"退出登录" forState:UIControlStateNormal];
+    [footerBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
+    footerBtn.backgroundColor =WHITECOLOR;
+    footerBtn.titleLabel.font =DR_FONT(14);
     [footerBtn addTarget:self action:@selector(footerClick) forControlEvents:UIControlEventTouchUpInside];
     [backView addSubview:footerBtn];
     self.tableView.tableFooterView=backView;
@@ -144,7 +143,16 @@
 }
 -(void)footerClick
 {
-     [self addCustomBackView];
+    [self logOut];
+     
+}
+#pragma mark 表的行高
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row==0) {
+        return WScale(75);
+    }
+    return WScale(50);
 }
 //{
 //    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
@@ -183,7 +191,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -191,30 +199,24 @@
     NSString *cellID = @"SNMeViewController";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    if (indexPath.row==2) {
-         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-    }
-    else
-    {
-        cell.accessoryType =UITableViewCellAccessoryNone;
-    }
-    
-    NSArray *titleArr = @[SNStandardString(@"清理缓存"), SNStandardString(@"版本信息"), SNStandardString(@"关于我们")];
-    NSArray *imageArr = @[@"icon_fxsb", @"IOCN-cjwt", @"icon_yjfk"];
+    NSArray *titleArr = @[@"",SNStandardString(@"修改密码"), SNStandardString(@"关于我们"), SNStandardString(@"注销账户")];
+//    NSArray *imageArr = @[@"icon_fxsb", @"IOCN-cjwt", @"icon_yjfk"];
     
     cell.textLabel.text = titleArr[indexPath.row];
+    cell.textLabel.font =DR_FONT(14);
+    cell.detailTextLabel.textColor =RGBHex(0X888888);
+    cell.detailTextLabel.font =DR_FONT(12);
     if (indexPath.row==0) {
-//        float size = [[SDImageCache sharedImageCache] getSize];
-//        long long kkk = [[DRCacheDataManager sharedManager] cacheDataLength];
-//        size = (size + kkk) / 1024 / 1024;
-//         cell.detailTextLabel.text = [NSString stringWithFormat:@"%.1fM",size];
+        [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[DRUserInfoModel sharedManager].logo] placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
+        cell.textLabel.text =[DRUserInfoModel sharedManager].buyerName;
+        cell.detailTextLabel.text =[DRUserInfoModel sharedManager].cPhone;
     }
   
-    cell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
+//    cell.imageView.image = [UIImage imageNamed:imageArr[indexPath.row]];
     
     return cell;
 }
@@ -223,6 +225,26 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    switch (indexPath.row) {
+        case 0:
+            [self.navigationController pushViewController:[DRUserInfoVC new] animated:YES];
+            break;
+        case 1:
+            [self.navigationController pushViewController:[PasswordChangeVC new] animated:YES];
+        
+        break;
+            
+        case 2:
+        
+            break;
+        case 3:
+            [self addCustomBackView];
+        break;
+            
+            
+        default:
+            break;
+    }
     if (indexPath.row==0) {
     
 //        float size = [[SDImageCache sharedImageCache] getSize];
@@ -250,6 +272,28 @@
     [MBProgressHUD hideHUD];
     [MBProgressHUD showSuccess:[NSString stringWithFormat:@"成功清除缓存%@",string]];
     [self.tableView reloadData];
+}
+-(void)logOut
+{
+    [[User currentUser] loginOut];
+    
+    LoginVC *dcLoginVc = [LoginVC new];
+    
+    DCNavigationController *nav =  [[DCNavigationController alloc] initWithRootViewController:dcLoginVc];
+    nav.modalPresentationStyle =UIModalPresentationFullScreen;
+    [self presentViewController:nav animated:YES completion:nil];
+  
+    NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+    [SNIOTTool postWithURL:USER_LOGOUT parameters:dic success:^(SNResult *result) {
+        if ([[NSString stringWithFormat:@"%ld",(long)result.state] isEqualToString:@"200"]) {
+           
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+    
+   
 }
 /*
 #pragma mark - Navigation

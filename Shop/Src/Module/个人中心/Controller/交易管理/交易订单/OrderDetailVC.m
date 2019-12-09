@@ -226,16 +226,15 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.MsgListArr.count!=0) {
-        
         FirstTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FirstTableViewCell"];
         self.orderModel = self.MsgListArr[indexPath.section];
-        
         self.goodListModel =[GoodsListModel mj_objectWithKeyValues:self.orderModel.goodsList[indexPath.row]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.goodListModel =self.goodListModel;
 //        cell.dataDict =@{};
         return cell;
     }
+    
     static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              SimpleTableIdentifier];
@@ -262,8 +261,6 @@
         self.orderModel = self.MsgListArr[section];
         CollectionCell4 *footerView =[CollectionCell4 cellWithTableView:tableView];
         footerView.orderModel =self.orderModel;
-        
-        //    CollectionCell4 *cell =[CollectionCell4 cellWithTableView:tableView];
         footerView.BtnBlock = ^(NSInteger btnag,NSString *titleStr) {
             switch (btnag) {
                 case 1:
@@ -273,7 +270,6 @@
                     [SNAPI postWithURL:@"buyer/buyOrderAgain" parameters:dic.mutableCopy success:^(SNResult *result) {
                         self.tabBarController.selectedIndex =3;
                         [self.navigationController popToRootViewControllerAnimated:YES];
-                        
                     } failure:^(NSError *error) {
                         
                     }];
@@ -290,8 +286,7 @@
                     AskSellOutVC *outVC =[[AskSellOutVC alloc]init];
                     outVC.senderDic =[NSMutableDictionary dictionaryWithObjects:@[self.orderModel.order_id,@"",@"1"] forKeys:@[@"orderId",@"orderGoodsId",@"type"]];
                     [self.navigationController pushViewController:outVC animated:YES];
-                }
-                    
+                }                    
                     break;
                     
                 default:

@@ -29,7 +29,7 @@
         
     [self.productImg sd_setImageWithURL:[NSURL URLWithString:footModel.img?:@""] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
 
-    NSArray * array = @[footModel.spec?:@"",footModel.levelname?:@"",footModel.surfacename?:@""];
+    NSArray * array = @[footModel.spec?:@"",footModel.levelName?:@"",footModel.surfaceName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -39,9 +39,9 @@
     Height = WScale(30);
     [self setStandWithArray:titArr];
     self.parameterLabel.text =footModel.itemname;
-     self.countLabel.text =[NSString stringWithFormat:@"%.2f/%@",footModel.userprice,footModel.basicunitname];
-    [SNTool setTextColor:self.countLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%.2f",footModel.userprice].length) AndColor:REDCOLOR];
-//    _orderPriceLabel.text =[NSString stringWithFormat:@"%f/%@",nullGoodModel.bidprice,nullGoodModel.basicunitname];
+     self.countLabel.text =[NSString stringWithFormat:@"%.2f/%@",footModel.userPrice,footModel.basicUnitName];
+    [SNTool setTextColor:self.countLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%.2f",footModel.userPrice].length) AndColor:REDCOLOR];
+//    _orderPriceLabel.text =[NSString stringWithFormat:@"%f/%@",nullGoodModel.bidprice,nullGoodModel.basicUnitName];
 //    present=nullGoodModel.qtyPercent;
 //    [self.custompro setPresent:present];
 //    self.parameterLabel.text = @"9376型 弹簧垫圈9376型 弹簧垫圈9376型 弹簧垫圈";
@@ -115,7 +115,7 @@
 {
     if (!_parameterLabel) {
         _parameterLabel = [[UILabel alloc] init];
-        _parameterLabel.textColor = [UIColor blackColor];
+        _parameterLabel.textColor = BLACKCOLOR;
         _parameterLabel.font = DR_FONT(12);
         _parameterLabel.numberOfLines = 0;
         [self addSubview:_parameterLabel];

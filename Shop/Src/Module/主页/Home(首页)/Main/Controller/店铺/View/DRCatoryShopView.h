@@ -20,7 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (instancetype)initWithFrame:(CGRect)frame
               contentDelegate:(id<DRCatoryShopViewDelegate>)CatoryShopDelegate
-                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerid;
+                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerId;
 
 @end
 

@@ -97,7 +97,7 @@
      */
     _searchBar = [[MiSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.selectView.frame.size.width, 50) placeholder:@"搜索"];
     _searchBar.delegate = self;
-    _searchBar.barTintColor = [UIColor redColor];
+    _searchBar.barTintColor = REDCOLOR;
     [self.selectView addSubview:_searchBar];
     
     _searchText = @"";
@@ -159,7 +159,7 @@
     
     UIButton *cancelButton = [[UIButton alloc]initWithFrame:CGRectMake(0, self.selectView.frame.size.height-50,_isShowSureBtn&&_isShowCancelBtn?self.selectView.frame.size.width/2-1: self.selectView.frame.size.width, kSingleBtnHeight)];
     [cancelButton setTitle:@"取 消" forState:UIControlStateNormal];
-    [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [cancelButton setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     cancelButton.titleLabel.font = [UIFont systemFontOfSize:18];
     cancelButton.hidden = _isShowCancelBtn?NO:YES;
     [cancelButton addTarget:self action:@selector(cancelButtonAction) forControlEvents:UIControlEventTouchDown];
@@ -170,7 +170,7 @@
     UIButton *okButton = [[UIButton alloc]initWithFrame:CGRectMake(_isShowSureBtn&&_isShowCancelBtn?self.selectView.frame.size.width/2+1:0, self.selectView.frame.size.height-50, _isShowSureBtn&&_isShowCancelBtn?self.selectView.frame.size.width/2-1: self.selectView.frame.size.width, kSingleBtnHeight)];
     okButton.hidden = _isShowSureBtn?NO:YES;
     [okButton setTitle:@"确定" forState:UIControlStateNormal];
-    [okButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [okButton setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [okButton addTarget:self action:@selector(okButtonAction) forControlEvents:UIControlEventTouchDown];
     [self.selectView addSubview:okButton];
     /**

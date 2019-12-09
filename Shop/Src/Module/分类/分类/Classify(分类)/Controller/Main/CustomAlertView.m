@@ -51,90 +51,90 @@
     self.numbeiTF.minNum =1;
  
     _goodsModel =goodsModel;
-   //basicunitid 5千支  6公斤  7吨
-    if ([_goodsModel.basicunitid intValue]==5) {
+   //basicUnitId 5千支  6公斤  7吨
+    if ([_goodsModel.basicUnitId intValue]==5) {
         self.baseStr =@"千支";
     }
-    if ([_goodsModel.basicunitid intValue]==6) {
+    if ([_goodsModel.basicUnitId intValue]==6) {
         self.baseStr =@"公斤";
     }
-    if ([_goodsModel.basicunitid intValue]==7) {
+    if ([_goodsModel.basicUnitId intValue]==7) {
         self.baseStr =@"吨";
     }
   
     self.selectNameArr =[NSMutableArray array];
     self.selectCodeArr=[NSMutableArray array];
      NSString *nameStr;
-    if (self.goodsModel.unitconversion1.length!=0&&![self.goodsModel.unitconversion1 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[goodsModel.unitconversion1 doubleValue],_baseStr,goodsModel.unitname1];
-        [self.selectNameArr addObject:self.goodsModel.unitname1];
-        [self.selectCodeArr addObject:self.goodsModel.unitconversion1];
+    if (self.goodsModel.unitConversion1!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion1,_baseStr,goodsModel.unitName1];
+        [self.selectNameArr addObject:self.goodsModel.unitName1];
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion1]];
         [self.selectIDArr addObject:self.goodsModel.unit1];
         if (!self.selectcode) {
-            self.selectcode =[self.goodsModel.unitconversion1 doubleValue];
-            self.selectName =self.goodsModel.unitname1;
+            self.selectcode =self.goodsModel.unitConversion1;
+            self.selectName =self.goodsModel.unitName1;
             self.selectID =self.goodsModel.unit1;
             
         }
     }
     
-    if (self.goodsModel.unitconversion2.length!=0&&![self.goodsModel.unitconversion2 isEqualToString:@"0"]) {
+    if (self.goodsModel.unitConversion2!=0) {
         
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion2 doubleValue],_baseStr,goodsModel.unitname2];
-        [self.selectNameArr addObject:self.goodsModel.unitname2];
-        [self.selectCodeArr addObject:self.goodsModel.unitconversion2];
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",goodsModel.unitConversion2,_baseStr,goodsModel.unitName2];
+        [self.selectNameArr addObject:self.goodsModel.unitName2];
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion2]];
         [self.selectIDArr addObject:self.goodsModel.unit2];
         if (!self.selectcode) {
             
-            self.selectcode =[self.goodsModel.unitconversion2 doubleValue];
-            self.selectName =self.goodsModel.unitname2;
+            self.selectcode =self.goodsModel.unitConversion2;
+            self.selectName =self.goodsModel.unitName2;
             self.selectID =self.goodsModel.unit2;
         }
         
     }
-    if (self.goodsModel.unitconversion3.length!=0&&![self.goodsModel.unitconversion3 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion3 doubleValue],_baseStr,goodsModel.unitname3];
-        [self.selectNameArr addObject:self.goodsModel.unitname3];
-        [self.selectCodeArr addObject:self.goodsModel.unitconversion3];
+    if (self.goodsModel.unitConversion3!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion3,_baseStr,goodsModel.unitName3];
+        [self.selectNameArr addObject:self.goodsModel.unitName3];
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion3]];
         [self.selectIDArr addObject:self.goodsModel.unit3];
         if (!self.selectcode) {
             
-            self.selectcode =[self.goodsModel.unitconversion3 doubleValue];
-            self.selectName =self.goodsModel.unitname3;
+            self.selectcode =self.goodsModel.unitConversion3;
+            self.selectName =self.goodsModel.unitName3;
             self.selectID =self.goodsModel.unit3;
         }
         
     }
-    if (self.goodsModel.unitconversion4.length!=0&&![self.goodsModel.unitconversion4 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion4 doubleValue],_baseStr,goodsModel.unitname4];
-        [self.selectNameArr addObject:self.goodsModel.unitname4];
-        [self.selectCodeArr addObject:self.goodsModel.unitconversion4];
+    if (self.goodsModel.unitConversion4!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion4,_baseStr,goodsModel.unitName4];
+        [self.selectNameArr addObject:self.goodsModel.unitName4];
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion4]];
         [self.selectIDArr addObject:self.goodsModel.unit4];
         if (!self.selectcode) {
             
-            self.selectcode =[self.goodsModel.unitconversion4 doubleValue];
-            self.selectName =self.goodsModel.unitname4;
+            self.selectcode =self.goodsModel.unitConversion4;
+            self.selectName =self.goodsModel.unitName4;
             self.selectID =self.goodsModel.unit4;
         }
         
         
     }
-    if (self.goodsModel.unitconversion5.length!=0&&![self.goodsModel.unitconversion5 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion5 doubleValue],_baseStr,goodsModel.unitname5];
-        [self.selectNameArr addObject:self.goodsModel.unitname5];
-        [self.selectCodeArr addObject:self.goodsModel.unitconversion5];
+    if (self.goodsModel.unitConversion5!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion5,_baseStr,goodsModel.unitName5];
+        [self.selectNameArr addObject:self.goodsModel.unitName5];
+        [self.selectCodeArr addObject:[NSString stringWithFormat:@"%ld",(long)self.goodsModel.unitConversion5]];
         [self.selectIDArr addObject:self.goodsModel.unit5];
         if (!self.selectcode) {
             
-            self.selectcode =[self.goodsModel.unitconversion5 doubleValue];
-            self.selectName =self.goodsModel.unitname5;
+            self.selectcode =self.goodsModel.unitConversion5;
+            self.selectName =self.goodsModel.unitName5;
             self.selectID =self.goodsModel.unit5;
         }
     }
    
     NSInteger selectrow = 0;
     for (int i=0; i<self.selectNameArr.count; i++) {
-        if ([self.goodsModel.saleunitname isEqualToString:self.selectNameArr[i]]) {
+        if ([self.goodsModel.saleUnitName isEqualToString:self.selectNameArr[i]]) {
             selectrow =i;
         }
     }

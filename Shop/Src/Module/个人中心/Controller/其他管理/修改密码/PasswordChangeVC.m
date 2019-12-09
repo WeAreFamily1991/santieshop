@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    self.dataDic =[NSMutableDictionary dictionary];
-    self.title = @"修改密码";
+    self.title = @"密码修改";
     ///左侧返回按钮
     //    [self setLeftImageNamed:@"back" action:@selector(back)];
     //
@@ -44,20 +44,18 @@
 #pragma mark 添加表尾
 -(void)addTableViewfooterView
 {
-    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HScale(80))];
-    headView.backgroundColor =[UIColor clearColor];
-    self.tableView.tableFooterView =headView;
+//    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HScale(80))];
+//    headView.backgroundColor =[UIColor clearColor];
+//    self.tableView.tableFooterView =headView;
     
     self.saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.saveBtn.frame = CGRectMake(20, 30,SCREEN_WIDTH-40, HScale(40));
-    [self.saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    self.saveBtn.frame = CGRectMake(0, ScreenH-WScale(50)-DRTopHeight-kIPhoneXBottomHeight,SCREEN_WIDTH, WScale(50));
+    [self.saveBtn setTitle:@"确认提交" forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.saveBtn.layer.cornerRadius =HScale(20);
-    self.saveBtn.layer.masksToBounds =HScale(20);
-    self.saveBtn.titleLabel.font = DR_FONT(15);
+    self.saveBtn.titleLabel.font = DR_FONT(18);
     self.saveBtn.backgroundColor =REDCOLOR;
     [self.saveBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [headView addSubview:self.saveBtn];
+    [self.view addSubview:self.saveBtn];
     
     
 }
@@ -89,9 +87,10 @@
 {
     if (_tableView == nil)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-DRTopHeight-WScale(50)-kIPhoneXBottomHeight) style:UITableViewStylePlain];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.backgroundColor =BACKGROUNDCOLOR;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollEnabled =NO;
@@ -124,14 +123,16 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     
-    return 3;
+    return 6;
 }
 #pragma mark 表的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
-    
-    return HScale(50);
+     if (indexPath.row==0||indexPath.row==2)
+     {
+         return WScale(10);
+     }
+    return WScale(50);
 }
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -146,25 +147,49 @@
 #pragma mark 表的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ///司机信息
-    
-    
+//    ///司机信息
+//    if (indexPath.section==0) {
+//        NSString *cellID = @"SNMeViewController";
+//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+//            if (cell == nil) {
+//                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellID];
+//
+////                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//            }
+//
+//            cell.textLabel.text = @"用户名";
+//            cell.detailTextLabel.text=[DRBuyerModel sharedManager].cPhone;
+//            cell.textLabel.font =DR_FONT(14);
+//            cell.detailTextLabel.textColor =RGBHex(0X888888);
+//            cell.detailTextLabel.font =DR_FONT(14);
+//            cell.detailTextLabel.textAlignment=0;
+//        return cell;
+//    }
+//
+        
     NSArray *titleArray =[NSArray array];
     NSArray *placeholdArray=[NSArray array];
-        titleArray = @[@"旧密码：",@"新密码：",@"确认新密码："];
-        placeholdArray= @[@"请输入旧密码",@"请输入新密码",@"请确认新密码"];
+        titleArray = @[@"",@"用户名",@"",@"旧密码",@"新密码",@"确认新密码"];
+        placeholdArray= @[@"",@"请输入用户名",@"",@"输入旧密码",@"输入新密码",@"再次输入新密码"];
     
     InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
     
    
     cell.titleLabel.text = titleArray[indexPath.row];
-    cell.titleLabel.font = DR_FONT(15);
+    cell.titleLabel.font = DR_FONT(14);
     cell.contentTF.placeholder = placeholdArray[indexPath.row];
     cell.contentTF.tag = indexPath.row+1;
     cell.contentTF.keyboardType =UIKeyboardTypeASCIICapable;
     cell.contentTF.secureTextEntry =YES;
     //            cell.contentTF.text = contentArray[indexPath.row];
-    
+    if (indexPath.row==1) {
+         cell.contentTF.text =[DRBuyerModel sharedManager].cPhone;
+        cell.contentTF.secureTextEntry =NO;
+        cell.contentTF.enabled =NO;
+    }
+    if (indexPath.row==0||indexPath.row==2) {
+        cell.backgroundColor =BACKGROUNDCOLOR;
+    }
     [cell.contentTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     
     //            if (indexPath.row == 0) {

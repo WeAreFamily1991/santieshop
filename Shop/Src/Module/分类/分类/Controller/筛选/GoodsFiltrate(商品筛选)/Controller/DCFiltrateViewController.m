@@ -223,7 +223,7 @@ static NSString * const DCFooterReusableViewID = @"DCFooterReusableView";
         [button setTitle:titles[i] forState:UIControlStateNormal];
         button.tag = i;
         if (i == 0) {
-            [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [button setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         }
         CGFloat buttonX = i*buttonW;
         button.frame = CGRectMake(buttonX, buttonY, buttonW, buttonH);
@@ -332,7 +332,7 @@ static NSString * const DCFooterReusableViewID = @"DCFooterReusableView";
         }
         
 //                headerView.selectHeadLabel.text = (selectName.length == 0) ? @"全部" : selectName;
-//                headerView.selectHeadLabel.textColor = ([headerView.selectHeadLabel.text isEqualToString:@"全部"]) ?  [UIColor darkGrayColor] : [UIColor redColor];
+//                headerView.selectHeadLabel.textColor = ([headerView.selectHeadLabel.text isEqualToString:@"全部"]) ?  [UIColor darkGrayColor] : REDCOLOR;
         headerView.headFiltrate = _filtrateItem[indexPath.section];
         
         return headerView;

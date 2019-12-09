@@ -55,7 +55,7 @@ static const CGFloat kLabelFont = 16;
     hud.mode = MBProgressHUDModeCustomView;
     hud.removeFromSuperViewOnHide = YES;
     hud.label.font = [UIFont boldSystemFontOfSize:kLabelFont];
-    hud.label.textColor = [UIColor blackColor];
+    hud.label.textColor = BLACKCOLOR;
     hud.bezelView.color = [UIColor clearColor];
     hud.bezelView.style = MBProgressHUDBackgroundStyleSolidColor;
     
@@ -73,7 +73,7 @@ static const CGFloat kLabelFont = 16;
     hud.label.text = text;
     hud.label.font = [UIFont boldSystemFontOfSize:kLabelFont];
     hud.contentColor = [UIColor whiteColor];
-    hud.bezelView.color = [[UIColor blackColor] colorWithAlphaComponent:0.9f];
+    hud.bezelView.color = [BLACKCOLOR colorWithAlphaComponent:0.9f];
     hud.margin = 20.f;
     hud.removeFromSuperViewOnHide = YES;
     

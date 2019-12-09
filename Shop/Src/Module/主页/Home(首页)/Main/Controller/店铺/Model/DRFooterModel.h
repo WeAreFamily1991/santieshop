@@ -11,7 +11,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface DRFooterModel : DRBaseModel
-@property (nonatomic , copy) NSString              * materialname;
+@property (nonatomic , copy) NSString              * materialName;
 @property (nonatomic , copy) NSString              * categoryId;
 @property (nonatomic , copy) NSString              * footID;
 @property (nonatomic , copy) NSString              * standardname;
@@ -24,15 +24,15 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * diametername;
 @property (nonatomic , copy) NSString              * level1Id;
 @property (nonatomic , copy) NSString              * levelid;
-@property (nonatomic , copy) NSString              * brandname;
+@property (nonatomic , copy) NSString              * brandName;
 @property (nonatomic , copy) NSString              * toothFormCode;
-@property (nonatomic , copy) NSString              * basicunitname;
+@property (nonatomic , copy) NSString              * basicUnitName;
 @property (nonatomic , copy) NSString              * surfacecode;
 @property (nonatomic , copy) NSString              * materialcode;
 @property (nonatomic , copy) NSString              * standardid;
 @property (nonatomic , copy) NSString              * standardcode;
 @property (nonatomic , copy) NSString              * toothformid;
-@property (nonatomic , copy) NSString              * levelname;
+@property (nonatomic , copy) NSString              * levelName;
 @property (nonatomic , copy) NSString              * diameterid;
 @property (nonatomic , copy) NSString              * itemname;
 @property (nonatomic , copy) NSString              * toothdistancename;
@@ -40,12 +40,12 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * surfaceid;
 @property (nonatomic , copy) NSString              * brandcode;
 @property (nonatomic , copy) NSString              * img;
-@property (nonatomic , assign) CGFloat              userprice;
+@property (nonatomic , assign) CGFloat              userPrice;
 @property (nonatomic , copy) NSString              * toothformname;
 @property (nonatomic , copy) NSString              * spec;
-@property (nonatomic , copy) NSString              * surfacename;
+@property (nonatomic , copy) NSString              * surfaceName;
 @property (nonatomic , copy) NSString              * lengthid;
-@property (nonatomic , copy) NSString              * sellerid;
+@property (nonatomic , copy) NSString              * sellerId;
 @property (nonatomic , copy) NSString              * levelcode;
 @property (nonatomic , copy) NSString              * brandid;
 @property (nonatomic , copy) NSString              * materialid;

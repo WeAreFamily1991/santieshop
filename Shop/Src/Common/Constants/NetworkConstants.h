@@ -21,12 +21,12 @@
 
 #pragma mark - ServerRoot
 // 开发环境
-#define DEBUGSERVER_ROOT             @"192.168.31.133:8081"
-#define DEBUGAPI_ROOT                [NSString stringWithFormat:@"http://%@/santie-restful/", DEBUGSERVER_ROOT]
+#define DEBUGSERVER_ROOT             @"192.168.31.133:8889"
+#define DEBUGAPI_ROOT                [NSString stringWithFormat:@"http://%@/santie-app-restful/", DEBUGSERVER_ROOT]
 
  // 线上环境
 #define SERVER_ROOT                    @"api.cross.echosite.cn"
-#define RELEASEAPI_ROOT                [NSString stringWithFormat:@"http://%@/santie-restful/", SERVER_ROOT]
+#define RELEASEAPI_ROOT                [NSString stringWithFormat:@"http://%@/santie-app-restful/", SERVER_ROOT]
 #pragma mark - 状态码
 typedef NS_ENUM(NSUInteger, NetWorkStatus) {
     NetWorkStatusSuccess = 200, // 请求成功

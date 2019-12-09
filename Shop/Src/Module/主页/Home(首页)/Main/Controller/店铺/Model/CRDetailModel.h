@@ -33,7 +33,7 @@
 @property (nonatomic , copy) NSString              * sellerType;
 @property (nonatomic , copy) NSString              * wxShareTitle;
 @property (nonatomic , copy) NSString              * head_id;
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , assign) NSInteger              evaluateCount;
 @property (nonatomic , copy) NSString              * favoriteId;
 @property (nonatomic , assign) CGFloat              evaluateScore;

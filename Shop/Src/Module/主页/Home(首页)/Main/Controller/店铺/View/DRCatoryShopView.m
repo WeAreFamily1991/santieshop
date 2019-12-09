@@ -26,7 +26,7 @@ UITableViewDataSource>
 @property (nonatomic, strong) CRDetailModel *detailModel;
 @property (nonatomic, strong) DRShopHeadModel *shopHeadModel;
 @property (nonatomic, strong) DRNullGoodModel *nullGoodModel;
-@property (nonatomic,strong)NSString *sellerid;
+@property (nonatomic,strong)NSString *sellerId;
 @end
 
 @implementation DRCatoryShopView {
@@ -41,14 +41,14 @@ UITableViewDataSource>
 
 - (instancetype)initWithFrame:(CGRect)frame
               contentDelegate:(id<DRCatoryShopViewDelegate>)CatoryShopDelegate
-                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerid {
+                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerId {
     if (self = [super initWithFrame:frame]) {
         _CatoryShopDelegate = CatoryShopDelegate;
         _detailModel = detailModel;
         _detailModel = detailModel;
         _shopHeadModel =shopHeadModel;
         _nullGoodModel =nullGoodModel;
-        _sellerid =sellerid;
+        _sellerId =sellerId;
         [self setup];
     }
     return self;
@@ -87,7 +87,7 @@ UITableViewDataSource>
     [_backgroundImageView sd_setImageWithURL:_detailModel.backgroundURL];
     
     UIView *alphaView = [UIView new];
-    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.backgroundColor = BLACKCOLOR;
     alphaView.alpha = 0.2;
     alphaView.frame = _headerView.bounds;
     [_backgroundImageView addSubview:alphaView];
@@ -117,7 +117,7 @@ UITableViewDataSource>
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CatoryTabCell *cell = [CatoryTabCell cellWithTableView:tableView];
-    cell.sellerid =self.sellerid;
+    cell.sellerId =self.sellerId;
     cell.nullGoodModel =self.nullGoodModel;
     cell.model = _detailModel;
     return cell;

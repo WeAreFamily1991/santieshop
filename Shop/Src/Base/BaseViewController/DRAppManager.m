@@ -39,6 +39,7 @@
     LoginVC *dcLoginVc = [LoginVC new];
     
     DCNavigationController *nav =  [[DCNavigationController alloc] initWithRootViewController:dcLoginVc];
+    nav.modalPresentationStyle =UIModalPresentationFullScreen;
    [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav animated:YES completion:nil];
 //    [self presentViewController:nav animated:YES completion:nil];
     return nav;
@@ -53,6 +54,7 @@
     [SNAccount removePassword];
     LoginVC *dcLoginVc = [LoginVC new];
     DCNavigationController *nav =  [[DCNavigationController alloc] initWithRootViewController:dcLoginVc];
+    nav.modalPresentationStyle =UIModalPresentationFullScreen;
     [[NSNotificationCenter defaultCenter] postNotificationName:DRLogoutNotification object:nil];
     return nav;
 }

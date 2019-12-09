@@ -125,7 +125,7 @@ static const CGFloat kSegmentControlHeight = 50;
                          [self selectSegentWithIndex:2];
                     }
                 };
-                _homeView.sellerid =self.sellerid;
+                _homeView.sellerId =self.sellerId;
                 _homeView.detailModel =self.model;
                 _homeView.nullGoodModel =self.nullGoodModel;
                 [self addViewToScroll:_homeView];
@@ -133,21 +133,21 @@ static const CGFloat kSegmentControlHeight = 50;
             }
             case 1: {
                 _allProductView = [[CRAllProductView alloc] initWithFrame:frame];
-                _allProductView.sellerid =self.sellerid;
+                _allProductView.sellerId =self.sellerId;
                 _allProductView.nullGoodModel =self.nullGoodModel;
                 [self addViewToScroll:_allProductView];
                 break;
             }
             case 2: {
                 _newGoodView = [[DRNewGoodView alloc] initWithFrame:frame];
-                _newGoodView.sellerid =self.sellerid;
+                _newGoodView.sellerId =self.sellerId;
                 _newGoodView.nullGoodModel =self.nullGoodModel;
                 [self addViewToScroll:_newGoodView];
                 break;
             }
             case 3: {
                 _shopUserView = [[DRShopUserView alloc] initWithFrame:frame];
-                _shopUserView.sellerid =self.sellerid;
+                _shopUserView.sellerId =self.sellerId;
                 _shopUserView.nullGoodModel =self.nullGoodModel;
                 [self addViewToScroll:_shopUserView];
                 break;

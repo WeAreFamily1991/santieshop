@@ -10,8 +10,8 @@
 #import "SaleDetailChildVC.h"
 @interface SaleDetailVC ()<FSPageContentViewDelegate,FSSegmentTitleViewDelegate>
 
-@property (nonatomic, strong) FSPageContentView2 *pageContentView;
-@property (nonatomic, strong) FSSegmentTitleView2 *titleView;
+@property (nonatomic, strong) FSPageContentView *pageContentView;
+@property (nonatomic, strong) FSSegmentTitleView *titleView;
 
 @end
 
@@ -34,14 +34,8 @@
     self.automaticallyAdjustsScrollViewInsets = NO;//,@"周三",@"周四",@"周五",@"周六",@"周日",
     NSMutableArray *titleArray =[NSMutableArray array];
     titleArray = [[NSMutableArray alloc] initWithObjects:@"所有订单", @"在线支付",@"额度支付",nil];
-    self.titleView = [[FSSegmentTitleView2 alloc]initWithFrame:CGRectMake(0,0,SCREEN_WIDTH,WScale(40)) delegate:self indicatorType:0];
-    self.titleView.backgroundColor = [UIColor whiteColor];
-    self.titleView.button_Width = WScale(50);
-    self.titleView.titlesArr = titleArray;
-    _titleView.titleNormalColor = [UIColor darkGrayColor];
-    _titleView.titleSelectColor = REDCOLOR;
-    self.titleView.titleFont = DR_FONT(14);
-    self.titleView.indicatorView.image = [UIImage ImageWithColor:REDCOLOR frame:self.titleView.bounds];
+    self.titleView = [[FSSegmentTitleView alloc]initWithFrame:CGRectMake(0,0,SCREEN_WIDTH,40) titles:titleArray delegate:self indicatorType:2];
+
     [self.view addSubview:_titleView];
     
     ///线
@@ -59,7 +53,7 @@
         VC.status = i;
         [childVCs addObject:VC];
     }
-    self.pageContentView = [[FSPageContentView2 alloc]initWithFrame:CGRectMake(0,40, SCREEN_WIDTH,SCREEN_HEIGHT-40-DRTopHeight) childVCs:childVCs parentVC:self delegate:self];
+    self.pageContentView = [[FSPageContentView alloc]initWithFrame:CGRectMake(0,40, SCREEN_WIDTH,SCREEN_HEIGHT-40-DRTopHeight) childVCs:childVCs parentVC:self delegate:self];
     self.pageContentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_pageContentView];
     
@@ -67,11 +61,11 @@
     self.pageContentView.contentViewCurrentIndex = _num;
 }
 //********************************  分段选择  **************************************
-- (void)FSSegmentTitleView:(FSSegmentTitleView2 *)titleView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
+- (void)FSSegmentTitleView:(FSSegmentTitleView *)titleView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
 {
     self.pageContentView.contentViewCurrentIndex = endIndex;
 }
-- (void)FSContenViewDidEndDecelerating:(FSPageContentView2 *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
+- (void)FSContenViewDidEndDecelerating:(FSPageContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
 {
     self.titleView.selectIndex = endIndex;
 }

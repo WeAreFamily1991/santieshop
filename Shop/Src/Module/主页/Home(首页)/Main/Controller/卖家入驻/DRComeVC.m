@@ -397,10 +397,8 @@
         return;
     }
     //    DRWeakSelf;
-    [SNAPI commonMessageValidWithMobile:self.mobileStr validCode:self.imgCodeStr success:^(NSString *response) {
-        if ([response isEqualToString:@"200"]) {
-            [MBProgressHUD showError:@"验证码已发送"];
-        }
+    [SNAPI commonMessageValidWithMobile:self.mobileStr validCode:self.imgCodeStr success:^(SNResult *result) {
+       [MBProgressHUD showSuccess:@"验证码已发送"];
     } failure:^(NSError *error) {
         
     }] ;
@@ -638,7 +636,7 @@
     {
         numType =@"12";
     }
-    NSDictionary *dic=@{@"contact":self.contactStr,@"mobile":self.mobileStr,@"validCode":self.numCodeStr,@"compName":self.companyNameStr,@"busLic":[DRBuyerModel sharedManager].logo?:@"",@"code":self.numCodeStr,@"area":self.compAddressStr,@"areaCode":self.compAddressIDStr,@"address":self.detailAddressStr,@"compType":comType,@"creditId":self.tongyiStr,@"regType":@"1",@"invoiceHead":self.fapiaoStr,@"tfn":self.shuihaoStr,@"bankAccount":self.bankNumStr,@"openBank":self.bankIDTypeStr ,@"bankAccountType":numType,@"bankAccountName":self.bankNumStr,@"bankAccountProvince":self.provinceIDStr,@"bankAccountCity":self.cityIDStr};
+    NSDictionary *dic=@{@"contact":self.contactStr,@"mobile":self.mobileStr,@"validCode":self.numCodeStr,@"sellerName":self.companyNameStr,@"busLic":[DRBuyerModel sharedManager].logo?:@"",@"code":self.numCodeStr,@"area":self.compAddressStr,@"areaCode":self.compAddressIDStr,@"address":self.detailAddressStr,@"compType":comType,@"creditId":self.tongyiStr,@"regType":@"1",@"invoiceHead":self.fapiaoStr,@"tfn":self.shuihaoStr,@"bankAccount":self.bankNumStr,@"openBank":self.bankIDTypeStr ,@"bankAccountType":numType,@"bankAccountName":self.bankNumStr,@"bankAccountProvince":self.provinceIDStr,@"bankAccountCity":self.cityIDStr};
 //    NSDictionary *dic =@{keyArr[0]:valueArray[0],keyArr[1]:valueArray[1],keyArr[2]:valueArray[2],keyArr[3]:valueArray[3],keyArr[4]:valueArray[4],keyArr[5]:valueArray[5],keyArr[6]:valueArray[6],keyArr[7]:valueArray[7]};
     NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:[SNTool jsontringData:dic] forKey:@"sellerRegister"];
     [mudic setObject:@"" forKey:@"spread"];

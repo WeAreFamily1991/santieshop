@@ -17,6 +17,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *typeLab;
 @property (weak, nonatomic) IBOutlet UILabel *modelLab;
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
+@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;
 @property (nonatomic,retain)DRLocationModel *locationModel;
 @property (nonatomic,retain)FavoriteModel *favorteModel;
 @property (weak, nonatomic) IBOutlet UIButton *collectionBtn;

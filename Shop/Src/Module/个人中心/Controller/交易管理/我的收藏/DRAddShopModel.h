@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * addshop_id;
 @property (nonatomic , assign)CGFloat              zfMoq;
 @property (nonatomic , assign)CGFloat              stMoq;
-@property (nonatomic , copy) NSString              * sellerid;
+@property (nonatomic , copy) NSString              * sellerId;
 @property (nonatomic , copy) NSString              * kfPhone;
 @property (nonatomic , copy) NSString              * branchId;
 @property (nonatomic , copy) NSArray<ItemsModel *>           * items;

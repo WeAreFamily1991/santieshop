@@ -43,7 +43,7 @@
     _goodListModel =goodListModel;
     [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodListModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
     self.productName.text =goodListModel.itemName;
-    NSArray * array = @[goodListModel.spec?:@"",goodListModel.levelname?:@"",goodListModel.materialname?:@"",goodListModel.surfacename?:@"",goodListModel.brandname?:@""];
+    NSArray * array = @[goodListModel.spec?:@"",goodListModel.levelName?:@"",goodListModel.materialName?:@"",goodListModel.surfaceName?:@"",goodListModel.brandName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -56,9 +56,9 @@
 }
 -(void)setHaveShopModel:(GoodsModel *)haveShopModel
 {
-    [self.productImg sd_setImageWithURL:[NSURL URLWithString:haveShopModel.imgurl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-    self.productName.text =haveShopModel.itemname;
-    NSArray * array = @[haveShopModel.spec?:@"",haveShopModel.levelname?:@"",haveShopModel.materialname?:@"",haveShopModel.surfacename?:@""];
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:haveShopModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
+    self.productName.text =haveShopModel.itemName;
+    NSArray * array = @[haveShopModel.spec?:@"",haveShopModel.levelName?:@"",haveShopModel.materialName?:@"",haveShopModel.surfaceName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -67,65 +67,67 @@
     }
     HeightF = WScale(30);
     [self setStandWithArray:titArr];
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([haveShopModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([haveShopModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([haveShopModel.basicunitid intValue]==6) {
+    if ([haveShopModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([haveShopModel.basicunitid intValue]==7) {
+    if ([haveShopModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
     
     
     NSString *nameStr,*cellStr;
-    if (haveShopModel.unitconversion1.length!=0&&![haveShopModel.unitconversion1 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[haveShopModel.unitconversion1 doubleValue],baseStr,haveShopModel.unitname1];
-        cellStr =haveShopModel.unitname1;
+    if (haveShopModel.unitConversion1!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)haveShopModel.unitConversion1,baseStr,haveShopModel.unitName1];
+        cellStr =haveShopModel.unitName1;
     }
-    if (haveShopModel.unitconversion2.length!=0&&![haveShopModel.unitconversion2 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[haveShopModel.unitconversion2 doubleValue],baseStr,haveShopModel.unitname2];
+    if (haveShopModel.unitConversion2!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",haveShopModel.unitConversion2,baseStr,haveShopModel.unitName2];
         if (cellStr.length==0) {
-            cellStr =haveShopModel.unitname2;
+            cellStr =haveShopModel.unitName2;
             
         }
     }
-    if (haveShopModel.unitconversion3.length!=0&&![haveShopModel.unitconversion3 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[haveShopModel.unitconversion3 doubleValue],baseStr,haveShopModel.unitname3];
+    if (haveShopModel.unitConversion3!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)haveShopModel.unitConversion3,baseStr,haveShopModel.unitName3];
         if (cellStr.length==0) {
-            cellStr =haveShopModel.unitname3;
+            cellStr =haveShopModel.unitName3;
             
         }
     }
-    if (haveShopModel.unitconversion4.length!=0&&![haveShopModel.unitconversion4 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[haveShopModel.unitconversion4 doubleValue],baseStr,haveShopModel.unitname4];
+    if (haveShopModel.unitConversion4!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)haveShopModel.unitConversion4,baseStr,haveShopModel.unitName4];
         if (cellStr.length==0) {
-            cellStr =haveShopModel.unitname4;
+            cellStr =haveShopModel.unitName4;
             
         }
     }
-    if (haveShopModel.unitconversion5.length!=0&&![haveShopModel.unitconversion5 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[haveShopModel.unitconversion5 doubleValue],baseStr,haveShopModel.unitname5];
+    if (haveShopModel.unitConversion5!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)haveShopModel.unitConversion5,baseStr,haveShopModel.unitName5];
         if (cellStr.length==0) {
-            cellStr =haveShopModel.unitname5;
+            cellStr =haveShopModel.unitName5;
             
         }
     }
-    self.productType.text =haveShopModel.brandname?:@"";
+    self.productType.text =haveShopModel.brandName?:@"";
     self.parameterLabel.text =[NSString stringWithFormat:@"包装参数：%@",nameStr];
-   self.cellLabel.text = [NSString stringWithFormat:@"库存数：%@ %@  %@  ",haveShopModel.qty,haveShopModel.basicunitname,haveShopModel.storeName];
-   self.countLabel.text =[NSString stringWithFormat:@"需求数量: %@ %@",haveShopModel.noticeqty,haveShopModel.basicunitname] ;
+    self.cellLabel.text = [NSString stringWithFormat:@"库存数：%.3f %@  %@  ",haveShopModel.qty,haveShopModel.basicUnitName,haveShopModel.storeName];
+     self.countLabel.text =[NSString stringWithFormat:@"最小销售单位: %@  单规格起订量: %.3f%@",haveShopModel.saleUnitName,haveShopModel.minQuantity,haveShopModel.saleUnitName] ;
+    self.moneyLabel.text =[NSString stringWithFormat:@"单价：￥%.2f/%@",haveShopModel.userPrice ,haveShopModel.basicUnitName];
+    [SNTool setTextColor:self.moneyLabel FontNumber:DR_FONT(18) AndRange:NSMakeRange(4, self.moneyLabel.text.length-5-haveShopModel.basicUnitName.length) AndColor:REDCOLOR];
     
 }
 -(void)setGoodsModel:(GoodsModel *)goodsModel
 {
     _goodsModel =goodsModel;
     
-    [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodsModel.imgurl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-    self.productType.text =goodsModel.brandname?:@"";
-    self.productName.text =goodsModel.itemname;
-    NSArray * array = @[goodsModel.spec?:@"",goodsModel.levelname?:@"",goodsModel.materialname?:@"",goodsModel.surfacename?:@""];
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodsModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
+    self.productType.text =goodsModel.brandName?:@"";
+    self.productName.text =goodsModel.itemName;
+    NSArray * array = @[goodsModel.spec?:@"",goodsModel.levelName?:@"",goodsModel.materialName?:@"",goodsModel.surfaceName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -135,57 +137,57 @@
     HeightF = WScale(30);
     [self setStandWithArray:titArr];
     
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([goodsModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([goodsModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([goodsModel.basicunitid intValue]==6) {
+    if ([goodsModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([goodsModel.basicunitid intValue]==7) {
+    if ([goodsModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
     
     
     NSString *nameStr,*cellStr;
-    if (goodsModel.unitconversion1.length!=0&&![goodsModel.unitconversion1 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[goodsModel.unitconversion1 doubleValue],baseStr,goodsModel.unitname1];
-        cellStr =goodsModel.unitname1;
+    if (goodsModel.unitConversion1!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion1,baseStr,goodsModel.unitName1];
+        cellStr =goodsModel.unitName1;
     }
-    if (goodsModel.unitconversion2.length!=0&&![goodsModel.unitconversion2 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion2 doubleValue],baseStr,goodsModel.unitname2];
+    if (goodsModel.unitConversion2!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",goodsModel.unitConversion2,baseStr,goodsModel.unitName2];
         if (cellStr.length==0) {
-            cellStr =goodsModel.unitname2;
+            cellStr =goodsModel.unitName2;
             
         }
     }
-    if (goodsModel.unitconversion3.length!=0&&![goodsModel.unitconversion3 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion3 doubleValue],baseStr,goodsModel.unitname3];
+    if (goodsModel.unitConversion3!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion3 ,baseStr,goodsModel.unitName3];
         if (cellStr.length==0) {
-            cellStr =goodsModel.unitname3;
+            cellStr =goodsModel.unitName3;
             
         }
     }
-    if (goodsModel.unitconversion4.length!=0&&![goodsModel.unitconversion4 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion4 doubleValue],baseStr,goodsModel.unitname4];
+    if (goodsModel.unitConversion4!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion4 ,baseStr,goodsModel.unitName4];
         if (cellStr.length==0) {
-            cellStr =goodsModel.unitname4;
+            cellStr =goodsModel.unitName4;
             
         }
     }
-    if (goodsModel.unitconversion5.length!=0&&![goodsModel.unitconversion5 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion5 doubleValue],baseStr,goodsModel.unitname5];
+    if (goodsModel.unitConversion5!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodsModel.unitConversion5 ,baseStr,goodsModel.unitName5];
         if (cellStr.length==0) {
-            cellStr =goodsModel.unitname5;
+            cellStr =goodsModel.unitName5;
             
         }
     }
     
-    self.cellLabel.text = [NSString stringWithFormat:@"库存数(%@): %.3f  %@",baseStr,[goodsModel.qty doubleValue],goodsModel.storeName];
+    self.cellLabel.text = [NSString stringWithFormat:@"库存数(%@): %.3f  %@",baseStr,goodsModel.qty,goodsModel.brandName];
     self.parameterLabel.text =[NSString stringWithFormat:@"包装参数：%@",nameStr];;
-    self.countLabel.text =[NSString stringWithFormat:@"最小销售单位: %@  单规格起订量: %.3f%@",goodsModel.saleunitname,[goodsModel.minquantity doubleValue],goodsModel.saleunitname] ;
-    self.moneyLabel.text =[NSString stringWithFormat:@"单价：￥%.2f/%@",[goodsModel.userprice doubleValue],goodsModel.basicunitname];
-    [SNTool setTextColor:self.moneyLabel FontNumber:DR_FONT(18) AndRange:NSMakeRange(4, self.moneyLabel.text.length-5-goodsModel.basicunitname.length) AndColor:REDCOLOR];
+    self.countLabel.text =[NSString stringWithFormat:@"最小销售单位: %@  单规格起订量: %.3f%@",goodsModel.saleUnitName,goodsModel.minQuantity,goodsModel.saleUnitName] ;
+    self.moneyLabel.text =[NSString stringWithFormat:@"单价：￥%.2f/%@",goodsModel.userPrice,goodsModel.basicUnitName];
+    [SNTool setTextColor:self.moneyLabel FontNumber:DR_FONT(18) AndRange:NSMakeRange(4, self.moneyLabel.text.length-5-goodsModel.basicUnitName.length) AndColor:REDCOLOR];
 }
 
 -(void)setGoodSellOutModel:(GoodsList *)goodSellOutModel
@@ -193,7 +195,7 @@
     _goodSellOutModel =goodSellOutModel;
     [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodSellOutModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
     self.productName.text =goodSellOutModel.itemName;
-    NSArray * array = @[goodSellOutModel.spec?:@"",goodSellOutModel.levelname?:@"",goodSellOutModel.materialname?:@"",goodSellOutModel.surfacename?:@"",goodSellOutModel.brandname?:@""];
+    NSArray * array = @[goodSellOutModel.spec?:@"",goodSellOutModel.levelName?:@"",goodSellOutModel.materialName?:@"",goodSellOutModel.surfaceName?:@"",goodSellOutModel.brandName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -202,7 +204,7 @@
     }
     HeightF = WScale(30);
     [self setStandWithArray:titArr.copy];
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
     if ([goodSellOutModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
@@ -251,6 +253,7 @@
 {
     if (!_productImg) {
         _productImg = [[UIImageView alloc] init];
+        _productImg.backgroundColor =RGBHex(0XF4F4F4);
         [self addSubview:_productImg];
         [_productImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(WScale(10));
@@ -286,7 +289,7 @@
 {
     if (!_productName) {
         _productName = [[UILabel alloc] init];
-        _productName.textColor = [UIColor blackColor];
+        _productName.textColor = BLACKCOLOR;
         _productName.font = DR_FONT(14);
         [self addSubview:_productName];
         [_productName mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -330,7 +333,7 @@
         UILabel * label = [[UILabel alloc] init];
         label.frame = CGRectMake(tagBtnX, tagBtnY, tagTextSize.width+WScale(5),WScale(12));
         label.text = array[i];
-        label.textColor = [UIColor blackColor];
+        label.textColor = BLACKCOLOR;
         label.font = DR_FONT(12);
         label.textAlignment = 0;
 //        label.layer.cornerRadius = 2;

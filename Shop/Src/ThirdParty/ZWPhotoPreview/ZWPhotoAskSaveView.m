@@ -72,7 +72,7 @@
         [_cancleBtn setTitle:@"取消" forState:UIControlStateNormal];
         _cancleBtn.backgroundColor = [UIColor whiteColor];
         [_cancleBtn addTarget:self action:@selector(actionCancleView) forControlEvents:UIControlEventTouchUpInside];
-        [_cancleBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_cancleBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         _cancleBtn.layer.cornerRadius = 10;
     }
     return _cancleBtn;
@@ -85,7 +85,7 @@
                                     CGRectGetWidth(self.bounds)-2 *ItemBtnMargin,ItemHeight);
         _saveBtn.backgroundColor = [UIColor whiteColor];
         [_saveBtn addTarget:self action:@selector(actionSavePhoto) forControlEvents:UIControlEventTouchUpInside];
-        [_saveBtn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        [_saveBtn setTitleColor:REDCOLOR forState:UIControlStateNormal];
         _saveBtn.layer.cornerRadius = 10;
     }
     return _saveBtn;

@@ -56,7 +56,7 @@
     
     _timeLabel = [[UILabel alloc] init];
     _timeLabel.font = DR_BoldFONT(18);
-    _timeLabel.textColor =[UIColor blackColor];
+    _timeLabel.textColor =BLACKCOLOR;
     [self addSubview:_timeLabel];
     
     _lineView =[[UIView alloc]init];

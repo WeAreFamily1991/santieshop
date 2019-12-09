@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DRLocationModel : DRBaseModel
 @property (nonatomic , copy) NSString              * compId;
 @property (nonatomic , copy) NSString              * storeTitle;
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * favoriteId;
 @property (nonatomic , copy) NSString              * compLog;
 @property (nonatomic , copy) NSString              * isSendVoucher;

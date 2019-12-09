@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DRCatoryShopVC : STBaseViewController
 //@property (nonatomic,retain)NSString *statusStr;
-@property (nonatomic,strong)NSString *sellerid;
+@property (nonatomic,strong)NSString *sellerId;
 @end
 
 NS_ASSUME_NONNULL_END

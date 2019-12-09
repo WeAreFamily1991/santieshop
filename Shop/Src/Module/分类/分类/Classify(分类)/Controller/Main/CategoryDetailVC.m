@@ -267,7 +267,7 @@
         }
         else if ([self.queryTypeStr isEqualToString:@"shopnull"])
         {
-             _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullShopModel.sellerid,self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"districtId",@"sellerId",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+             _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullShopModel.sellerId,self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"districtId",@"sellerId",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
         }
         else
         {
@@ -351,7 +351,7 @@
         button.frame =CGRectMake(i*ScreenW/3, 0, ScreenW/3, 39);
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         button.backgroundColor =[UIColor whiteColor];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         [button setTitleColor:REDCOLOR forState:UIControlStateSelected];
         [button setImage:[UIImage imageNamed:imageArr[i]] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:selectedImageArr[i]] forState:UIControlStateSelected];
@@ -469,7 +469,7 @@
         case 2:
             if (self.MsgListArr.count!=0) {
                 self.goodsModel =self.MsgListArr[indexPath.section];
-                if ([self.goodsModel.qty isEqualToString:@"0"]) {
+                if (self.goodsModel.qty==0) {
                     return 40;
                 }
             }
@@ -538,7 +538,7 @@
         }
         else if (indexPath.row==2)
         {
-            if (![self.goodsModel.qty isEqualToString:@"0"])
+            if (self.goodsModel.qty!=0)
             {
                 CatgoryDetailCell1 *cell =[CatgoryDetailCell1 cellWithTableView:tableView withIndexPath:indexPath];
                 cell.goodsModel =self.goodsModel;
@@ -576,7 +576,7 @@
         }else{
             timestr =@"预计发货时间：当天发货";
         }
-        NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.goodsModel.saleunitname],[NSString stringWithFormat:@"单规格起订量：%.3f%@",[self.goodsModel.minquantity floatValue],self.goodsModel.saleunitname],timestr];
+        NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.goodsModel.saleUnitName],[NSString stringWithFormat:@"单规格起订量：%.3f%@",self.goodsModel.minQuantity,self.goodsModel.saleUnitName],timestr];
         cell.danweiLab.text = titleArr[0];
         cell.qidingliangLab.text = titleArr[1];
         cell.timeLAb.text = titleArr[2];

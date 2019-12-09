@@ -77,7 +77,7 @@
     
     self.dateLabel.text =[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",(long)model.addTime]];
 
-    self.nameLabel.textColor =model.isRead?[UIColor blackColor]:REDCOLOR;
+    self.nameLabel.textColor =model.isRead?BLACKCOLOR:REDCOLOR;
     self.dateLabel.textColor =model.isRead?[UIColor lightGrayColor]:REDCOLOR;
 
     self.selectBtn.selected = self.isSelected;

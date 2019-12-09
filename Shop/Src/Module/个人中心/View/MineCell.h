@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "YeeBadgeViewHeader.h"
+#import "DROrderCountModel.h"
 NS_ASSUME_NONNULL_BEGIN
 
 @interface MineCell : UITableViewCell
@@ -23,6 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UIView *groundView;
 @property (weak, nonatomic) IBOutlet UIButton *shoucangBtn;
 @property (weak, nonatomic) IBOutlet UIButton *diyongBtn;
+@property (retain,nonatomic)DROrderCountModel *countModel;
 @property (copy,nonatomic) void (^BtnManagetagBlock) (NSInteger manageBtntag);
 @property (strong,nonatomic)dispatch_block_t setBtnClickBlock;
 -(void)configueCellBadgeStyle:(YeeBadgeStytle)style;

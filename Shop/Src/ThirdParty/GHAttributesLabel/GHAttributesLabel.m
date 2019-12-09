@@ -107,7 +107,7 @@
         _textView.delegate = self;
         _textView.editable = NO;
         _textView.textAlignment = self.textAlignment;
-        _textView.linkTextAttributes = @{NSForegroundColorAttributeName:[UIColor redColor]};
+        _textView.linkTextAttributes = @{NSForegroundColorAttributeName:REDCOLOR};
     }
     return _textView;
 }

@@ -45,7 +45,7 @@
         CGFloat max_X = 10;
         for (int i = 0; i<array.count; i++) {
             UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
             [btn setTitle:array[i] forState:UIControlStateNormal];
             btn.backgroundColor = [UIColor lightGrayColor];
             btn.titleLabel.font =DR_FONT(12);

@@ -28,12 +28,15 @@
 #import "DRShouKuanVC.h"
 #import "DRMinHedView.h"
 #import "CollectionDetailVC.h"
+#import "AskSellOutVC.h"
+#import "DROrderCountModel.h"
 
 @interface MineViewController ()
 //@property (nonatomic,strong)DRUserInfoModel *usermodel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic,assign) CGFloat offset;
 @property (nonatomic,retain)DRMinHedView *headerView;
+@property (nonatomic,retain)DROrderCountModel *countModel;
 
 @end
 
@@ -46,6 +49,9 @@
     // Do any additional setup after loading the view.
     DRWeakSelf;
     self.headerView =[[DRMinHedView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, HScale(217))];
+    self.headerView.setBtnBlock = ^{
+        [weakSelf.navigationController pushViewController:[DRSetVC new] animated:YES];
+    };
     self.headerView.selectedTagBlock = ^(NSInteger btnTag) {
         switch (btnTag) {
             case 1:
@@ -65,7 +71,7 @@
             {
                  [weakSelf.navigationController pushViewController:[VoucherVC new] animated:YES];
             }
-               break;                
+               break;
             case 4:
             {
                 [weakSelf.navigationController pushViewController:[HaveShopNewsDetailVC new] animated:YES];
@@ -92,11 +98,17 @@
     }
 //    DRWeakSelf;
     [SNAPI userInfoSuccess:^(SNResult *result) {
+        
         [[DRUserInfoModel sharedManager] setValuesForKeysWithDictionary:result.data];
-        [[DRBuyerModel sharedManager] setValuesForKeysWithDictionary:result.data[@"buyer"]];
+        self.headerView.titleLab.text =[DRUserInfoModel sharedManager].buyerName;
+        self.headerView.phoneLab.text =[DRUserInfoModel sharedManager].mobilePhone;
+        NSString *urlStr =[DRUserInfoModel sharedManager].logo;
+        [self.headerView.iconBtn sd_setImageWithURL:[NSURL URLWithString:urlStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
+        
+//        [[DRBuyerModel sharedManager] setValuesForKeysWithDictionary:result.data];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
-          self.tabBarController.selectedIndex=0;
+//          self.tabBarController.selectedIndex=0;
 //        [self logOut];
         
     }];
@@ -110,6 +122,19 @@
 //
 //        [self logOut];
 //    }];
+}
+-(void)loadSourceCount
+{
+    [SNAPI getWithURL:@"buyer/orderCount" parameters:nil success:^(SNResult *result) {
+        self.countModel =[DROrderCountModel mj_objectWithKeyValues:result.data];
+        self.headerView.sCountLab.text =[NSString stringWithFormat:@"%ld",self.countModel.item];
+        self.headerView.cCountLab.text =[NSString stringWithFormat:@"%ld",self.countModel.seller];
+         self.headerView.qCountLab.text =[NSString stringWithFormat:@"%ld",self.countModel.voucherCount];
+         self.headerView.dCountLab.text =[NSString stringWithFormat:@"%ld",self.countModel.arrivalNotice];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 -(void)footerViewCustom
 {
@@ -145,6 +170,7 @@
    
     if (indexPath.row == 0) {
         MineCell *cell = [MineCell cellWithTableView:tableView];
+        cell.countModel =self.countModel;
         [cell configueCellBadgeStyle:1];
         cell.BtnManagetagBlock = ^(NSInteger manageBtntag) {
             [self managePushVC:manageBtntag];
@@ -178,7 +204,10 @@
     [super viewWillAppear:YES];
      [self hideNavigationBar];
     [self loadUser];
+    [self loadSourceCount];
+    
 }
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:YES];
@@ -209,33 +238,39 @@
     NSLog(@"pushTag=%ld",(long)pushTag);
 //    [self.navigationController pushViewController:[@[@"ChangeOrderVC",@"SelloutVC",@"SelloutVC",@"CollectionVC"][pushTag] new] animated:YES];
     switch (pushTag) {
-        case 0:
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
         {
-            [self.navigationController pushViewController:[ChangeOrderVC new] animated:YES];
+            ChangeOrderVC *changVC =[[ChangeOrderVC alloc]init];
+            changVC.num =pushTag;
+            [self.navigationController pushViewController:changVC animated:YES];
         }
             break;
 
-        case 1:
+        case 6:
         {
             [self.navigationController pushViewController:[SelloutVC new] animated:YES];
         }
             break;
-        case 2:
-        {
-            [self.navigationController pushViewController:[HaveShopNewsDetailVC new] animated:YES];
-        }
-            break;
-
-        case 3:
-        {
-            [self.navigationController pushViewController:[CollectionVC new] animated:YES];
-        }
-            break;
-        case 4:
-        {
-            [self.navigationController pushViewController:[VoucherVC new] animated:YES];
-        }
-            break;
+//        case 3:
+//        {
+//            [self.navigationController pushViewController:[HaveShopNewsDetailVC new] animated:YES];
+//        }
+//            break;
+//
+//        case 4:
+//        {
+//            [self.navigationController pushViewController:[CollectionVC new] animated:YES];
+//        }
+//            break;
+//        case 5:
+//        {
+//            [self.navigationController pushViewController:[VoucherVC new] animated:YES];
+//        }
+//            break;
             
         case 10:
         {
@@ -338,34 +373,16 @@
     
         case 100:
         {
-            [self.navigationController pushViewController:[DRSetVC new] animated:YES];
+            ChangeOrderVC *changVC =[[ChangeOrderVC alloc]init];
+            changVC.num =0;
+            [self.navigationController pushViewController:changVC animated:YES];
         }
             break;
         default:
             break;
     }
 }
--(void)logOut
-{
-    [[User currentUser] loginOut];
-    
-    LoginVC *dcLoginVc = [LoginVC new];
-    
-    DCNavigationController *nav =  [[DCNavigationController alloc] initWithRootViewController:dcLoginVc];
-    [self presentViewController:nav animated:YES completion:nil];
-  
-    NSMutableDictionary *dic =[NSMutableDictionary dictionary];
-    [SNIOTTool postWithURL:USER_LOGOUT parameters:dic success:^(SNResult *result) {
-        if ([[NSString stringWithFormat:@"%ld",(long)result.state] isEqualToString:@"200"]) {
-           
-        }
-        
-    } failure:^(NSError *error) {
-        
-    }];
-    
-   
-}
+
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     
 }

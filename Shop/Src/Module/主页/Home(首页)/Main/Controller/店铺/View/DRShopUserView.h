@@ -13,7 +13,7 @@
 @interface DRShopUserView : CRSegmentItemBase
 @property (strong, nonatomic) CRDetailModel *model;
 @property (strong, nonatomic) DRNullGoodModel *nullGoodModel;
-@property (copy, nonatomic) NSString *sellerid;
+@property (copy, nonatomic) NSString *sellerId;
 @property (nonatomic, weak) id<DRShopUserViewDelegate> delegate;
 @end
 

@@ -27,7 +27,7 @@
    
     [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
     self.productName.text =goodModel.itemName;
-    NSArray * array = @[goodModel.spec?:@"",goodModel.levelname?:@"",goodModel.materialname?:@"",goodModel.surfacename?:@"",goodModel.brandname?:@""];
+    NSArray * array = @[goodModel.spec?:@"",goodModel.levelName?:@"",goodModel.materialName?:@"",goodModel.surfaceName?:@"",goodModel.brandName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -36,7 +36,7 @@
     }
     Height = WScale(30);
     [self setStandWithArray:titArr];
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
     if ([goodModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
@@ -106,7 +106,7 @@
 {
     if (!_productName) {
         _productName = [[UILabel alloc] init];
-        _productName.textColor = [UIColor blackColor];
+        _productName.textColor = BLACKCOLOR;
         _productName.font = ZF_FONT(15);
         _productName.numberOfLines = 0;
         [self addSubview:_productName];
@@ -148,7 +148,7 @@
         UILabel * label = [[UILabel alloc] init];
         label.frame = CGRectMake(tagBtnX, tagBtnY, tagTextSize.width+WScale(5),WScale(25));
         label.text = array[i];
-        label.textColor = [UIColor blackColor];
+        label.textColor = BLACKCOLOR;
         label.font = ZF_FONT(12);
         label.textAlignment = NSTextAlignmentCenter;
         label.layer.cornerRadius = 2;
@@ -167,7 +167,7 @@
 {
     if (!_parameterLabel) {
         _parameterLabel = [[UILabel alloc] init];
-        _parameterLabel.textColor = [UIColor blackColor];
+        _parameterLabel.textColor = BLACKCOLOR;
         _parameterLabel.font = ZF_FONT(12);
         _parameterLabel.numberOfLines = 0;
         [self addSubview:_parameterLabel];
@@ -184,7 +184,7 @@
 {
     if (!_cellLabel) {
         _cellLabel = [[UILabel alloc] init];
-        _cellLabel.textColor = [UIColor blackColor];
+        _cellLabel.textColor = BLACKCOLOR;
         _cellLabel.font = ZF_FONT(12);
         _cellLabel.numberOfLines = 0;
         [self addSubview:_cellLabel];
@@ -200,7 +200,7 @@
 {
     if (!_countLabel) {
         _countLabel = [[UILabel alloc] init];
-        _countLabel.textColor = [UIColor blackColor];
+        _countLabel.textColor = BLACKCOLOR;
         _countLabel.font = ZF_FONT(12);
         _countLabel.numberOfLines = 0;
         [self addSubview:_countLabel];

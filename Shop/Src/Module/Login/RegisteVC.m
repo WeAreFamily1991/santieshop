@@ -57,36 +57,40 @@
 }
 -(void)layout
 {
-   
-    self.loginBtn.layer.cornerRadius =self.loginBtn.dc_height/2;
-    self.loginBtn.layer.masksToBounds =self.loginBtn.dc_height/2;
-    [self.loginBtn.layer setBorderColor:[UIColor lightGrayColor].CGColor];
+    
+    self.loginBtn.layer.cornerRadius =4;
+    self.loginBtn.layer.masksToBounds =4;
+    [self.loginBtn.layer setBorderColor:REDCOLOR.CGColor];
     [self.loginBtn.layer setBorderWidth:1.0];
-    self.registeBtn.layer.cornerRadius =self.loginBtn.dc_height/2;
-    self.registeBtn.layer.masksToBounds =self.loginBtn.dc_height/2;
+    self.registeBtn.layer.cornerRadius =4;
+    self.registeBtn.layer.masksToBounds =4;
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.imgCodeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.codeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     //时间按钮
-  self.TimerBtn = [[ZJBLTimerButton alloc] initWithFrame:self.codeView.bounds];
+    self.TimerBtn = [[ZJBLTimerButton alloc] initWithFrame:self.codeView.bounds];
     __weak typeof(self) WeakSelf = self;
-   
+    
     self.TimerBtn.countDownButtonBlock = ^{
         WeakSelf.TimerBtn.phoneStr =WeakSelf.phoneTF.text;
         WeakSelf.TimerBtn.imgCodeStr =WeakSelf.imgCodeTF.text;
         [WeakSelf qurestCode]; //开始获取验证码
     };
+    self.yyzzBtn.layer.cornerRadius =4;
+    self.yyzzBtn.layer.masksToBounds =4;
+    [self.yyzzBtn layoutButtonWithEdgeInsetsStyle:LXButtonEdgeInsetsStyleTop imageTitleSpace:10];
     [self.codeView addSubview:self.TimerBtn];
+    self.view.backgroundColor =BACKGROUNDCOLOR;
     
 }
 //发生网络请求 --> 获取验证码
 - (void)qurestCode {
     
 //    DRWeakSelf;
-    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(NSString *response) {
-        if ([response isEqualToString:@"200"]) {
-            [MBProgressHUD showError:@"验证码已发送"];
-        }
+    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(SNResult *result) {
+       
+           [MBProgressHUD showSuccess:@"验证码已发送"];
+       
     } failure:^(NSError *error) {
         [MBProgressHUD showError:error.domain];
     }] ;

@@ -13,6 +13,19 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+//    SNTool
+    
+    self.collectionBtn.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    self.collectionBtn.layer.borderWidth =0.5;
+    self.collectionBtn.layer.cornerRadius =4;
+    self.collectionBtn.layer.masksToBounds =4;
+    
+    self.phoneBtn.layer.cornerRadius =4;
+    self.phoneBtn.layer.masksToBounds =4;
+    
+    self.typeLab.layer.cornerRadius =WScale(9);
+    self.typeLab.layer.masksToBounds =WScale(9);
+    
     // Initialization code
 }
 -(void)setLocationModel:(DRLocationModel *)locationModel
@@ -30,7 +43,7 @@
         [self.titBtn setTitle:locationModel.storeTitle forState:UIControlStateNormal];
     }else
     {
-        [self.titBtn setTitle:locationModel.compName forState:UIControlStateNormal];;
+        [self.titBtn setTitle:locationModel.sellerName forState:UIControlStateNormal];;
     }
     self.typeLab.text =[NSString stringWithFormat:@"主营产品：%@",locationModel.storePrdt];
     //compType 0 自营 1厂家  2批发商
@@ -45,7 +58,7 @@
     {
         typeStr =@"批发商";
     }
-    self.modelLab.text =[NSString stringWithFormat:@"经营模式：%@",typeStr];
+    self.typeLab.text =[NSString stringWithFormat:@"%@",typeStr];
     self.addressLab.text =[NSString stringWithFormat:@"所在地：%@",locationModel.compAddr];
     
 }
@@ -64,7 +77,7 @@
         [self.titBtn setTitle:favorteModel.storeTitle forState:UIControlStateNormal];
     }else
     {
-        [self.titBtn setTitle:favorteModel.compName forState:UIControlStateNormal];
+        [self.titBtn setTitle:favorteModel.sellerName forState:UIControlStateNormal];
     }
     if ([favorteModel.isSendVoucher isEqualToString:@"1"]) {
         [self.titBtn setImage:[UIImage imageNamed:@"quan"] forState:UIControlStateNormal];
@@ -73,7 +86,7 @@
     {
         [self.titBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
     }
-    self.typeLab.text =[NSString stringWithFormat:@"主营产品：%@",favorteModel.storePrdt];
+    self.modelLab.text =[NSString stringWithFormat:@"主营产品：%@",favorteModel.storePrdt];
     //compType 0 自营 1厂家  2批发商
     NSString *typeStr;
     if ([favorteModel.compType isEqualToString:@"0"]) {
@@ -86,7 +99,7 @@
     {
         typeStr =@"批发商";
     }
-    self.modelLab.text =[NSString stringWithFormat:@"经营模式：%@",typeStr];
+    self.typeLab.text =[NSString stringWithFormat:@"%@",typeStr];
     self.addressLab.text =[NSString stringWithFormat:@"所在地：%@",favorteModel.compAddr];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

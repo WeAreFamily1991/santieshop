@@ -55,14 +55,14 @@ static const CGFloat kSegmentControlHeight = 50;
     DRShopUserView*_shopUserView;
     NSInteger _lastSelectedIndex; // 上次选中
 }
--(void)setSellerid:(NSString *)sellerid
+-(void)setsellerId:(NSString *)sellerId
 {
-    _sellerid =sellerid;
+    _sellerId =sellerId;
     _commondVC =[[DRCatoryShopVC alloc]init];
     
     _commondVC.view.frame = self.bounds;
     _commondVC.view.dc_height = kScreenHeight - kNavigationBarHeight64 - kBottomBarHeight;
-    _commondVC.sellerid =self.sellerid;
+    _commondVC.sellerId =self.sellerId;
     [self addSubview:_commondVC.view];    
 }
 - (void)setupViews {

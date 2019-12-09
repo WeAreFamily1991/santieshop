@@ -23,8 +23,11 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    [manager.requestSerializer setValue:@"v1" forHTTPHeaderField:@"version"];
+    [manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"sourceType"];
     __weak typeof(self) weakSelf = self;
+   
+     NSLog(@"baseUrl==%@url==%@===mudic===%@",[SNAPIManager shareAPIManager].baseURL,url,paramers);
     [manager POST:url parameters:paramers progress:^(NSProgress * _Nonnull uploadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -51,8 +54,11 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+    [manager.requestSerializer setValue:@"v1" forHTTPHeaderField:@"version"];
+    [manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"sourceType"];
     __weak typeof(self) weakSelf = self;
+   
+     NSLog(@"baseUrl==%@url==%@===mudic===%@",[SNAPIManager shareAPIManager].baseURL,url,paramers);
     [manager DELETE:url parameters:paramers success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         [weakSelf printResponse:responseObject url:url parameters:paramers];
         [weakSelf cheakTokenWithResponse:responseObject];
@@ -70,9 +76,12 @@
 }
 + (void)postURL:(NSString *)url parameters:(NSDictionary *)paramers formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    [manager.requestSerializer setValue:@"v1" forHTTPHeaderField:@"version"];
+    [manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"sourceType"];
     manager.requestSerializer.timeoutInterval = 20;
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"text/plain", @"multipart/form-data", @"application/json", @"text/html", @"image/jpeg", @"image/png", @"application/octet-stream", @"text/json", nil];
-    
+   
+     NSLog(@"baseUrl==%@url==%@===mudic===%@",[SNAPIManager shareAPIManager].baseURL,url,paramers);
     [manager POST:url parameters:paramers constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
         
         // formData: 专门用于拼接需要上传的数据,在此位置生成一个要上传的数据体
@@ -152,9 +161,11 @@
 + (void)getURL:(NSString *)url parameters:(NSDictionary *)paramers success:(void (^)(id))success failure:(void (^)(NSError *))failure{
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-    
+     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager.requestSerializer setValue:@"v1" forHTTPHeaderField:@"version"];
+    [manager.requestSerializer setValue:@"ios" forHTTPHeaderField:@"sourceType"];
     __weak typeof(self) weakSelf = self;
+    NSLog(@"baseUrl==%@url==%@===mudic===%@",[SNAPIManager shareAPIManager].baseURL,url,paramers);
     [manager GET:url parameters:paramers progress:^(NSProgress * _Nonnull downloadProgress) {
         
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

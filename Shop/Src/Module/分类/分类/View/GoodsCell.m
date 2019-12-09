@@ -76,15 +76,15 @@
     {
         [self.ziyingBtn setBackgroundImage:[UIImage imageNamed:@"分类购买_08"] forState:UIControlStateNormal];
          [self.ziyingBtn setTitle:@"厂家" forState:UIControlStateNormal];
-        self.ziyingpeisongLab.textColor =[UIColor blackColor];
+        self.ziyingpeisongLab.textColor =BLACKCOLOR;
     }
     else if ([goodsModel.sellerTypeCode intValue]==2)
     {
          [self.ziyingBtn setBackgroundImage:[UIImage imageNamed:@"blue-bg"] forState:UIControlStateNormal];
          [self.ziyingBtn setTitle:@"批发商" forState:UIControlStateNormal];
-        self.ziyingpeisongLab.textColor =[UIColor blackColor];
+        self.ziyingpeisongLab.textColor =BLACKCOLOR;
     }
-    self.ziyingpeisongLab.text =goodsModel.compName;
+    self.ziyingpeisongLab.text =goodsModel.sellerName;
     self.kaipiaoLab.text =[NSString stringWithFormat:@"开票方：%@",goodsModel.kpName];
     
     if (![goodsModel.sellerTypeCode isEqualToString:@"0"]) {
@@ -177,15 +177,15 @@
     {
         [self.ziyingBtn setBackgroundImage:[UIImage imageNamed:@"分类购买_08"] forState:UIControlStateNormal];
         [self.ziyingBtn setTitle:@"厂家" forState:UIControlStateNormal];
-        self.ziyingpeisongLab.textColor =[UIColor blackColor];
+        self.ziyingpeisongLab.textColor =BLACKCOLOR;
     }
     else if ([goodsModel.sellerTypeCode intValue]==2)
     {
         [self.ziyingBtn setBackgroundImage:[UIImage imageNamed:@"blue-bg"] forState:UIControlStateNormal];
         [self.ziyingBtn setTitle:@"批发商" forState:UIControlStateNormal];
-        self.ziyingpeisongLab.textColor =[UIColor blackColor];
+        self.ziyingpeisongLab.textColor =BLACKCOLOR;
     }
-    self.ziyingpeisongLab.text =goodsModel.compName;
+    self.ziyingpeisongLab.text =goodsModel.sellerName;
     if (![goodsModel.sellerTypeCode isEqualToString:@"0"]) {
         
         if ([goodsModel.priceType isEqualToString:@"0"]) {

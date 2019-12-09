@@ -53,7 +53,7 @@
 //        self.titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.alertView.frame.size.width, buttonHeight)];
 //        self.titleLabel.text = title;
 //        self.titleLabel.backgroundColor = [UIColor ldyBase_colorWithHexadecimal:0xeeeeee];
-//        self.titleLabel.textColor = [UIColor blackColor];
+//        self.titleLabel.textColor = BLACKCOLOR;
 //        self.titleLabel.font = [UIFont ldy_boldFontFor2xPixels:26];
 //        self.titleLabel.textAlignment = NSTextAlignmentCenter;
 //        [self.alertView addSubview:self.titleLabel];
@@ -77,7 +77,7 @@
         self.cancelButton.frame = CGRectMake(0,CGRectGetMaxY(self.selectTableView.frame), self.alertView.frame.size.width/2, buttonHeight);
         self.cancelButton.backgroundColor = [UIColor whiteColor];
         [self.cancelButton setTitle:@"取消" forState:UIControlStateNormal];
-        [self.cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.cancelButton setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         self.cancelButton.titleLabel.font = [UIFont ldy_fontFor2xPixels:22];
         [self.cancelButton addTarget:self action:@selector(cancelAction) forControlEvents:UIControlEventTouchUpInside];
         [self.alertView addSubview:self.cancelButton];

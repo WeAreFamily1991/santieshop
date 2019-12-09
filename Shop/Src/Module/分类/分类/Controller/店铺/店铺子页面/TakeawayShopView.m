@@ -191,7 +191,7 @@
 //    [faceImgView addSubview:bview];
 //    //渐变
 //    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-//    gradientLayer.colors = @[(__bridge id)[UIColor clearColor].CGColor, (__bridge id)[[UIColor blackColor] colorWithAlphaComponent:0.6].CGColor];
+//    gradientLayer.colors = @[(__bridge id)[UIColor clearColor].CGColor, (__bridge id)[BLACKCOLOR colorWithAlphaComponent:0.6].CGColor];
 //    gradientLayer.locations = @[@0.0, @1.0];
 //    gradientLayer.startPoint = CGPointMake(0, 0);
 //    gradientLayer.endPoint = CGPointMake(0, 1.5);
@@ -539,7 +539,7 @@
 {
     //渐变
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
-    gradientLayer.colors = @[(__bridge id)[UIColor clearColor].CGColor, (__bridge id)[[UIColor blackColor] colorWithAlphaComponent:0.5].CGColor];
+    gradientLayer.colors = @[(__bridge id)[UIColor clearColor].CGColor, (__bridge id)[BLACKCOLOR colorWithAlphaComponent:0.5].CGColor];
     gradientLayer.locations = @[@0.0, @1.0];
     gradientLayer.startPoint = CGPointMake(0, 0);
     gradientLayer.endPoint = CGPointMake(0, 1.5);

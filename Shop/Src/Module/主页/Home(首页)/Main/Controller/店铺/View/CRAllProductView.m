@@ -69,7 +69,7 @@ static NSString *const DRNullGoodLikesCellCellID = @"DRNullGoodLikesCell";
 }
 -(void)sellerInfoList
 {
-    NSDictionary *dic =@{@"districtId":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerid};
+    NSDictionary *dic =@{@"districtId":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerId};
     [SNAPI getWithURL:@"burst/sellerInfoList" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             

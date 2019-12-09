@@ -92,7 +92,7 @@
     /// 例八：仿直播间礼物列表
     FWCycleScrollView *cycleScrollView8 = [FWCycleScrollView cycleWithFrame:self.bounds loopTimes:1];
     cycleScrollView8.viewArray = [self setupCustomSubView:0];
-    cycleScrollView8.backgroundColor =[UIColor redColor];
+    cycleScrollView8.backgroundColor =REDCOLOR;
     cycleScrollView8.currentPageDotEnlargeTimes = 1.0;
     cycleScrollView8.customDotViewType = FWCustomDotViewTypeSolid;
     cycleScrollView8.pageDotColor = [UIColor grayColor];
@@ -122,7 +122,7 @@
     [titleBtn addTarget:self action:@selector(titleBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [view addSubview:titleBtn];
 //    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"gift_%d",index%20]]];
-//    imageView.backgroundColor =[UIColor redColor];
+//    imageView.backgroundColor =REDCOLOR;
 //    imageView.frame = CGRectMake(0, 0, view.dc_width, view.dc_width/2);
 //    [view addSubview:imageView];
 //    UILabel *titleLab =[[UILabel alloc]initWithFrame:CGRectMake(0, view.dc_width/2, view.dc_width, view.dc_height-view.dc_width/2-10)];

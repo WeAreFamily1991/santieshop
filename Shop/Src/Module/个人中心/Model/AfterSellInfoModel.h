@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * receiveTime;
 @property (nonatomic , copy) NSString              * orderId;
 @property (nonatomic , copy) NSString              * auditRemark;
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * orderReturnWay;
 @property (nonatomic , copy) NSString              * receiveMobile;
 @property (nonatomic , copy) NSString              * expressRemark;
@@ -54,7 +54,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * kpName;
 @property (nonatomic , copy) NSString              * receiveAddress;
 @property (nonatomic , copy) NSString              * receiveName;
-@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * discount;
 @property (nonatomic , copy) NSString              * compType;
 @property (nonatomic , copy) NSString              * message;
@@ -62,7 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 @interface AfterSellList :NSObject
-@property (nonatomic , copy) NSString              * materialname;
+@property (nonatomic , copy) NSString              * materialName;
 @property (nonatomic , copy) NSString              * imgUrlM;
 @property (nonatomic , copy) NSString              * unitConversion3;
 @property (nonatomic , copy) NSString              * remark;
@@ -79,7 +78,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * comment;
 @property (nonatomic , copy) NSString              * unitName5;
 @property (nonatomic , copy) NSString              * userReturnAmt;
-@property (nonatomic , copy) NSString              * brandname;
+@property (nonatomic , copy) NSString              * brandName;
 @property (nonatomic , copy) NSString              * qty;
 @property (nonatomic , copy) NSString              * unitName1;
 @property (nonatomic , copy) NSString              * returnId;
@@ -87,7 +86,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * canReturnQty;
 @property (nonatomic , copy) NSString              * unitConversion2;
 @property (nonatomic , copy) NSString              * returnAmt;
-@property (nonatomic , copy) NSString              * levelname;
+@property (nonatomic , copy) NSString              * levelName;
 @property (nonatomic , copy) NSString              * returnQty;
 @property (nonatomic , copy) NSString              * returnPrice;
 @property (nonatomic , copy) NSString              * unitConversion4;
@@ -103,7 +102,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * spec;
 @property (nonatomic , copy) NSString              * toothDistanceName;
 @property (nonatomic , copy) NSString              * diameterName;
-@property (nonatomic , copy) NSString              * surfacename;
+@property (nonatomic , copy) NSString              * surfaceName;
 @property (nonatomic , copy) NSString              * itemName;
 @property (nonatomic , copy) NSString              * imgUrl;
 @property (nonatomic , copy) NSString              * discount;

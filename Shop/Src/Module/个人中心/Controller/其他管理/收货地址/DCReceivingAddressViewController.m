@@ -251,20 +251,19 @@ static NSString *const DCUserAdressCellID = @"DCUserAdressCell";
 #pragma mark 添加表尾
 -(void)addTableViewfooterView
 {
-    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-HScale(60)-DRTopHeight, SCREEN_WIDTH, HScale(60))];
+    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-WScale(50)-DRTopHeight, SCREEN_WIDTH, WScale(50))];
     headView.backgroundColor =[UIColor clearColor];
     [self.view addSubview:headView];
     
     self.addBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.addBtn.frame = CGRectMake(20, HScale(10),SCREEN_WIDTH-40, HScale(40));
-    [self.addBtn setTitle:@"新增地址" forState:UIControlStateNormal];
-    
-   
+    self.addBtn.frame = CGRectMake(0, 0,SCREEN_WIDTH, WScale(50));
+    [self.addBtn setTitle:@"添加收货地址" forState:UIControlStateNormal];
+       
     [self.addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.addBtn.layer.cornerRadius =HScale(20);
-    self.addBtn.layer.masksToBounds =HScale(20);
-    self.addBtn.titleLabel.font = DR_FONT(15);
-    self.addBtn.backgroundColor =REDCOLOR;
+//    self.addBtn.layer.cornerRadius =HScale(20);
+//    self.addBtn.layer.masksToBounds =HScale(20);
+    self.addBtn.titleLabel.font = DR_FONT(18);
+    self.addBtn.backgroundColor =RGBHex(0XF72D4E);
     [self.addBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:self.addBtn];
     

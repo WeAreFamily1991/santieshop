@@ -122,7 +122,7 @@
         }
 
         cell.getTimeLab.text =[NSString stringWithFormat:@"生成时间：%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",self.listMOdel.orderDate]]];
-        cell.getTimeLab.textColor =[UIColor blackColor];
+        cell.getTimeLab.textColor =BLACKCOLOR;
         cell.saleTimeLab.text =[NSString stringWithFormat:@"对账数量：%.3f",self.listMOdel.qty];
 
     cell.saleCountLab.text =[NSString stringWithFormat:@"对账金额：￥%.2f",self.listMOdel.orderAmt];
@@ -153,7 +153,7 @@
 //    cell.orderLab.text =[NSString stringWithFormat:@"订单号：%@",self.listMOdel.orderNo];
 //    cell.getTimeLab.text =[NSString stringWithFormat:@"退货单号：%@",self.listMOdel.returnOrderNo];
 //
-//    cell.getTimeLab.textColor =[UIColor blackColor];
+//    cell.getTimeLab.textColor =BLACKCOLOR;
 //    cell.saleTimeLab.text =[NSString stringWithFormat:@"生成时间：%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",(long)self.listMOdel.orderDate]]];
 //    cell.saleCountLab.text =[NSString stringWithFormat:@"退货金额：￥%f  费率：%.0f",self.listMOdel.orderAmt,[self.listMOdel.feeRatio doubleValue]];
 //    cell.moneyCountLab.text =[NSString stringWithFormat:@"费用金额：￥%f",[self.listMOdel.feeAmt doubleValue]];
@@ -188,7 +188,7 @@
     [headView addSubview:button];
     UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(button.dc_right+15, 0, 2*ScreenW/3, HScale(30))];
     headLab.font =DR_FONT(14);
-    headLab.textColor =[UIColor blackColor];
+    headLab.textColor =BLACKCOLOR;
     headLab.textAlignment = 0;
     headLab.text=self.detailModel.sellerName;
     [headView addSubview:headLab];
@@ -211,7 +211,7 @@
 //    [headView addSubview:button];
 //    UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, HScale(55))];
 //    headLab.font =DR_FONT(14);
-//    headLab.textColor =[UIColor blackColor];
+//    headLab.textColor =BLACKCOLOR;
 //    headLab.textAlignment = 0;
 //    headLab.text=self.detailModel.sellerName;
 //    [headView addSubview:headLab];

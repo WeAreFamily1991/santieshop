@@ -50,7 +50,7 @@
 
 - (void)startConfig
 {
-    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.0];
+    self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0.0];
     self.scrollEnabled = YES;
     self.alwaysBounceVertical = YES;
     

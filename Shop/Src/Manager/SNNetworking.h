@@ -41,7 +41,7 @@
  */
 + (void)postURL:(NSString *)url parameters:(NSDictionary *)paramers formDataArray:(NSArray *)formDataArray success:(void (^)(id response))success failure:(void (^)(NSError *error))failure;
 
-+ (void)uploadIMGURL:(NSString *)url imageArr:(NSArray *)imgS parameters:(NSMutableDictionary *)paramers formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure;
++ (void)uploadimgUrl:(NSString *)url imageArr:(NSArray *)imgS parameters:(NSMutableDictionary *)paramers formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure;
 @end
 
 

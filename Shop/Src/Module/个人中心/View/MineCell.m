@@ -32,6 +32,47 @@
 
     return cell;
 }
+-(void)setCountModel:(DROrderCountModel *)countModel
+{
+    _countModel =countModel;
+    
+    self.daifuIMG.redDotNumber =countModel.waitPayment;
+    self.daifuIMG.redDotTextFont =DR_FONT(9);
+    self.daifuIMG.redDotTextColor =REDCOLOR;
+    self.daifuIMG.redDotBorderWidth =0.5;
+    self.daifuIMG.redDotOffset =CGPointMake(-10,6);
+    [self.daifuIMG ShowBadgeView];
+    
+    self.daishenIMG.redDotNumber =countModel.waitConfirm;
+    self.daishenIMG.redDotTextColor =REDCOLOR;
+    self.daishenIMG.redDotTextFont =DR_FONT(9);
+    self.daishenIMG.redDotBorderWidth =0.5;
+    self.daishenIMG.redDotOffset =CGPointMake(-10,6);
+    [self.daishenIMG ShowBadgeView];
+    
+    self.daifaIMG.redDotNumber =countModel.waitDeliver;
+    self.daifaIMG.redDotTextColor =REDCOLOR;
+     self.daifaIMG.redDotTextFont =DR_FONT(9);
+    self.daifaIMG.redDotBorderWidth =0.5;
+    self.daifaIMG.redDotOffset =CGPointMake(-10,6);
+    [self.daifaIMG ShowBadgeView];
+    
+    
+    self.daishouIMG.redDotNumber =countModel.waitingReceived;
+     self.daishouIMG.redDotTextFont =DR_FONT(9);
+    self.daishouIMG.redDotTextColor =REDCOLOR;
+    self.daishouIMG.redDotBorderWidth =0.5;
+    self.daishouIMG.redDotOffset =CGPointMake(-10,6);
+    [self.daishouIMG ShowBadgeView];
+    
+    self.shouhouIMG.redDotNumber =countModel.afterSaleCount;
+     self.shouhouIMG.redDotTextFont =DR_FONT(9);
+    self.shouhouIMG.redDotTextColor =REDCOLOR;
+    self.shouhouIMG.redDotBorderWidth =0.5;
+    self.shouhouIMG.redDotOffset =CGPointMake(-10,6);
+    [self.shouhouIMG ShowBadgeView];
+   
+}
 -(void)BtnClick:(UIButton *)sender
 {
     
@@ -46,40 +87,7 @@
     switch (style) {
         case YeeBadgeNumberStytle:
         {
-            self.daifuIMG.redDotNumber =0;
-            self.daifuIMG.redDotTextFont =DR_FONT(9);
-            self.daifuIMG.redDotTextColor =REDCOLOR;
-            self.daifuIMG.redDotBorderWidth =0.5;
-            self.daifuIMG.redDotOffset =CGPointMake(-10,6);
-            [self.daifuIMG ShowBadgeView];
             
-            self.daifaIMG.redDotNumber =8;
-            self.daifaIMG.redDotTextColor =REDCOLOR;
-             self.daifaIMG.redDotTextFont =DR_FONT(9);
-            self.daifaIMG.redDotBorderWidth =0.5;
-            self.daifaIMG.redDotOffset =CGPointMake(-10,6);
-            [self.daifaIMG ShowBadgeView];
-            
-            self.daishenIMG.redDotNumber =9;
-            self.daishenIMG.redDotTextColor =REDCOLOR;
-             self.daishenIMG.redDotTextFont =DR_FONT(9);
-            self.daishenIMG.redDotBorderWidth =0.5;
-            self.daishenIMG.redDotOffset =CGPointMake(-10,6);
-            [self.daishenIMG ShowBadgeView];
-            
-            self.daishouIMG.redDotNumber =20;
-             self.daishouIMG.redDotTextFont =DR_FONT(9);
-            self.daishouIMG.redDotTextColor =REDCOLOR;
-            self.daishouIMG.redDotBorderWidth =0.5;
-            self.daishouIMG.redDotOffset =CGPointMake(-10,6);
-            [self.daishouIMG ShowBadgeView];
-            
-            self.shouhouIMG.redDotNumber =99;
-             self.shouhouIMG.redDotTextFont =DR_FONT(9);
-            self.shouhouIMG.redDotTextColor =REDCOLOR;
-            self.shouhouIMG.redDotBorderWidth =0.5;
-            self.shouhouIMG.redDotOffset =CGPointMake(-10,6);
-            [self.shouhouIMG ShowBadgeView];
         }
             break;
             

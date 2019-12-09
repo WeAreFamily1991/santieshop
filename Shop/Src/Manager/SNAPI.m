@@ -113,7 +113,7 @@
     //    if (areaCode) [dict setObject:areaCode forKey:@"area_code"];
     
     [SNIOTTool postvisiteTokenWithURL:GET_TOKEN parameters:dict success:^(SNResult *result) {
-        NSString *visiteStr =result.data;
+        NSString *visiteStr =result.data[@"jwt"];
 //        [User currentUser].visitetoken =visiteStr;
         
         [DEFAULTS setObject:visiteStr forKey:@"visitetoken"];
@@ -223,7 +223,6 @@
         return;
     }
 
-
     NSDictionary *dic =@{@"name":company,@"mobile":mobile, @"validCode":valid_code,@"location":location,@"locationCode":locationCode,@"source":@"1",@"businessLic":[DRBuyerModel sharedManager].businessLic?:@""};
     
     NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"buyerRegister"];
@@ -294,7 +293,7 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     
-    [SNIOTTool postWithURL:USER_INFO parameters:dict success:^(SNResult *result) {
+    [SNIOTTool getWithURL:USER_INFO parameters:dict success:^(SNResult *result) {
         
         if (success) {
 //            [[DRUserInfoModel sharedManager] setValuesForKeysWithDictionary:result.data];
@@ -921,7 +920,7 @@
     
 }
 // 请求发送短信验证
-+ (void)commonMessageValidWithMobile:(NSString *)mobile validCode:(NSString *)validCode success:(void (^)(NSString *))success failure:(void (^)(NSError *))failure {
++ (void)commonMessageValidWithMobile:(NSString *)mobile validCode:(NSString *)validCode success:(void (^)(SNResult *))success failure:(void (^)(NSError *))failure {
     
     if (!(mobile && validCode)) {
         if (failure) {
@@ -933,7 +932,10 @@
 //    [paramers setObject:[DEFAULTS objectForKey:@"token"] forKey:@"santieJwt"];
     [SNIOTTool postWithURL:COMMON_MESSAGE_VALID parameters:paramers success:^(SNResult *result) {
         if (success) {
-            success([NSString stringWithFormat:@"%@",result.data[@"state"]]);
+            if ([result.errorCode integerValue]==0) {
+                
+                success(result);
+            }
         }
     } failure:^(NSError *error) {
         if (failure) {
@@ -2667,7 +2669,14 @@
     [SNIOTTool postWithURL:url parameters:dict success:^(SNResult *result) {
         
         if (success) {
-            success(result);
+           if ([result.errorCode integerValue]==0) {
+                
+                success(result);
+            }
+            else
+            {
+                [MBProgressHUD showError:result.msg];
+            }
         }
         
     } failure:^(NSError *error) {
@@ -2693,7 +2702,15 @@
    
     [SNIOTTool getWithURL:url parameters:dic success:^(SNResult *result) {
         if (success) {
-            success(result);
+            if ([result.errorCode integerValue]==0) {
+                
+                success(result);
+            }
+            else
+            {
+                [MBProgressHUD showError:result.msg];
+            }
+           
         }
         
     } failure:^(NSError *error) {

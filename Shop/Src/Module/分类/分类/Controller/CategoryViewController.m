@@ -205,8 +205,8 @@
 //        sender.backgroundColor = [UIColor orangeColor];
         [sender setTitleColor:REDCOLOR forState:UIControlStateNormal];
         
-//        _fBtn.backgroundColor = [UIColor blackColor];
-        [_fBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        _fBtn.backgroundColor = BLACKCOLOR;
+        [_fBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     }
     
     _fBtn = sender;    

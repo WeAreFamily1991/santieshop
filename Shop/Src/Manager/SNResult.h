@@ -15,7 +15,7 @@
 @property (nonatomic, strong) id data;
 @property (nonatomic, strong) NSString *token;
 
-//@property (nonatomic, copy) NSString *resultCode;
+@property (nonatomic, copy) NSString *errorCode;
 //@property (nonatomic, copy) NSString *resultMessage;
 //@property (nonatomic, copy) NSData *resultData;
 

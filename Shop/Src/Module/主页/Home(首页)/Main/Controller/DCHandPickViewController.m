@@ -293,7 +293,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         //    if (areaCode) [dict setObject:areaCode forKey:@"area_code"];
         
         [SNIOTTool postvisiteTokenWithURL:GET_TOKEN parameters:dict success:^(SNResult *result) {
-            NSString *visiteStr =result.data;
+            NSString *visiteStr =result.data[@"jwt"];
 //            [User currentUser].visitetoken =visiteStr;
             [DEFAULTS setObject:visiteStr forKey:@"visitetoken"];
             [self setUpGoodsData];
@@ -310,7 +310,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
     [self GetNews];
     [self shoujixinwen];
     [self getburstmainPageList];
-    [self getHomeBigCategoryList];
+//    [self getHomeBigCategoryList];
     [self systemSetting];
     [self setHotSearch];
 }
@@ -318,7 +318,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 {
     [SNAPI getWithURL:@"mainPage/systemSetting" parameters:nil success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",(long)result.state] isEqualToString:@"200"]) {
-          self.zyStoreIdStr =result.data[@"zyStoreId"];
+//          self.zyStoreIdStr =result.data[@"zyStoreId"];
          
         }
     } failure:^(NSError *error) {
@@ -564,7 +564,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         cell.centerShopBtnBlock = ^{
             CRDetailController *detailVC = [CRDetailController new];
             self.nullGoodModel =self.nullArr[indexPath.row];
-            detailVC.sellerid=self.nullGoodModel.sellerid;
+            detailVC.sellerId=self.nullGoodModel.sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         };
         cell.sureBuyBtnBlock = ^{
@@ -605,7 +605,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         cell.centerShopBtnBlock = ^{
             CRDetailController *detailVC = [CRDetailController new];
            
-            detailVC.sellerid=self.youLikeItem[indexPath.row].sellerid;
+            detailVC.sellerId=self.youLikeItem[indexPath.row].sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         };
         cell.sureBuyBtnBlock = ^{
@@ -878,7 +878,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         //NSLog(@"点击了推荐的第%zd个商品",indexPath.row);
 //        CRDetailController *detailVC = [CRDetailController new];
 //        self.nullGoodModel =self.nullArr[indexPath.row];
-//        detailVC.sellerid=self.nullGoodModel.sellerid;
+//        detailVC.sellerId=self.nullGoodModel.sellerId;
 //        [self.navigationController pushViewController:detailVC animated:YES];
         DRShopListVC * shopListVC =[[DRShopListVC alloc]init];
         shopListVC.nullGoodModel =self.nullArr[indexPath.row];
@@ -898,7 +898,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         shopListVC.nullGoodModel =(DRNullGoodModel*)self.youLikeItem[indexPath.row];
         [self.navigationController pushViewController:shopListVC animated:YES];
 //        CRDetailController *detailVC = [CRDetailController new];
-//        detailVC.sellerid=self.youLikeItem[indexPath.row].sellerid;
+//        detailVC.sellerId=self.youLikeItem[indexPath.row].sellerId;
 //        [self.navigationController pushViewController:detailVC animated:YES];
     }
     
@@ -915,7 +915,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         case 1:
         {
             CRDetailController *detailVC = [CRDetailController new];
-            detailVC.sellerid =self.zyStoreIdStr;
+            detailVC.sellerId =self.zyStoreIdStr;
             [self.navigationController pushViewController:detailVC animated:YES];
         }
             break;

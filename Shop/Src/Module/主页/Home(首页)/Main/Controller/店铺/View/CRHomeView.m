@@ -123,7 +123,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 }
 -(void)getSellerBanners
 {
-    NSDictionary *dic =@{@"sellerId":self.sellerid};
+    NSDictionary *dic =@{@"sellerId":self.sellerId};
     [SNAPI getWithURL:@"/mainPage/getSellerBanners" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             
@@ -140,7 +140,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 }
 -(void)sellerInfoList
 {
-    NSDictionary *dic =@{@"districtId":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerid};
+    NSDictionary *dic =@{@"districtId":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerId};
     [SNAPI getWithURL:@"burst/sellerInfoList" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             
@@ -155,7 +155,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 }
 -(void)newRecommend
 {
-    NSDictionary *dic =@{@"type":@"1",@"sellerId":self.sellerid,@"pageIndex":@"1",@"pageSize":@"10000"};
+    NSDictionary *dic =@{@"type":@"1",@"sellerId":self.sellerId,@"pageIndex":@"1",@"pageSize":@"10000"};
     [SNAPI getWithURL:@"seller/newRecommend" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
            
@@ -187,7 +187,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 }
 -(void)sellertop2saleItem
 {
-    NSDictionary *dic =@{@"district":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerid};
+    NSDictionary *dic =@{@"district":[DEFAULTS objectForKey:@"code"],@"sellerId":self.sellerId};
     [SNAPI getWithURL:@"seller/top2saleItem" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             

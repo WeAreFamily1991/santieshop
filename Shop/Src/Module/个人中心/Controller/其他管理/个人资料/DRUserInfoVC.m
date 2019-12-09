@@ -94,7 +94,7 @@
     self.tableView.tableHeaderView =headView;
     UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, HScale(55))];
     headLab.font =DR_FONT(14);
-    headLab.textColor =[UIColor blackColor];
+    headLab.textColor =BLACKCOLOR;
     headLab.textAlignment = 0;
     
     headLab.text=[NSString stringWithFormat:@"发票类型:%@",[DRUserInfoModel sharedManager].status?@"增值税专用发票":@"增值税普通发票"];
@@ -106,7 +106,7 @@
     [self.selectBtn setImage:[UIImage imageNamed:@"check_n"] forState:UIControlStateNormal];
     [self.selectBtn setImage:[UIImage imageNamed:@"check_p"] forState:UIControlStateSelected];
     [self.selectBtn setTitle:@"增值税专用发票" forState:UIControlStateNormal];
-    [self.selectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.selectBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [self.selectBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
     self.selectBtn.titleLabel.font =DR_FONT(13);
     self.selectBtn.selected =[DRUserInfoModel sharedManager].status;
@@ -118,8 +118,7 @@
     [self.normalBtn setImage:[UIImage imageNamed:@"check_n"] forState:UIControlStateNormal];
     [self.normalBtn setImage:[UIImage imageNamed:@"check_p"] forState:UIControlStateSelected];
     [self.normalBtn setTitle:@"增值税普通发票" forState:UIControlStateNormal];
-    
-    [self.normalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.normalBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [self.normalBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
     self.normalBtn.titleLabel.font = DR_FONT(13);
     self.normalBtn.selected =![DRUserInfoModel sharedManager].status;
@@ -133,22 +132,17 @@
 #pragma mark 添加表尾
 -(void)addTableViewfooterView
 {
-    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, HScale(60))];
-    headView.backgroundColor =[UIColor clearColor];
-    self.tableView.tableFooterView =headView;
-    
     self.saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.saveBtn.frame = CGRectMake(20, 10,SCREEN_WIDTH-40, HScale(40));
+    self.saveBtn.frame = CGRectMake(0, ScreenH-DRTopHeight-WScale(50)-kIPhoneXBottomHeight,SCREEN_WIDTH, WScale(50));
     [self.saveBtn setTitle:@"确认修改" forState:UIControlStateNormal];
     [self.saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.saveBtn.layer.cornerRadius =HScale(20);
-    self.saveBtn.layer.masksToBounds =HScale(20);
-    self.saveBtn.titleLabel.font = DR_FONT(15);
+    self.saveBtn.titleLabel.font = DR_FONT(18);
     self.saveBtn.backgroundColor =REDCOLOR;
     [self.saveBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [headView addSubview:self.saveBtn];
+    [self.view addSubview:self.saveBtn];
     
 }
+
 #pragma mark 按钮点击事件
 -(void)saveBtnClick:(UIButton *)sender
 {
@@ -166,19 +160,19 @@
         
     }];
 }
+
 -(void)rightBarButtonItem
 {
     UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"溫馨提示" message:@"請您填寫前準備一下個人證件\n●身份證：男性需要在21-60周歲內，女性需在21-55周歲內。\n●駕駛證：實際駕齡至少3年\n●行駛證：車齡不超過8年\n●其他：網約車從業資格證\n\n請您確認APP開放訪問相機和相冊的權限" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"我知道了", nil];
     [al show];
 }
 
-
 ///表
 -(UITableView *)tableView
 {
     if (_tableView == nil)
     {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-64) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT-DRTopHeight-kIPhoneXBottomHeight-WScale(50)) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -212,27 +206,31 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
-    return 7;
+    return 10;
 }
 #pragma mark 表的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
     if (indexPath.row==0) {
-       return HScale(80);
+       return WScale(70);
+    }
+    else if (indexPath.row==4||indexPath.row==8)
+    {
+        return WScale(10);
     }
     
-    return HScale(50);
+    return WScale(50);
 }
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return WScale(10);
 }
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return HScale(135);
+    return WScale(238);
 }
 #pragma mark 表的内容
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -244,22 +242,23 @@
         InfoTableViewCell6 *cell = [InfoTableViewCell6 cellWithTableView:tableView];
         NSString *tagStr = [NSString stringWithFormat:@"%ld%@",indexPath.row-3,@"1"];
         cell.photoBtn.tag = [tagStr intValue];
-        cell.titleLabel.text =@"选择图片";
-        [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
-        id imgStr1 = [DRBuyerModel sharedManager].logo?:@"default_head";
+        cell.titleLabel.text =@"用户头像";
         
-        if (![imgStr1 isEqualToString:@"default_head"]) {
+        [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
+        id imgStr1 = [DRBuyerModel sharedManager].logo?:@"personal_img_head portrait";
+        
+        if (![imgStr1 isEqualToString:@"personal_img_head portrait"]) {
            
         }
-         [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[DRBuyerModel sharedManager].logo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_head"]];
+         [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[DRBuyerModel sharedManager].logo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else
     {
-        titleArray = @[@"账号手机：",@"公司名称：",@"公司地址：",@"联系人：",@"固定电话：",@"手机号码："];
-        placeholdArray= @[@"请输入手机号",@"请输入公司名称",@"请输入公司地址",@"请输入联系人",@"请输入固定电话",@"请输入手机号码"];
+        titleArray = @[@"账号手机",@"公司名称",@"公司所在地",@"",@"联系人",@"固定电话",@"手机号码",@"",@"发票类型"];
+        placeholdArray= @[@"请输入手机号",@"请输入公司名称",@"请输入公司所在地",@"",@"请输入联系人",@"请输入固定电话",@"请输入手机号码",@"",@""];
         
-        NSArray *contentArray = @[[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRBuyerModel sharedManager].name?:@"",[DRBuyerModel sharedManager].companyAddress?:@"",[DRBuyerModel sharedManager].cName?:@"",[DRBuyerModel sharedManager].cTel?:@"",[DRBuyerModel sharedManager].cPhone?:@""];
+        NSArray *contentArray = @[[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRBuyerModel sharedManager].name?:@"",[DRBuyerModel sharedManager].companyAddress?:@"",@"",[DRBuyerModel sharedManager].cName?:@"",[DRBuyerModel sharedManager].cTel?:@"",[DRBuyerModel sharedManager].cPhone?:@"",@"",[[DRBuyerModel sharedManager].ticketType boolValue]?@"增值税专用发票":@"增值税普通发票"];
         InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
         if (indexPath.row==1) {
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
@@ -269,7 +268,7 @@
             cell.contentTF.keyboardType =UIKeyboardTypeNumberPad;
         }
         cell.titleLabel.text = titleArray[indexPath.row-1];
-        cell.titleLabel.font = DR_FONT(15);
+        cell.titleLabel.font = DR_FONT(14);
         cell.contentTF.placeholder = placeholdArray[indexPath.row-1];
         cell.contentTF.tag = indexPath.row+1;
         cell.contentTF.delegate =self;
@@ -277,6 +276,9 @@
         
         [cell.contentTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (indexPath.row==4||indexPath.row==8) {
+            cell.backgroundColor =BACKGROUNDCOLOR;
+        }
         return cell;
        
     }
@@ -285,57 +287,23 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, HScale(135))];
+    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, WScale(238))];
     headView.backgroundColor =[UIColor whiteColor];
-   
-    UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(15, 0, 70, HScale(55))];
-    headLab.font =DR_FONT(14);
-    headLab.textColor =[UIColor blackColor];
-    headLab.textAlignment = 0;
-    headLab.text=@"发票类型:";
-    [headView addSubview:headLab];
-    
-    UILabel *titleLab =[[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-135, 0, 120, HScale(55))];
-    titleLab.font =DR_FONT(14);
-    titleLab.textColor =[UIColor blackColor];
-    titleLab.textAlignment = 2;
-    titleLab.text=[[DRBuyerModel sharedManager].ticketType boolValue]?@"增值税专用发票":@"增值税普通发票";
-    [headView addSubview:titleLab];
-    self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.selectBtn.frame = CGRectMake(headLab.width+20,0,(SCREEN_WIDTH-headLab.width-20)/2, HScale(55));
-    [self.selectBtn setImage:[UIImage imageNamed:@"Unchecked"] forState:UIControlStateNormal];
-    [self.selectBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
-    [self.selectBtn setTitle:@"增值税专用发票" forState:UIControlStateNormal];
-    [self.selectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.selectBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
-    self.selectBtn.titleLabel.font =DR_FONT(12);
-    self.selectBtn.selected =YES;
-    [self.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [headView addSubview:self.selectBtn];
-    
-    self.normalBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.normalBtn.frame = CGRectMake(self.selectBtn.dc_right, 0,self.selectBtn.dc_width, HScale(55));
-    [self.normalBtn setImage:[UIImage imageNamed:@"Unchecked"] forState:UIControlStateNormal];
-    [self.normalBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
-    [self.normalBtn setTitle:@"增值税普通发票" forState:UIControlStateNormal];
-    
-    [self.normalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.normalBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
-    self.normalBtn.titleLabel.font = DR_FONT(12);
-    self.normalBtn.selected =NO;
-    [self.normalBtn addTarget:self action:@selector(normalBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    [headView addSubview:self.normalBtn];
-    UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, HScale(55)-1, SCREEN_WIDTH, 1)];
-    lineView.backgroundColor =BACKGROUNDCOLOR;
-    [headView addSubview:lineView];
-    UILabel *footerLab =[[UILabel alloc]initWithFrame:CGRectMake(15, HScale(55), 70, HScale(80))];
+ 
+    UILabel *footerLab =[[UILabel alloc]initWithFrame:CGRectMake(WScale(20), WScale(15), ScreenW-WScale(40), WScale(20))];
     footerLab.font =DR_FONT(14);
-    footerLab.textColor =[UIColor blackColor];
+    footerLab.textColor =BLACKCOLOR;
     footerLab.textAlignment = 0;
-    footerLab.text=@"营业执照:";
+    footerLab.text=@"上传营业执照";
     [headView addSubview:footerLab];
     UIButton *yingyeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    yingyeBtn.frame = CGRectMake(ScreenW-HScale(80)*1.5-DCMargin,HScale(55),HScale(80)*1.5, HScale(80));
+    yingyeBtn.frame = CGRectMake(WScale(10),footerLab.dc_bottom+ WScale(15),SCREEN_WIDTH-WScale(20), WScale(151));
+    yingyeBtn.backgroundColor =BACKGROUNDCOLOR;
+    yingyeBtn.layer.cornerRadius =4;
+    yingyeBtn.layer.masksToBounds =4;
+    yingyeBtn.titleLabel.font =DR_FONT(12);
+    [yingyeBtn setTitle:@"营业执照(企业名称需保持一致)" forState:UIControlStateNormal];
+    [yingyeBtn setTitleColor:RGBHex(0XC0C0C0) forState:UIControlStateNormal];
     NSLog(@"%@",[DRBuyerModel sharedManager].businessLic);
     NSString *urlStr;
     if ([DRBuyerModel sharedManager].businessLic.length==0) {
@@ -345,10 +313,13 @@
     {
         urlStr=[DRBuyerModel sharedManager].businessLic;
     }
-    [yingyeBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:urlStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"yingyezhizhao"]];
-   
+    [yingyeBtn sd_setImageWithURL:[NSURL URLWithString:urlStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"login_ico_tianjia"]];
+   [yingyeBtn layoutButtonWithEdgeInsetsStyle:LXButtonEdgeInsetsStyleTop imageTitleSpace:WScale(15)];
     [yingyeBtn addTarget:self action:@selector(yingyeBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:yingyeBtn];
+    
+    UILabel *bootomtitlelab =[UILabel labelWithText:@"支持JPG、JPEG、PNG、格式，图片最大不超过5MB" font:DR_FONT(12) textColor:RGBHex(0XC0C0C0) backGroundColor:WHITECOLOR textAlignment:1 superView:headView];
+    bootomtitlelab.frame =CGRectMake(0,yingyeBtn.dc_bottom+WScale(10), SCREEN_WIDTH, WScale(12));
     return headView;
 }
 -(void)yingyeBtnClick:(UIButton *)sender

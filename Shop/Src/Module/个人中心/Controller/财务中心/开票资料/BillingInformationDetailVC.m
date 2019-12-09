@@ -68,7 +68,7 @@
     self.tableView.tableHeaderView =headView;
     UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, HScale(55))];
     headLab.font =DR_FONT(14);
-    headLab.textColor =[UIColor blackColor];
+    headLab.textColor =BLACKCOLOR;
     headLab.textAlignment = 0;
     headLab.text=@"发票类型:";
     [headView addSubview:headLab];
@@ -79,7 +79,7 @@
     [self.selectBtn setImage:[UIImage imageNamed:@"Unchecked"] forState:UIControlStateNormal];
     [self.selectBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
     [self.selectBtn setTitle:@"增值税专用发票" forState:UIControlStateNormal];
-    [self.selectBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.selectBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [self.selectBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
     self.selectBtn.titleLabel.font =DR_FONT(13);
    
@@ -92,7 +92,7 @@
     [self.normalBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
     [self.normalBtn setTitle:@"增值税普通发票" forState:UIControlStateNormal];
     
-    [self.normalBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.normalBtn setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [self.normalBtn setTitleColor:REDCOLOR forState:UIControlStateSelected];
     self.normalBtn.titleLabel.font = DR_FONT(13);
     

@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIView *imgCodeView;
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UIView *codeView;
-@property (weak, nonatomic) IBOutlet UIButton *registeBtn;
+@property (strong, nonatomic) UIButton *registeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *imgCodeBtn;
 
 @property (nonatomic, strong) NNValidationView *testView;
@@ -42,8 +42,8 @@
 {
     
     
-    self.registeBtn.layer.cornerRadius =25;
-    self.registeBtn.layer.masksToBounds =25;
+    self.registeBtn =[UIButton buttonWithTitle:@"确认提交" font:DR_FONT(18) titleColor:WHITECOLOR backGroundColor:REDCOLOR buttonTag:1 target:self action:@selector(registBtnClick:) showView:self.view];
+       self.registeBtn.frame =CGRectMake(0, ScreenH-DRTopHeight-WScale(50)-kIPhoneXBottomHeight, ScreenW, WScale(50));
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.imgCodeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.codeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
@@ -70,10 +70,8 @@
         return;
     }
     //    DRWeakSelf;
-    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(NSString *response) {
-        if ([response isEqualToString:@"200"]) {
-            [MBProgressHUD showError:@"验证码已发送"];
-        }
+    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(SNResult *result) {
+        [MBProgressHUD showSuccess:@"验证码已发送"];
     } failure:^(NSError *error) {
         
     }] ;
@@ -133,7 +131,7 @@
 }
 
 
-- (IBAction)registBtnClick:(id)sender {
+- (void)registBtnClick:(UIButton *)sender {
     if (self.phoneTF.text.length==0||self.phoneTF.text.length!=11) {
         [MBProgressHUD showError:@"请输入正确的手机号码"];
         return;

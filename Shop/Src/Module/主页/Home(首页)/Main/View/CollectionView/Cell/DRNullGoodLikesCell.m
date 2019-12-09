@@ -59,9 +59,9 @@
            
         }];
     }
-    [_btnImage setTitle:nullGoodModel.brandname forState:UIControlStateNormal];
+    [_btnImage setTitle:nullGoodModel.brandName forState:UIControlStateNormal];
     [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:nullGoodModel.img] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-//    NSArray * array = @[nullGoodModel.spec?:@"",nullGoodModel.levelname?:@"",nullGoodModel.surfacename?:@"",nullGoodModel.materialname?:@""];
+//    NSArray * array = @[nullGoodModel.spec?:@"",nullGoodModel.levelName?:@"",nullGoodModel.surfaceName?:@"",nullGoodModel.materialName?:@""];
 //    NSMutableArray *titArr =[NSMutableArray array];
 //    for (NSString *str in array) {
 //        if (str.length!=0) {
@@ -70,12 +70,12 @@
 //    }
 //    Height = WScale(30);
 //    [self setStandWithArray:titArr];
-     _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",nullGoodModel.spec?:@"",nullGoodModel.levelname?:@"",nullGoodModel.surfacename?:@"",nullGoodModel.materialname?:@""];
+     _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",nullGoodModel.spec?:@"",nullGoodModel.levelName?:@"",nullGoodModel.surfaceName?:@"",nullGoodModel.materialName?:@""];
      [SNTool setTextColor:_standedLabel FontNumber:DR_BoldFONT(12) AndRange:NSMakeRange(0,nullGoodModel.spec.length) AndColor:REDCOLOR];
     _goodsLabel.text =nullGoodModel.itemname;
-    _priceLabel.text =[NSString stringWithFormat:@"%@/%@",nullGoodModel.userprice?:@"",nullGoodModel.basicunitname];
-    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%@",nullGoodModel.userprice?:@""].length) AndColor:REDCOLOR];
-    _orderPriceLabel.text =[NSString stringWithFormat:@"%@/%@",nullGoodModel.bidprice?:@"",nullGoodModel.basicunitname];
+    _priceLabel.text =[NSString stringWithFormat:@"%@/%@",nullGoodModel.userPrice?:@"",nullGoodModel.basicUnitName];
+    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%@",nullGoodModel.userPrice?:@""].length) AndColor:REDCOLOR];
+    _orderPriceLabel.text =[NSString stringWithFormat:@"%@/%@",nullGoodModel.bidprice?:@"",nullGoodModel.basicUnitName];
     [_addressBtn setTitle:[NSString stringWithFormat:@"发货地：%@",nullGoodModel.factoryArea] forState:UIControlStateNormal];
     present=nullGoodModel.qtyPercent;
     [self.custompro setPresent:present];
@@ -96,9 +96,9 @@
             make.width.mas_equalTo( HScale(15));
         }];
     }
-    [_btnImage setTitle:youLikeItem.brandname forState:UIControlStateNormal];
+    [_btnImage setTitle:youLikeItem.brandName forState:UIControlStateNormal];
     [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:youLikeItem.img] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-//    NSArray * array = @[youLikeItem.spec?:@"",youLikeItem.levelname?:@"",youLikeItem.surfacename?:@"",youLikeItem.materialname?:@""];
+//    NSArray * array = @[youLikeItem.spec?:@"",youLikeItem.levelName?:@"",youLikeItem.surfaceName?:@"",youLikeItem.materialName?:@""];
 //    NSMutableArray *titArr =[NSMutableArray array];
 //    for (NSString *str in array) {
 //        if (str.length!=0) {
@@ -107,12 +107,12 @@
 //    }
 //    Height = WScale(30);
 //    [self setStandWithArray:titArr];
-       _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",youLikeItem.spec?:@"",youLikeItem.levelname?:@"",youLikeItem.surfacename?:@"",youLikeItem.materialname?:@""];
+       _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",youLikeItem.spec?:@"",youLikeItem.levelName?:@"",youLikeItem.surfaceName?:@"",youLikeItem.materialName?:@""];
      [SNTool setTextColor:_standedLabel FontNumber:DR_BoldFONT(12) AndRange:NSMakeRange(0,youLikeItem.spec.length) AndColor:REDCOLOR];
     _goodsLabel.text =youLikeItem.itemname;
-    _priceLabel.text =[NSString stringWithFormat:@"%@/%@",youLikeItem.userprice?:@"",youLikeItem.basicunitname];
-    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%@",youLikeItem.userprice?:@""].length) AndColor:REDCOLOR];
-    _orderPriceLabel.text =[NSString stringWithFormat:@"%@/%@",youLikeItem.bidprice?:@"",youLikeItem.basicunitname];
+    _priceLabel.text =[NSString stringWithFormat:@"%@/%@",youLikeItem.userPrice?:@"",youLikeItem.basicUnitName];
+    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%@",youLikeItem.userPrice?:@""].length) AndColor:REDCOLOR];
+    _orderPriceLabel.text =[NSString stringWithFormat:@"%@/%@",youLikeItem.bidprice?:@"",youLikeItem.basicUnitName];
     [_addressBtn setTitle:[NSString stringWithFormat:@"发货地：%@",youLikeItem.factoryArea] forState:UIControlStateNormal];
     
     [self.custompro setPresent:present];
@@ -185,7 +185,7 @@
     [ self.backView addSubview:_orderPriceLabel];
     
 //    _isHaveLabel = [[UILabel alloc] init];
-//    _isHaveLabel.textColor = [UIColor blackColor];
+//    _isHaveLabel.textColor = BLACKCOLOR;
 //    _isHaveLabel.font = DR_FONT(13);
 //    _isHaveLabel.text =@"剩余：";
 //    [ self.backView addSubview:_isHaveLabel];
@@ -216,7 +216,7 @@
 //    
 //    //设置背景色
 //    self.custompro.bgimg.backgroundColor =[UIColor colorWithRed:188/255.0 green:188/255.0 blue:188/255.0 alpha:1];
-//    self.custompro.leftimg.backgroundColor =[UIColor redColor];
+//    self.custompro.leftimg.backgroundColor =REDCOLOR;
 //    //也可以设置图片
 //    //    custompro.leftimg.image = [UIImage imageNamed:@"leftimg"];
 //    //    custompro.bgimg.image = [UIImage imageNamed:@"bgimg"];
@@ -298,9 +298,9 @@
     _isHaveLabel.hidden =YES;
     _custompro.hidden =YES;
   
-    [_btnImage setTitle:nullShopModel.brandname forState:UIControlStateNormal];
+    [_btnImage setTitle:nullShopModel.brandName forState:UIControlStateNormal];
     [_goodsImageView sd_setImageWithURL:[NSURL URLWithString:nullShopModel.img?:@""] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-//    NSArray * array = @[nullShopModel.spec?:@"",nullShopModel.levelname?:@"",nullShopModel.surfacename?:@"",nullShopModel.materialname?:@""];
+//    NSArray * array = @[nullShopModel.spec?:@"",nullShopModel.levelName?:@"",nullShopModel.surfaceName?:@"",nullShopModel.materialName?:@""];
 //    NSMutableArray *titArr =[NSMutableArray array];
 //    for (NSString *str in array) {
 //        if (str.length!=0) {
@@ -309,12 +309,12 @@
 //    }
 //    Height = WScale(30);
 //    [self setStandWithArray:titArr];
-    _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",nullShopModel.spec?:@"",nullShopModel.levelname?:@"",nullShopModel.surfacename?:@"",nullShopModel.materialname?:@""];
+    _standedLabel.text =[NSString stringWithFormat:@"%@  %@  %@  %@",nullShopModel.spec?:@"",nullShopModel.levelName?:@"",nullShopModel.surfaceName?:@"",nullShopModel.materialName?:@""];
     [SNTool setTextColor:_standedLabel FontNumber:DR_BoldFONT(12) AndRange:NSMakeRange(0,nullShopModel.spec.length) AndColor:REDCOLOR];
     _goodsLabel.text =nullShopModel.itemname;
-    _priceLabel.text =[NSString stringWithFormat:@"%.2f/%@",nullShopModel.userprice,nullShopModel.basicunitname];
-    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%.2f",nullShopModel.userprice].length) AndColor:REDCOLOR];
-    _orderPriceLabel.text =[NSString stringWithFormat:@"%.2f/%@",nullShopModel.bidprice,nullShopModel.basicunitname];
+    _priceLabel.text =[NSString stringWithFormat:@"%.2f/%@",nullShopModel.userPrice,nullShopModel.basicUnitName];
+    [SNTool setTextColor:_priceLabel FontNumber:DR_BoldFONT(14) AndRange:NSMakeRange(0, [NSString stringWithFormat:@"%.2f",nullShopModel.userPrice].length) AndColor:REDCOLOR];
+    _orderPriceLabel.text =[NSString stringWithFormat:@"%.2f/%@",nullShopModel.bidprice,nullShopModel.basicUnitName];
    
 }
 -(void)setStandWithArray:(NSArray *)array

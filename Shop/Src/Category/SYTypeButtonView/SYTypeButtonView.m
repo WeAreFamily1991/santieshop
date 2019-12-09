@@ -36,7 +36,7 @@ static NSInteger const tagButton = 1000;
         
         _titleFont = [UIFont systemFontOfSize:13.0];
         _titleFontSelected = [UIFont systemFontOfSize:13.0];
-        _titleColorNormal = [UIColor blackColor];
+        _titleColorNormal = BLACKCOLOR;
         _titleColorSelected = [UIColor orangeColor];
         _scrollLineColor = REDCOLOR;
         _adjustScrollLineWidth = NO;
@@ -54,7 +54,7 @@ static NSInteger const tagButton = 1000;
 - (void)setUIWithTitles:(NSArray *)array
 {
     NSInteger count = array.count;
-    CGFloat width = (CGRectGetWidth(self.bounds)-10 )/ count;
+    CGFloat width = (CGRectGetWidth(self.bounds))/ count;
     
     for (int i = 0; i < count; i++) {
         NSString *title = array[i];
@@ -65,6 +65,7 @@ static NSInteger const tagButton = 1000;
         [button setTitleColor:_titleColorNormal forState:UIControlStateNormal];
         [button setTitleColor:_titleColorSelected forState:UIControlStateSelected];
         [button setTitle:title forState:UIControlStateNormal];
+        button.titleLabel.font =DR_FONT(14);
         button.frame = rect;
         
         button.userInteractionEnabled = YES;

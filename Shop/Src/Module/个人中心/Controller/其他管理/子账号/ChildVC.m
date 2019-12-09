@@ -40,10 +40,15 @@
     self.tableView.backgroundColor =BACKGROUNDCOLOR;
     self.tableView.separatorInset = UIEdgeInsetsMake(0, -10, 0, 0);
 //    [self addTableViewfooterView];
-    [self getChildList];
+   
     [self.view addSubview:self.bgTipButton];
 //     [_tableView registerClass:[ChildCell class] forCellReuseIdentifier:@"ChildCell"];
     // Do any additional setup after loading the view from its nib.
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:YES];
+     [self getChildList];
 }
 -(void)getChildList
 {
@@ -79,8 +84,8 @@
     
     
     [self.addBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.addBtn.layer.cornerRadius =HScale(20);
-    self.addBtn.layer.masksToBounds =HScale(20);
+//    self.addBtn.layer.cornerRadius =HScale(20);
+//    self.addBtn.layer.masksToBounds =HScale(20);
     self.addBtn.titleLabel.font = DR_FONT(15);
     self.addBtn.backgroundColor =REDCOLOR;
     [self.addBtn addTarget:self action:@selector(addBtnClick) forControlEvents:UIControlEventTouchUpInside];
@@ -111,7 +116,7 @@
 #pragma mark 表的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return HScale(110);
+    return WScale(118);
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -121,7 +126,7 @@
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return WScale(10);
 }
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -183,34 +188,7 @@
         }];
     };
     cell.isCancelBlock = ^{
-        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
-                                                                                 message:@"此操作将永久删除该账户, 是否继续?"
-                                                                          preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定"
-                                                          style:UIAlertActionStyleDefault
-                                                        handler:^(UIAlertAction * _Nonnull action)
-                                  {
-                                        self.childModel =self.dataArray[indexPath.row];
-                                      NSDictionary *dic =@{@"id":self.childModel.child_id};
-                                     
-                                      [SNIOTTool deleteWithURL:@"buyer/deleteChildAccount" parameters:[dic mutableCopy] success:^(SNResult *result) {
-                                          [self getChildList];
-                                      } failure:^(NSError *error) {
-                                          
-                                      }];
-                                  }];
-        [alertController addAction:action1];
-        
-        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消"
-                                                          style:UIAlertActionStyleCancel
-                                                        handler:nil];
-        //            [action2 setValue:HQColorRGB(0xFF8010) forKey:@"titleTextColor"];
-        [alertController addAction:action2];
-        
-        dispatch_async(dispatch_get_main_queue(),^{
-            [self presentViewController:alertController animated:YES completion:nil];
-        });
+       
        
     };
     return cell;

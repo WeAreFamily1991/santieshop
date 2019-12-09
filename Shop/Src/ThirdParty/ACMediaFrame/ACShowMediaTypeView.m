@@ -69,7 +69,7 @@ static CGFloat space = 30;
 - (instancetype)init {
     self = [super initWithFrame:ACMedia_ScreenBounds];
     if (self) {
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.4];
+        self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0.4];
         self.itemArray = @[@"ACMediaFrame.bundle/Album", @"ACMediaFrame.bundle/Camera", @"ACMediaFrame.bundle/Videotape", @"ACMediaFrame.bundle/Video"];
     }
     return self;

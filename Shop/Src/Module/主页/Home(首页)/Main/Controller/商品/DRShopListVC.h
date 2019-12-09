@@ -13,7 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface DRShopListVC : STBaseViewController
 @property (nonatomic,strong)DRNullGoodModel *nullGoodModel;
 @property (strong, nonatomic) NSMutableDictionary *sendDataDictionary;
-@property (strong,nonatomic)  NSString *classListStr,*czID,*shopStr,*keyWordStr,*selleridStr;
+@property (strong,nonatomic)  NSString *classListStr,*czID,*shopStr,*keyWordStr,*sellerIdStr;
 @end
 
 NS_ASSUME_NONNULL_END

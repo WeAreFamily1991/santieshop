@@ -22,7 +22,7 @@
  */
 - (instancetype)initWithFrame:(CGRect)frame
               contentDelegate:(id<CRContentViewDelegate>)contentDelegate
-                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerid;
+                  detailModel:(CRDetailModel *)detailModel ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel*)nullGoodModel withSellID:(NSString *)sellerId;
 
 @end
 

@@ -1,24 +1,27 @@
 //
-//  FSPageContentView2.m
-//  Caipiao
+//  FSPageContentView.m
+//  Huim
 //
-//  Created by 解辉 on 2017/12/27.
-//  Copyright © 2017年 mac01. All rights reserved.
+//  Created by huim on 2017/4/28.
+//  Copyright © 2017年 huim. All rights reserved.
 //
 
-#import "FSPageContentView2.h"
+#import "FSPageContentView.h"
 
+#define IOS_VERSION ([[[UIDevice currentDevice] systemVersion] floatValue])
 static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 
-@interface FSPageContentView2 ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface FSPageContentView ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
 @property (nonatomic, weak) UIViewController *parentVC;//父视图
 @property (nonatomic, strong) NSArray *childsVCs;//子视图数组
+@property (nonatomic, weak) UICollectionView *collectionView;
 @property (nonatomic, assign) CGFloat startOffsetX;
 @property (nonatomic, assign) BOOL isSelectBtn;//是否是滑动
 
 @end
-@implementation FSPageContentView2
+
+@implementation FSPageContentView
 
 - (instancetype)initWithFrame:(CGRect)frame childVCs:(NSArray *)childVCs parentVC:(UIViewController *)parentVC delegate:(id<FSPageContentViewDelegate>)delegate
 {
@@ -27,7 +30,7 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
         self.parentVC = parentVC;
         self.childsVCs = childVCs;
         self.delegate = delegate;
-        self.backgroundColor = [UIColor clearColor];
+        
         [self setupSubViews];
     }
     return self;
@@ -42,25 +45,22 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 
 - (UICollectionView *)collectionView
 {
-    if (!_collectionView)
-    {
+    if (!_collectionView) {
         UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
         flowLayout.itemSize = self.bounds.size;
         flowLayout.minimumLineSpacing = 0;
         flowLayout.minimumInteritemSpacing = 0;
         flowLayout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         
-        self.collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:flowLayout];
-        self.collectionView.showsHorizontalScrollIndicator = YES;
-        
-        self.collectionView.backgroundColor = [UIColor clearColor];
-        self.collectionView.pagingEnabled = YES;
-        self.collectionView.bounces = NO;
-        self.collectionView.delegate = self;
-        self.collectionView.dataSource = self;
-        [self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
-        [self addSubview:self.collectionView];
-        self.collectionView = self.collectionView;
+        UICollectionView * collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:flowLayout];
+        collectionView.showsHorizontalScrollIndicator = NO;
+        collectionView.pagingEnabled = YES;
+        collectionView.bounces = NO;
+        collectionView.delegate = self;
+        collectionView.dataSource = self;
+        [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:collectionCellIdentifier];
+        [self addSubview:collectionView];
+        self.collectionView = collectionView;
     }
     return _collectionView;
 }
@@ -70,11 +70,13 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 {
     _startOffsetX = 0;
     _isSelectBtn = NO;
+    _contentViewCanScroll = YES;
     
     for (UIViewController *childVC in self.childsVCs) {
         [self.parentVC addChildViewController:childVC];
     }
-    [self addSubview:self.collectionView];
+//    [self addSubview:self.collectionView];
+    [self.collectionView reloadData];
 }
 
 #pragma mark UICollectionView
@@ -87,13 +89,23 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:collectionCellIdentifier forIndexPath:indexPath];
-    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    UIViewController *childVC = self.childsVCs[indexPath.item];
-    childVC.view.frame = cell.contentView.bounds;
-    [cell.contentView addSubview:childVC.view];
+    if (IOS_VERSION < 8.0) {
+        [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+        UIViewController *childVC = self.childsVCs[indexPath.item];
+        childVC.view.frame = cell.contentView.bounds;
+        [cell.contentView addSubview:childVC.view];
+    }
     return cell;
 }
+
+#ifdef __IPHONE_8_0
+- (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath{
+    [cell.contentView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    UIViewController *childVc = self.childsVCs[indexPath.row];
+    childVc.view.frame = cell.contentView.bounds;
+    [cell.contentView addSubview:childVc.view];
+}
+#endif
 
 #pragma mark UIScrollView
 
@@ -149,16 +161,31 @@ static NSString *collectionCellIdentifier = @"collectionCellIdentifier";
     }
 }
 
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if (!decelerate) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(FSContenViewDidEndDragging:)]) {
+            [self.delegate FSContenViewDidEndDragging:self];
+        }
+    }
+}
+
 #pragma mark setter
 
 - (void)setContentViewCurrentIndex:(NSInteger)contentViewCurrentIndex
 {
-    if (_contentViewCurrentIndex < 0||_contentViewCurrentIndex > self.childsVCs.count-1) {
+    if (contentViewCurrentIndex < 0||contentViewCurrentIndex > self.childsVCs.count-1) {
         return;
     }
     _isSelectBtn = YES;
     _contentViewCurrentIndex = contentViewCurrentIndex;
     [self.collectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:contentViewCurrentIndex inSection:0] atScrollPosition:UICollectionViewScrollPositionNone animated:NO];
+}
+
+- (void)setContentViewCanScroll:(BOOL)contentViewCanScroll
+{
+    _contentViewCanScroll = contentViewCanScroll;
+    _collectionView.scrollEnabled = _contentViewCanScroll;
 }
 
 @end

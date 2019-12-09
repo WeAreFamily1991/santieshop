@@ -68,7 +68,7 @@ CRSortBarDelegate>
 }
 -(void)sellerVoucher
 {
-    NSDictionary *dic =@{@"sellerId":self.sellerid,@"pageNum":@"1",@"pageSize":@"10000"};
+    NSDictionary *dic =@{@"sellerId":self.sellerId,@"pageNum":@"1",@"pageSize":@"10000"};
     [SNAPI getWithURL:@"seller/sellerVoucher" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {            
             _youLikeItem =[DCRecommendItem mj_objectArrayWithKeyValuesArray:result.data[@"list"]];

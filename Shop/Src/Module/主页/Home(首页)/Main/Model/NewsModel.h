@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic , copy) NSString              * typecode;
 
-@property (nonatomic , copy) NSString              * sellerid;
+@property (nonatomic , copy) NSString              * sellerId;
 
 @property (nonatomic , copy) NSString              * img;
 @property (nonatomic , copy) NSString              * imgm;

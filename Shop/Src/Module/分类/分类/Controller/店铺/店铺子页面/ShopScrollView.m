@@ -171,7 +171,7 @@ static CGFloat rubberBandDistance(CGFloat offset, CGFloat dimension) {
     bottomMenuView.backgroundColor = [UIColor whiteColor];
     [menuView addSubview:bottomMenuView];
     self.bottomMenuView = bottomMenuView;
-    UIButton *allBT = [UITool createButtonWithFrame:CGRectMake(0, 0, button_W, evaluateBT.height) title:@"全部" backgroundColor:[UIColor whiteColor] titleColor:[UIColor blackColor] target:self selector:@selector(btnClick:) tag:3];
+    UIButton *allBT = [UITool createButtonWithFrame:CGRectMake(0, 0, button_W, evaluateBT.height) title:@"全部" backgroundColor:[UIColor whiteColor] titleColor:BLACKCOLOR target:self selector:@selector(btnClick:) tag:3];
     allBT.titleLabel.font =  DR_FONT(14);
     [allBT setBackgroundImage:[AppMethods createImageWithColor:[UIColor whiteColor]] forState:UIControlStateHighlighted];
     [bottomMenuView  addSubview:allBT];

@@ -122,7 +122,7 @@
             self.rollingTime = (rollingTime <= 0.1  || rollingTime > 1) ? 0.5 : rollingTime; //限定翻滚时间不能大于1秒
             self.rightbuttonTitle = rightbuttonTitle;
             self.titleFont = (titleFont == 0) ? 13 : titleFont;
-            self.titleColor = (titleColor == nil) ? [UIColor blackColor] : titleColor;
+            self.titleColor = (titleColor == nil) ? BLACKCOLOR : titleColor;
             self.isShowTagBorder = isShowTagBorder;
             
             

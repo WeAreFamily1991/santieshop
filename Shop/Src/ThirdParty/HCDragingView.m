@@ -62,7 +62,7 @@
     self.badegLabel.font = [UIFont systemFontOfSize:9];
     self.badegLabel.layer.cornerRadius = w * 0.5;
     self.badegLabel.layer.masksToBounds = YES;
-    self.badegLabel.backgroundColor = [UIColor redColor];
+    self.badegLabel.backgroundColor = REDCOLOR;
     self.badegLabel.textColor = [UIColor whiteColor];
     self.badegLabel.hidden = YES;
     [self addSubview:self.badegLabel];

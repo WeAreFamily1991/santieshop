@@ -121,7 +121,7 @@
     if (!range.length) {
         url = [NSString stringWithFormat:@"%@%@", [SNAPIManager shareAPIManager].baseURL, url];
     }
-    NSLog(@"baseUrl=%@url=%@ paramers==%@",[SNAPIManager shareAPIManager].baseURL,url,paramers);
+   
     __weak typeof(self) weakSelf = self;
     [SNNetworking postURL:url parameters:paramers success:^(id response) {
         
@@ -160,7 +160,7 @@
             [dic setObject:[DEFAULTS objectForKey:@"visitetoken"] forKey:@"santieJwt"];
         }
     }
-    NSLog(@"baseUrl==%@url==%@===dic===%@",[SNAPIManager shareAPIManager].baseURL,url,dic);
+   
     __weak typeof(self) weakSelf = self;
     [SNNetworking getURL:url parameters:dic success:^(id response) {
         

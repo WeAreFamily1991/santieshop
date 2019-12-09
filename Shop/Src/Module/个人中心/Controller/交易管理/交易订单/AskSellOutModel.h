@@ -25,9 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * isHy;
 @property (nonatomic , copy) NSString              * storeName;
 @property (nonatomic , copy) NSArray<GoodModel *>              * list;
-@property (nonatomic , copy) NSString              * compName;
-@property (nonatomic , assign) NSInteger              status;
 @property (nonatomic , copy) NSString              * sellerName;
+@property (nonatomic , assign) NSInteger              status;
 @end
 
 @interface GoodModel : DRBaseModel
@@ -67,7 +66,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * toothDistanceName;
 @property (nonatomic , copy) NSString              * diameterName;
 @property (nonatomic , copy) NSString              * imgUrl;
-@property (nonatomic , copy) NSString              * imgurl;
 @property (nonatomic , copy) NSString              * itemName;
 @property (nonatomic , copy) NSString              * unitName3;
 @property (nonatomic , copy) NSString              * levelName;

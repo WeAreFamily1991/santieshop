@@ -76,7 +76,7 @@
 }
 -(void)getBurstRelationCondition
 {
-    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerid,@"levelId":self.nullGoodModel.levelid?:@"",@"surfaceId":self.nullGoodModel.surfaceid?:@"",@"materialId":self.nullGoodModel.materialid?:@"",@"standardId":self.nullGoodModel.standardid?:@"",@"burstType":@"1"};
+    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerId,@"levelId":self.nullGoodModel.levelid?:@"",@"surfaceId":self.nullGoodModel.surfaceid?:@"",@"materialId":self.nullGoodModel.materialid?:@"",@"standardId":self.nullGoodModel.standardid?:@"",@"burstType":@"1"};
     [SNAPI getWithURL:@"burst/getBurstRelationCondition" parameters:[dic mutableCopy] success:^(SNResult *result) {
         
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
@@ -128,7 +128,7 @@
             //            [_menu selectIndexPath:[MoreIndexPath indexPathWithCol:1 row:1]];
             [self.headerIMG sd_setImageWithURL:[NSURL URLWithString:self.nullGoodModel.img]];
             self.titleLab.text =self.nullGoodModel.itemname;
-            self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelname?:@"",_nullGoodModel.surfacename?:@""];
+            self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelName?:@"",_nullGoodModel.surfaceName?:@""];
         }
     } failure:^(NSError *error) {
         
@@ -154,8 +154,8 @@
     };
     [_menu selectIndexPath:[MoreIndexPath indexPathWithCol:1 row:1]];
     [self.headerIMG sd_setImageWithURL:[NSURL URLWithString:self.nullGoodModel.img]];
-    self.titleLab.text =self.nullGoodModel.brandname;
-    self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelname?:@"",_nullGoodModel.surfacename?:@""];
+    self.titleLab.text =self.nullGoodModel.brandName;
+    self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelName?:@"",_nullGoodModel.surfaceName?:@""];
 }
 -(void)addTableViewHeaderView
 {
@@ -196,7 +196,7 @@
 {
     CRDetailController *detailVC = [CRDetailController new];
   
-    detailVC.sellerid=self.nullGoodModel.sellerid;
+    detailVC.sellerId=self.nullGoodModel.sellerId;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 - (void)dismiss{
@@ -474,7 +474,7 @@
     //            }else{
     //                timestr =@"预计发货时间：当天发货";
     //            }
-    //            NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.goodsModel.saleunitname],[NSString stringWithFormat:@"单规格起订量：%f%@",[self.goodsModel.minquantity doubleValue],self.goodsModel.saleunitname],timestr];
+    //            NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.goodsModel.saleUnitName],[NSString stringWithFormat:@"单规格起订量：%f%@",[self.goodsModel.minQuantity doubleValue],self.goodsModel.saleUnitName],timestr];
     //            cell.textLabel.text = titleArr[indexPath.row-4];
     //            [SNTool setTextColor:cell.textLabel FontNumber:DR_FONT(12) AndRange:NSMakeRange(7, cell.textLabel.text.length-7) AndColor:REDCOLOR];
     //            cell.textLabel.font =DR_FONT(12);

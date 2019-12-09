@@ -37,7 +37,7 @@ static NSInteger const tagButton = 1000;
         _colorline = REDCOLOR;
         
         _indexSelected = 0;
-        _colorNormal = [UIColor blackColor];
+        _colorNormal = BLACKCOLOR;
         _colorSelected = REDCOLOR;
         
         [self setUI];

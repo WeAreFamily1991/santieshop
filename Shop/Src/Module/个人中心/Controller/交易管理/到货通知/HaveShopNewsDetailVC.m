@@ -88,16 +88,15 @@
     urlStr =@"buyer/getItem";
     if (page) {
         [dic setObject:page forKey:@"pageindex"];
+        [dic setObject:@"10" forKey:@"pagesize"];
     }
-    [dic setObject:@"Wechat" forKey:@"sourceType"];
     [dic setObject:@"arrival_notice" forKey:@"queryType"];
-    [dic setObject:@"" forKey:@"keyword"];
     DRWeakSelf;
     [MBProgressHUD showMessage:@""];
     [SNAPI getWithURL:urlStr parameters:dic success:^(SNResult *result) {
-            NSLog(@"data=%@",result.data[@"itemdata"]);
-            NSMutableArray*addArr=result.data[@"itemdata"];
-            NSMutableArray *modelArray =[GoodsModel mj_objectArrayWithKeyValuesArray:result.data[@"itemdata"]];
+            NSLog(@"data=%@",result.data[@"list"]);
+            NSMutableArray*addArr=result.data[@"list"];
+            NSMutableArray *modelArray =[GoodsModel mj_objectArrayWithKeyValuesArray:result.data[@"list"]];
             [weakSelf.MsgListArr addObjectsFromArray:modelArray];
             [self.tableView reloadData];
             if (addArr.count<10){
@@ -152,14 +151,14 @@
 {
     switch (indexPath.row) {
         case 0:
-            return 30;
+            return WScale(60);
             break;
         case 1:
             self.goodsModel=self.MsgListArr[indexPath.section];
             if (_goodsModel.kpName.length==0) {
                 return 0;
             }
-            return 30;
+            return 0;
             break;
         
         case 2:
@@ -167,7 +166,7 @@
             break;
             
         case 3:
-            return 40;
+            return WScale(50);
             break;
             
             
@@ -200,47 +199,22 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.MsgListArr.count!=0) {
-        
-       
         self.goodsModel=self.MsgListArr[indexPath.section];
         switch (indexPath.row) {
+          
             case 0:
                 
             {
-                CollectionCell5 *cell =[CollectionCell5 cellWithTableView:tableView];
-                cell.goodsModel =self.goodsModel;
-                return cell;
-            }
-                break;
-            case 1:
-                
-            {
-                static NSString *SimpleTableIdentifier = @"cell";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
-                                         SimpleTableIdentifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                                  reuseIdentifier: SimpleTableIdentifier];
-                }
-                if (_goodsModel.kpName.length!=0) {
-                    cell.textLabel.text =[NSString stringWithFormat:@"开票方：%@",_goodsModel.kpName];
-                }
-                cell.textLabel.text =@"";
-                
-                cell.textLabel.textColor =REDCOLOR;
-                cell.textLabel.font =DR_FONT(13);
-                
-                return cell;
-                
+                 CollectionCell3 *cell =[CollectionCell3 cellWithTableView:tableView];
+                 cell.goodsModel =self.goodsModel;
+                 return cell;
             }
                 break;
             case 2:
                 
             {
-                SixCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SixCell" forIndexPath:indexPath];
-                if (!cell) {
-                    cell =[[SixCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SixCell"];
-                }
+                SixCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SixCell"];
+
                 cell.haveShopModel =self.goodsModel;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
@@ -248,21 +222,13 @@
                 break;
             case 3:                
             {
-                CatgoryDetailCell *cell =[CatgoryDetailCell cellWithTableView:tableView];
+                CatgoryDetailCell4 *cell =[CatgoryDetailCell4 cellWithTableView:tableView];
                 cell.goodsModel =self.goodsModel;
                 cell.daohuoTongzhiStr =@"1";
                 cell.shoucangStr =@"1";
-                if (self.goodsModel.favariteId.length==0)
-                {
-                    cell.shoucangBtn.selected =NO;
-                }
-                else
-                {
-                    cell.shoucangBtn.selected =YES;
-                }
                 cell.cancelBtn.hidden =NO;
                 cell.cancelBlock = ^(NSInteger canceltag) {
-                    NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.recordid forKey:@"id"];
+                    NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:self.goodsModel.arrivalNoticeId forKey:@"id"];
                     [SNIOTTool deleteWithURL:@"buyer/deleteArrivalNotice" parameters:mudic success:^(SNResult *result) {
                         if (result.state==200) {
                             [self.tableView.mj_header beginRefreshing];
@@ -311,7 +277,7 @@
     if (indexPath.row==0) {
         CRDetailController *detailVC = [CRDetailController new];
         self.goodsModel=self.MsgListArr[indexPath.section];
-        detailVC.sellerid=self.goodsModel.sellerid;
+        detailVC.sellerId=self.goodsModel.sellerId;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
 }

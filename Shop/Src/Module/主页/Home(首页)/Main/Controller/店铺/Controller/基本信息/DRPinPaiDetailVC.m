@@ -62,10 +62,10 @@
    
 //      self.goodListModel =[GoodsListModel mj_objectWithKeyValues:self.orderModel.goodsList[indexPath.row]];
     if (self.detailModel.kpName.length==0) {
-       _titleArr=@[[NSString stringWithFormat:@"公司名称：%@",self.detailModel.compName],@"商家等级:",[NSString stringWithFormat:@"经营模式：%@",self.detailModel.sellerType],[NSString stringWithFormat:@"所在地区：%@",self.detailModel.regArea],[NSString stringWithFormat:@"主营：%@",self.detailModel.busScope]];
+       _titleArr=@[[NSString stringWithFormat:@"公司名称：%@",self.detailModel.sellerName],@"商家等级:",[NSString stringWithFormat:@"经营模式：%@",self.detailModel.sellerType],[NSString stringWithFormat:@"所在地区：%@",self.detailModel.regArea],[NSString stringWithFormat:@"主营：%@",self.detailModel.busScope]];
     }else
     {
-        _titleArr=@[[NSString stringWithFormat:@"公司名称：%@",self.detailModel.compName],@"商家等级:",[NSString stringWithFormat:@"经营模式：%@",self.detailModel.sellerType],[NSString stringWithFormat:@"所在地区：%@",self.detailModel.regArea],[NSString stringWithFormat:@"开票方：%@",self.detailModel.kpName],[NSString stringWithFormat:@"主营：%@",self.detailModel.busScope]];
+        _titleArr=@[[NSString stringWithFormat:@"公司名称：%@",self.detailModel.sellerName],@"商家等级:",[NSString stringWithFormat:@"经营模式：%@",self.detailModel.sellerType],[NSString stringWithFormat:@"所在地区：%@",self.detailModel.regArea],[NSString stringWithFormat:@"开票方：%@",self.detailModel.kpName],[NSString stringWithFormat:@"主营：%@",self.detailModel.busScope]];
     }
     
 }
@@ -196,7 +196,7 @@
         bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, HScale(35));
         bgView.backgroundColor = BACKGROUNDCOLOR;
         UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 10, 4, HScale(35)-20)];
-        lineView.backgroundColor =[UIColor redColor];
+        lineView.backgroundColor =REDCOLOR;
         [bgView addSubview:lineView];
         UILabel *label = [[UILabel alloc] init];
         label.frame = CGRectMake(15, 0, SCREEN_WIDTH-16, bgView.frame.size.height);

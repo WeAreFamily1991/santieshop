@@ -134,21 +134,21 @@
 #pragma mark - getter
 - (UIColor *)indicatorColor {
     if (!_indicatorColor) {
-        _indicatorColor = [UIColor blackColor];
+        _indicatorColor = BLACKCOLOR;
     }
     return _indicatorColor;
 }
 
 - (UIColor *)textColor {
     if (!_textColor) {
-        _textColor = [UIColor blackColor];
+        _textColor = BLACKCOLOR;
     }
     return _textColor;
 }
 
 - (UIColor *)separatorColor {
     if (!_separatorColor) {
-        _separatorColor = [UIColor blackColor];
+        _separatorColor = BLACKCOLOR;
     }
     return _separatorColor;
 }

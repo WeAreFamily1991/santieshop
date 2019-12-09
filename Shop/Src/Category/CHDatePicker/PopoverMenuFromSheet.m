@@ -40,7 +40,7 @@ NSString * const PopoverMenuFrameEndUserInfoKey = @"endFrame";
     frame = [UIScreen mainScreen].bounds;
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:kDefaultAlpha];
+        self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:kDefaultAlpha];
         
         UIView *contentView = [[UIView alloc] init];
         [self addSubview:contentView];
@@ -70,7 +70,7 @@ NSString * const PopoverMenuFrameEndUserInfoKey = @"endFrame";
 - (void)showInView:(UIView *)view height:(CGFloat)height {
     [view addSubview:self];
     self.frame = view.bounds;
-    self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+    self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0];
     
     // 开始设置约束
     [self removeConstraints:self.constraints];
@@ -101,7 +101,7 @@ NSString * const PopoverMenuFrameEndUserInfoKey = @"endFrame";
     self.hidden = NO;
     [UIView animateWithDuration:0.25 animations:^{
         [self layoutIfNeeded];
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:kDefaultAlpha];
+        self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:kDefaultAlpha];
     } completion:^(BOOL finished) {
         [self onShowFinished];
         if ([self.delegate respondsToSelector:@selector(popoverMenuDidHide:)]) {
@@ -133,7 +133,7 @@ NSString * const PopoverMenuFrameEndUserInfoKey = @"endFrame";
     
     self.topConstraint.constant = 0;
     [UIView animateWithDuration:0.25 animations:^{
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0];
+        self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0];
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         [self removeFromSuperview];

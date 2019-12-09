@@ -70,7 +70,7 @@
 //    _goodListModel =goodListModel;
 //    [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodListModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
 //    self.productName.text =goodListModel.itemName;
-//    NSArray * array = @[goodListModel.spec?:@"",goodListModel.levelname?:@"",goodListModel.materialname?:@"",goodListModel.surfacename?:@"",goodListModel.brandname?:@""];
+//    NSArray * array = @[goodListModel.spec?:@"",goodListModel.levelName?:@"",goodListModel.materialName?:@"",goodListModel.surfaceName?:@"",goodListModel.brandName?:@""];
 //    NSMutableArray *titArr =[NSMutableArray array];
 //    for (NSString *str in array) {
 //        if (str.length!=0) {

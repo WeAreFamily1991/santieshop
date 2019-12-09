@@ -17,7 +17,7 @@
     [button setImage:image forState:UIControlStateNormal];
     [button setImage:HighlightedImage forState:UIControlStateHighlighted];
     button.frame = CGRectMake(0, 0, 44, 44);
-    [button setTitleColor:[UIColor blackColor] forState:0];
+    [button setTitleColor:BLACKCOLOR forState:0];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -29,7 +29,7 @@
     [button setImage:image forState:UIControlStateNormal];
     [button setImage:SelectedImage forState:UIControlStateSelected];
     button.frame = CGRectMake(0, 0, 44, 44);
-    [button setTitleColor:[UIColor blackColor] forState:0];
+    [button setTitleColor:BLACKCOLOR forState:0];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     return [[UIBarButtonItem alloc] initWithCustomView:button];
 }
@@ -43,7 +43,7 @@
     [button setTitle:title forState:UIControlStateNormal];
     [button setImage:HighlightedImage forState:UIControlStateHighlighted];
     button.frame = CGRectMake(0, 0, 44, 44);
-    [button setTitleColor:[UIColor blackColor] forState:0];
+    [button setTitleColor:BLACKCOLOR forState:0];
     [button addTarget:target action:action forControlEvents:UIControlEventTouchUpInside];
     
     return [[UIBarButtonItem alloc] initWithCustomView:button];

@@ -149,18 +149,18 @@
     [self.headView.IconIMG sd_setImageWithURL:[NSURL URLWithString:self.nullGoodModel.complog] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];   
     self.headView.backBtnClickBlock = ^{
         CRDetailController *detailVC = [CRDetailController new];
-        detailVC.sellerid=self.nullGoodModel.sellerid;
+        detailVC.sellerId=self.nullGoodModel.sellerId;
         [self.navigationController pushViewController:detailVC animated:YES];
     };
     self.tableView.tableHeaderView =self.headView;
 }
 -(void)addGetSellInfo
 {
-    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerid,@"districtId":[DRBuyerModel sharedManager].locationcode?:@""};
+    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerId,@"districtId":[DRBuyerModel sharedManager].locationcode?:@""};
     [SNAPI getWithURL:@"seller/getSellerInfo" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
               CRDetailModel *detailModel=[CRDetailModel mj_objectWithKeyValues:result.data];            
-            self.headView.companyNameLab.text =detailModel.compName;
+            self.headView.companyNameLab.text =detailModel.sellerName;
             self.headView.contentLab.text =[NSString stringWithFormat:@"开票方：%@ | %@",detailModel.kpName,detailModel.payType?@"月结":@"现金"];
             [SNTool setTextColor:self.headView.contentLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(self.headView.contentLab.text.length-detailModel.sellerType.length, detailModel.sellerType.length) AndColor:REDCOLOR];
         }
@@ -287,7 +287,7 @@
 //    pageSize: 10
 //    pageNum: 1
 //    dcType:
-    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullGoodModel.sellerid?:@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"districtId",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
+    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullGoodModel.sellerId?:@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"districtId",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
     }
     //    [MBProgressHUD showMessage:@""];
     [self loadDataSource:_sendDataDictionary withpagecount:[NSString stringWithFormat:@"%d",pageCount]];
@@ -309,7 +309,7 @@
         [dictionary setObject:@"" forKey:@"jbcz"];
         [dictionary setObject:@"" forKey:@"containzy"];
         [dictionary setObject:@"" forKey:@"queryType"];
-        [dictionary setObject:self.selleridStr?:@"" forKey:@"sellerId"];
+        [dictionary setObject:self.sellerIdStr?:@"" forKey:@"sellerId"];
     }
     else
     {
@@ -358,7 +358,7 @@
         button.frame =CGRectMake(i*ScreenW/2, 0, ScreenW/2, 39);
         [button setTitle:titleArr[i] forState:UIControlStateNormal];
         button.backgroundColor =[UIColor whiteColor];
-        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         [button setTitleColor:BLACKCOLOR forState:UIControlStateSelected];
         [button setImage:[UIImage imageNamed:imageArr[i]] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:selectedImageArr[i]] forState:UIControlStateSelected];
@@ -383,7 +383,7 @@
             break;
         case 1:
         {
-            [GoodsShareModel sharedManager].sellerId =self.nullGoodModel.sellerid;
+            [GoodsShareModel sharedManager].sellerId =self.nullGoodModel.sellerId;
             [GoodsShareModel sharedManager].levelId =self.nullGoodModel.levelid;
             [GoodsShareModel sharedManager].surfaceId =self.nullGoodModel.surfaceid;
             [GoodsShareModel sharedManager].materialId =self.nullGoodModel.materialid;
@@ -566,7 +566,7 @@
         }else{
             timestr =@"预计发货时间：当天发货";
         }
-        NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.sameArr[section].saleunitname],[NSString stringWithFormat:@"单规格起订量：%.3f%@",self.sameArr[section].minquantity ,self.sameArr[section].saleunitname],timestr];
+        NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",self.sameArr[section].saleUnitName],[NSString stringWithFormat:@"单规格起订量：%.3f%@",self.sameArr[section].minQuantity ,self.sameArr[section].saleUnitName],timestr];
         cell.danweiLab.text = titleArr[0];
         cell.qidingliangLab.text = titleArr[1];
         cell.timeLAb.text = titleArr[2];

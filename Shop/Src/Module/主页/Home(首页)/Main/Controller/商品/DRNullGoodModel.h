@@ -12,13 +12,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface DRNullGoodModel : DRBaseModel
 @property (nonatomic , assign) CGFloat              qtyPercent;
-@property (nonatomic , copy) NSString              * materialname;
+@property (nonatomic , copy) NSString              * materialName;
 @property (nonatomic , copy) NSString              *bidprice;
 @property (nonatomic , assign) CGFloat              zfprice;
 @property (nonatomic , copy) NSString              * itemparamid;
 @property (nonatomic , copy) NSString              * nullID;
 @property (nonatomic , copy) NSString              * standardname;
-@property (nonatomic , copy) NSString              * basicunitid;
+@property (nonatomic , copy) NSString              * basicUnitId;
 @property (nonatomic , copy) NSString              * itemcode;
 @property (nonatomic , copy) NSString              * complog;
 @property (nonatomic , assign) CGFloat              totalAmt;
@@ -31,13 +31,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * diametername;
 @property (nonatomic , copy) NSString              * sellername;
 @property (nonatomic , copy) NSString              * levelid;
-@property (nonatomic , copy) NSString              * brandname;
-@property (nonatomic , copy) NSString              * basicunitname;
+@property (nonatomic , copy) NSString              * brandName;
+@property (nonatomic , copy) NSString              * basicUnitName;
 @property (nonatomic , copy) NSString              * bhtid;
 @property (nonatomic , assign) CGFloat              stprice;
 @property (nonatomic , copy) NSString              * updatename;
 @property (nonatomic , copy) NSString              * standardid;
-@property (nonatomic , copy) NSString              * levelname;
+@property (nonatomic , copy) NSString              * levelName;
 @property (nonatomic , copy) NSString              * diameterid;
 @property (nonatomic , copy) NSString              * status;
 @property (nonatomic , copy) NSString              * areaname;
@@ -48,13 +48,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign) NSInteger              iszf;
 @property (nonatomic , copy) NSString              * createname;
 @property (nonatomic , copy) NSString              * img;
-@property (nonatomic , copy) NSString              *userprice;
+@property (nonatomic , copy) NSString              *userPrice;
 @property (nonatomic , copy) NSString              * spec;
 @property (nonatomic , copy) NSString              * lengthid;
-@property (nonatomic , copy) NSString              * sellerid;
+@property (nonatomic , copy) NSString              * sellerId;
 @property (nonatomic , copy) NSString              * sortnum;
 @property (nonatomic , copy) NSString              * updatetime;
-@property (nonatomic , copy) NSString              * surfacename;
+@property (nonatomic , copy) NSString              * surfaceName;
 @property (nonatomic , copy) NSString              * brandid;
 @property (nonatomic , copy) NSString              * materialid;
 @property (nonatomic , copy) NSString              * imgm;

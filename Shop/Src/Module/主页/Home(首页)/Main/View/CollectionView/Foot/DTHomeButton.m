@@ -43,7 +43,7 @@
 //    [self addShadowToView:self.backView withColor:[UIColor lightGrayColor]];
     [self addSubview:self.backView];
 //    self.btnTitle = [[UILabel alloc]initWithFrame:CGRectZero];
-//    self.btnTitle.textColor = [UIColor blackColor];
+//    self.btnTitle.textColor = BLACKCOLOR;
 //    self.btnTitle.font = [UIFont systemFontOfSize:14];
 //    self.btnTitle.textAlignment = NSTextAlignmentCenter;
 //

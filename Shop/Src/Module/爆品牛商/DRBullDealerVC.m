@@ -464,7 +464,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         cell.centerShopBtnBlock = ^{
             CRDetailController *detailVC = [CRDetailController new];
             self.nullGoodModel =self.nullArr[indexPath.row];
-            detailVC.sellerid=self.nullGoodModel.sellerid;
+            detailVC.sellerId=self.nullGoodModel.sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         };
         cell.sureBuyBtnBlock = ^{
@@ -488,7 +488,7 @@ static NSString *const DRTopViewID = @"HQTopStopView";
        cell.centerShopBtnBlock = ^{
            CRDetailController *detailVC = [CRDetailController new];
            self.nullGoodModel =(DRNullGoodModel*)_youLikeItem[indexPath.row];;
-           detailVC.sellerid=self.nullGoodModel.sellerid;
+           detailVC.sellerId=self.nullGoodModel.sellerId;
            [self.navigationController pushViewController:detailVC animated:YES];
        };
        cell.sureBuyBtnBlock = ^{

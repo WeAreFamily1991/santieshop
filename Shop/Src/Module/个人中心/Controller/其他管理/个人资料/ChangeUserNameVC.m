@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *codeTF;
 @property (weak, nonatomic) IBOutlet UIButton *imgCodeBtn;
 @property (weak, nonatomic) IBOutlet UIView *codeView;
-@property (weak, nonatomic) IBOutlet UIButton *registeBtn;
+@property (strong, nonatomic)UIButton *registeBtn;
 
 @property (nonatomic, strong) NNValidationView *testView;
 @end
@@ -40,8 +40,8 @@
 }
 -(void)layout
 {
-    self.registeBtn.layer.cornerRadius =25;
-    self.registeBtn.layer.masksToBounds =25;
+    self.registeBtn =[UIButton buttonWithTitle:@"下一步" font:DR_FONT(18) titleColor:WHITECOLOR backGroundColor:REDCOLOR buttonTag:1 target:self action:@selector(registeBtnClick:) showView:self.view];
+    self.registeBtn.frame =CGRectMake(0, ScreenH-DRTopHeight-WScale(50)-kIPhoneXBottomHeight, ScreenW, WScale(50));
     self.phoneTF.text =[DRUserInfoModel sharedManager].mobilePhone;
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     self.phoneTF.delegate =self;
@@ -121,7 +121,7 @@
     }
     return YES;
 }
-- (IBAction)registBtnClick:(id)sender {
+- (void)registeBtnClick:(UIButton *)sender {
    
     if (self.phoneTF.text.length==0||self.phoneTF.text.length!=11) {
         [MBProgressHUD showError:@"请输入正确的手机号码"];

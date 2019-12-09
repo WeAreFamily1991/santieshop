@@ -92,7 +92,7 @@ static NSString *Yee_BadgeViewRightConstraintKey= @"Yee_BadgeViewRightConstraint
     return [self _yeeBadgeView].redDotOffset;
 }
 - (void)setRedDotBorderColor:(UIColor *)redDotBorderColor{
-    if (redDotBorderColor == nil) redDotBorderColor = [UIColor redColor];
+    if (redDotBorderColor == nil) redDotBorderColor = REDCOLOR;
     [self _yeeBadgeView].redDotBorderColor = redDotBorderColor ;
 }
 - (UIColor*)redDotBorderColor{

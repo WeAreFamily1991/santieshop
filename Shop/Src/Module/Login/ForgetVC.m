@@ -42,8 +42,9 @@
 }
 -(void)layout
 {
-    self.submitBtn.layer.cornerRadius =25;
-    self.submitBtn.layer.masksToBounds =25;
+    self.submitBtn.layer.cornerRadius =4;
+    self.submitBtn.layer.masksToBounds =4;
+    self.view.backgroundColor =BACKGROUNDCOLOR;
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.imgCodeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     [self.codeTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
@@ -70,10 +71,8 @@
         return;
     }
     //    DRWeakSelf;
-    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(NSString *response) {
-        if ([response isEqualToString:@"200"]) {
-            [MBProgressHUD showError:@"验证码已发送"];
-        }
+    [SNAPI commonMessageValidWithMobile:self.phoneTF.text validCode:self.imgCodeTF.text success:^(SNResult *result) {
+        [MBProgressHUD showSuccess:@"验证码已发送"];
     } failure:^(NSError *error) {
         
     }] ;

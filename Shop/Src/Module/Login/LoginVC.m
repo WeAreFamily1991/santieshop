@@ -39,6 +39,7 @@
         self.phoneTF.text = account.account;
         if ([[DEFAULTS objectForKey:@"selected"] boolValue]) {
             self.passwordTF.text =account.password;
+            self.loginBtn.backgroundColor =REDCOLOR;
         }
     }
 }
@@ -56,17 +57,35 @@
 }
 -(void)layout
 {
-    self.phoneView.layer.cornerRadius =25;
-    self.phoneView.layer.masksToBounds =25;
-    self.passwordView.layer.cornerRadius =25;
-    self.passwordView.layer.masksToBounds =25;
-    self.loginBtn.layer.cornerRadius =22.5;
-    self.loginBtn.layer.masksToBounds =22.5;
-    self.registebTN.layer.cornerRadius =22.5;
-    self.registebTN.layer.masksToBounds =22.5;
-    [self.registebTN.layer setBorderColor:[UIColor lightGrayColor].CGColor];
-    [self.registebTN.layer setBorderWidth:1.0];
+    self.phoneView.layer.cornerRadius =4;
+    self.phoneView.layer.masksToBounds =4;
+    
+    
+    self.phoneView.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    self.phoneView.layer.borderWidth =0.5;
+    self.passwordView.layer.cornerRadius =4;
+    self.passwordView.layer.masksToBounds =4;
+    
+    self.passwordView.layer.borderColor =RGBHex(0XE5E5E5).CGColor;
+    self.passwordView.layer.borderWidth =0.5;
+    
+    self.loginBtn.layer.cornerRadius =4;
+    self.loginBtn.layer.masksToBounds =4;
+    [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
+    [self.passwordTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
+   
+    
     self.remmberBtn.selected =[[DEFAULTS objectForKey:@"selected"] boolValue];
+}
+-(void)textFieldChangeAction:(UITextField *)textField
+{
+    if (self.phoneTF.text.length==11&&self.passwordTF.text.length!=0) {
+        self.loginBtn.backgroundColor =REDCOLOR;
+    }
+    else
+    {
+        self.loginBtn.backgroundColor =RGBHex(0XC0C0C0);
+    }
 }
 #pragma mark - 退出当前界面
 - (IBAction)closeBtnClick:(id)sender {
@@ -104,43 +123,49 @@
 //    __block NSString *regionName = [self.accountField.text isEmailAddress] ? nil : self.regionName;ios
     __weak typeof(self) weakSelf = self;
     [SNAPI userLoginWithAccount:self.phoneTF.text password:self.passwordTF.text  success:^(SNResult *result) {
+        
         [MBProgressHUD hideHUDForView:weakSelf.view];
-        //        [SNDatabase setDefaultSSID:[SNTool SSID]];
-        [SNAccount saveAccount:self.phoneTF.text password:self.passwordTF.text];
-        NSString *IDStr= result.data[@"buyer"][@"registionIp"];
-        if (IDStr.length!=0) {
-            [MBProgressHUD showSuccess:@"登录成功"];
-            SNToken *token = [SNToken mj_objectWithKeyValues:result.data];
-            token.password = self.phoneTF.text;
-            token.mobilePhone =self.passwordTF.text;
-            [User currentUser].token =result.token;
-            [User currentUser].isLogin =YES;
-            DRUserInfoModel *model =[DRUserInfoModel mj_objectWithKeyValues:result.data];
-            [DRBuyerModel sharedManager].alllocationcode =result.data[@"buyer"][@"locationcode"];
+        if ([result.errorCode integerValue]==0) {
             
-            if (![result.data[@"buyer"][@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"buyer"][@"locationcode"] isKindOfClass:[NSNull class]]) {
-                [DEFAULTS setObject:result.data[@"buyer"][@"location"] forKey:@"address"];
-                [DEFAULTS setObject:result.data[@"buyer"][@"locationcode"] forKey:@"locationcode"];
-                NSArray *codeArr =[result.data[@"buyer"][@"locationcode"] componentsSeparatedByString:@"/"];
-                [DEFAULTS setObject:[codeArr lastObject] forKey:@"code"];
-            }
-            self.locationStr =result.data[@"buyer"][@"location"]?:@"";
-            self.locationCodeStr =result.data[@"buyer"][@"locationcode"]?:@"";
-            if (self.locationCodeStr.length!=0&&self.locationStr.length!=0) {
-                [self success];
+            [SNAccount saveAccount:self.phoneTF.text password:self.passwordTF.text];
+            NSString *IDStr= result.data[@"regionIp"];
+            if (IDStr.length!=0) {
+                [MBProgressHUD showSuccess:@"登录成功"];
+                SNToken *token = [SNToken mj_objectWithKeyValues:result.data];
+                token.password = self.phoneTF.text;
+                token.mobilePhone =self.passwordTF.text;
+                [User currentUser].token =result.token;
+                [User currentUser].isLogin =YES;
+                DRUserInfoModel *model =[DRUserInfoModel mj_objectWithKeyValues:result.data];
+                [DRBuyerModel sharedManager].alllocationcode =result.data[@"locationcode"];
+                
+                if (![result.data[@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"locationcode"] isKindOfClass:[NSNull class]]) {
+                    [DEFAULTS setObject:result.data[@"location"] forKey:@"address"];
+                    [DEFAULTS setObject:result.data[@"locationcode"] forKey:@"locationcode"];
+                    NSArray *codeArr =[result.data[@"locationcode"] componentsSeparatedByString:@"/"];
+                    [DEFAULTS setObject:[codeArr lastObject] forKey:@"code"];
+                }
+                self.locationStr =result.data[@"location"]?:@"";
+                self.locationCodeStr =[NSString stringWithFormat:@"%@",result.data[@"locationcode"]]?:@"";
+                if (self.locationCodeStr.length!=0&&self.locationStr.length!=0) {
+                    [self success];
+                }
+                else
+                {
+                    [self selectArea];
+                }
+                //        [SNDatabase setDefaultSSID:[SNTool SSID]];
             }
             else
             {
-                [self selectArea];
+                [self addwebView];
+                self.locationStr =result.data[@"location"]?:@"";
+                self.locationCodeStr =result.data[@"locationcode"]?:@"";
+                
             }
-        }
-        else
+        }else
         {
-            [self addwebView];
-            self.locationStr =result.data[@"buyer"][@"location"]?:@"";
-            self.locationCodeStr =result.data[@"buyer"][@"locationcode"]?:@"";
-            
-           
+            [MBProgressHUD showError:result.msg];
         }
        
        

@@ -39,7 +39,7 @@
     _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[self.sendDataDictionary[@"startTime"]?:@"",self.sendDataDictionary[@"endTime"]?:@"",self.sendDataDictionary[@"dzNo"]?:@""] forKeys:@[@"startTime",@"endTime",@"orderNo"]];
     self.view.backgroundColor =BACKGROUNDCOLOR;
 //    self.tableView.frame =CGRectMake(0, 80, SCREEN_WIDTH, self.tableView.height - 80);
-    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
     self.tableView.backgroundColor =BACKGROUNDCOLOR;
     if (@available(iOS 11.0, *)) {
         
@@ -229,7 +229,7 @@
        headView.companyClickBlock = ^{
            self.sellAfterModel = self.MsgListArr[section];
            CRDetailController *detailVC = [CRDetailController new];
-           detailVC.sellerid=self.sellAfterModel.sellerId;
+           detailVC.sellerId=self.sellAfterModel.sellerId;
            [self.navigationController pushViewController:detailVC animated:YES];
        };
        return headView;

@@ -12,7 +12,6 @@
 @property (nonatomic , copy) NSString              * compId;
 @property (nonatomic , copy) NSString              * fpParty;
 @property (nonatomic , copy) NSString              * fpPartyName;
-@property (nonatomic , copy) NSString              * compName;
 @property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * priceType;
 @property (nonatomic , copy) NSArray<ShoppingModel *>   * orderList;
@@ -97,7 +96,7 @@
 @property (nonatomic , copy) NSString              * fpBankAccount;
 @property (nonatomic , copy) NSString              * orderservicetype;
 @property (nonatomic , copy) NSString              * ztAddress;
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * fpPartyName;
 @property (nonatomic , copy) NSString              * fpTitle;
 @property (nonatomic , copy) NSString              * stypeid;
@@ -107,7 +106,6 @@
 @property (nonatomic , copy) NSString              * orderId;
 @property (nonatomic , assign) NSInteger              orderComplateTime;
 @property (nonatomic , assign) NSInteger              isReturn;
-@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * fpParty;
 @property (nonatomic , copy) NSString              * moneyoffTopic;
 @property (nonatomic , assign) NSInteger              sellerPayWay;

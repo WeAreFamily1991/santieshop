@@ -108,7 +108,7 @@
     [ self.backView addSubview:_goodsLabel];
     
     _priceLabel = [[UILabel alloc] init];
-    _priceLabel.textColor =[UIColor blackColor];
+    _priceLabel.textColor =BLACKCOLOR;
     _priceLabel.textAlignment = NSTextAlignmentCenter;
     _priceLabel.font = DR_FONT(14);
     [self.backView addSubview:_priceLabel];

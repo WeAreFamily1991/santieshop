@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3506B4BF238BBB3D00640D82 /* SNUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3506B4BE238BBB3C00640D82 /* SNUserInfoVC.m */; };
 		3589D56123823B3F003DE11A /* YeeBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55C23823B3F003DE11A /* YeeBadgeView.m */; };
 		3589D56223823B3F003DE11A /* UITabBarItem+YeeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55D23823B3F003DE11A /* UITabBarItem+YeeBadge.m */; };
 		3589D56323823B3F003DE11A /* UIBarButtonItem+YeeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55F23823B3F003DE11A /* UIBarButtonItem+YeeBadge.m */; };
 		3589D56423823B3F003DE11A /* UIView+YeeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D56023823B3F003DE11A /* UIView+YeeBadge.m */; };
+		3589D56A23852733003DE11A /* FSSegmentTitleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D56523852732003DE11A /* FSSegmentTitleView.m */; };
+		3589D56B23852733003DE11A /* FSPageContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D56923852733003DE11A /* FSPageContentView.m */; };
 		35C29745237E590000442EC6 /* DRMinHedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C29744237E590000442EC6 /* DRMinHedView.m */; };
 		35C29748237E5D5800442EC6 /* DRCustomLab.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C29747237E5D5800442EC6 /* DRCustomLab.m */; };
 		35C2974D237E7C4600442EC6 /* UILabel+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C2974B237E7C4500442EC6 /* UILabel+Custom.m */; };
 		35C2974E237E7C4600442EC6 /* UIButton+NZCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 35C2974C237E7C4600442EC6 /* UIButton+NZCustom.m */; };
+		35FC2E03239790B000C57AF3 /* DROrderCountModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 35FC2E02239790B000C57AF3 /* DROrderCountModel.m */; };
 		610A3F83222A17EC00524164 /* MessageVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A3F81222A17EC00524164 /* MessageVC.m */; };
 		610A3FB7222A1B9300524164 /* CartModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A3FB1222A1B9300524164 /* CartModel.m */; };
 		610A3FB8222A1B9300524164 /* CartTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 610A3FB5222A1B9300524164 /* CartTableViewCell.m */; };
@@ -511,8 +515,6 @@
 		E7F0011522253B42007CDBD6 /* SaleOrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0011322253B42007CDBD6 /* SaleOrderCell.m */; };
 		E7F0011622253B42007CDBD6 /* SaleOrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F0011422253B42007CDBD6 /* SaleOrderCell.xib */; };
 		E7F0011D2226271A007CDBD6 /* CGXAddressPcikerView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0011B2226271A007CDBD6 /* CGXAddressPcikerView.m */; };
-		E7F0012322262C17007CDBD6 /* FSPageContentView2.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0012022262C17007CDBD6 /* FSPageContentView2.m */; };
-		E7F0012422262C17007CDBD6 /* FSSegmentTitleView2.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0012222262C17007CDBD6 /* FSSegmentTitleView2.m */; };
 		E7F0013122263D95007CDBD6 /* SalesOrderDetailVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F0012E22263D94007CDBD6 /* SalesOrderDetailVC.xib */; };
 		E7F0013222263D95007CDBD6 /* SalesOrderDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0012F22263D94007CDBD6 /* SalesOrderDetailVC.m */; };
 		E7F0013522263E86007CDBD6 /* BillingInformationVC.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F0013422263E86007CDBD6 /* BillingInformationVC.m */; };
@@ -662,6 +664,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3506B4BD238BBB3C00640D82 /* SNUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNUserInfoVC.h; sourceTree = "<group>"; };
+		3506B4BE238BBB3C00640D82 /* SNUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNUserInfoVC.m; sourceTree = "<group>"; };
 		3589D55723823B3F003DE11A /* YeeBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YeeBadgeView.h; sourceTree = "<group>"; };
 		3589D55823823B3F003DE11A /* UITabBarItem+YeeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+YeeBadge.h"; sourceTree = "<group>"; };
 		3589D55923823B3F003DE11A /* UIBarButtonItem+YeeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+YeeBadge.h"; sourceTree = "<group>"; };
@@ -672,6 +676,11 @@
 		3589D55E23823B3F003DE11A /* YeeBadgeProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YeeBadgeProtocol.h; sourceTree = "<group>"; };
 		3589D55F23823B3F003DE11A /* UIBarButtonItem+YeeBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIBarButtonItem+YeeBadge.m"; sourceTree = "<group>"; };
 		3589D56023823B3F003DE11A /* UIView+YeeBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+YeeBadge.m"; sourceTree = "<group>"; };
+		3589D56523852732003DE11A /* FSSegmentTitleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSSegmentTitleView.m; sourceTree = "<group>"; };
+		3589D56623852732003DE11A /* FSScrollContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSScrollContentView.h; sourceTree = "<group>"; };
+		3589D56723852732003DE11A /* FSSegmentTitleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSSegmentTitleView.h; sourceTree = "<group>"; };
+		3589D56823852732003DE11A /* FSPageContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContentView.h; sourceTree = "<group>"; };
+		3589D56923852733003DE11A /* FSPageContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContentView.m; sourceTree = "<group>"; };
 		35C29743237E590000442EC6 /* DRMinHedView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRMinHedView.h; sourceTree = "<group>"; };
 		35C29744237E590000442EC6 /* DRMinHedView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DRMinHedView.m; sourceTree = "<group>"; };
 		35C29746237E5D5800442EC6 /* DRCustomLab.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DRCustomLab.h; sourceTree = "<group>"; };
@@ -680,6 +689,8 @@
 		35C2974A237E7C4400442EC6 /* UIButton+NZCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+NZCustom.h"; sourceTree = "<group>"; };
 		35C2974B237E7C4500442EC6 /* UILabel+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Custom.m"; sourceTree = "<group>"; };
 		35C2974C237E7C4600442EC6 /* UIButton+NZCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+NZCustom.m"; sourceTree = "<group>"; };
+		35FC2E01239790B000C57AF3 /* DROrderCountModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DROrderCountModel.h; sourceTree = "<group>"; };
+		35FC2E02239790B000C57AF3 /* DROrderCountModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DROrderCountModel.m; sourceTree = "<group>"; };
 		3E9D4847719A512DD2F6B0BB /* Pods-Shop.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Shop.release.xcconfig"; path = "Pods/Target Support Files/Pods-Shop/Pods-Shop.release.xcconfig"; sourceTree = "<group>"; };
 		610A3F80222A17EC00524164 /* MessageVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MessageVC.h; sourceTree = "<group>"; };
 		610A3F81222A17EC00524164 /* MessageVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MessageVC.m; sourceTree = "<group>"; };
@@ -1582,10 +1593,6 @@
 		E7F0011422253B42007CDBD6 /* SaleOrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SaleOrderCell.xib; sourceTree = "<group>"; };
 		E7F0011B2226271A007CDBD6 /* CGXAddressPcikerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CGXAddressPcikerView.m; sourceTree = "<group>"; };
 		E7F0011C2226271A007CDBD6 /* CGXAddressPcikerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CGXAddressPcikerView.h; sourceTree = "<group>"; };
-		E7F0011F22262C17007CDBD6 /* FSSegmentTitleView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSSegmentTitleView2.h; sourceTree = "<group>"; };
-		E7F0012022262C17007CDBD6 /* FSPageContentView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSPageContentView2.m; sourceTree = "<group>"; };
-		E7F0012122262C17007CDBD6 /* FSPageContentView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSPageContentView2.h; sourceTree = "<group>"; };
-		E7F0012222262C17007CDBD6 /* FSSegmentTitleView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSSegmentTitleView2.m; sourceTree = "<group>"; };
 		E7F0012E22263D94007CDBD6 /* SalesOrderDetailVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SalesOrderDetailVC.xib; sourceTree = "<group>"; };
 		E7F0012F22263D94007CDBD6 /* SalesOrderDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SalesOrderDetailVC.m; sourceTree = "<group>"; };
 		E7F0013022263D94007CDBD6 /* SalesOrderDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SalesOrderDetailVC.h; sourceTree = "<group>"; };
@@ -3132,6 +3139,8 @@
 				E7FC3E34229F903E008FE2B8 /* AfterSellListModel.m */,
 				E7FC3E36229FA2CF008FE2B8 /* AfterSellInfoModel.h */,
 				E7FC3E37229FA2CF008FE2B8 /* AfterSellInfoModel.m */,
+				35FC2E01239790B000C57AF3 /* DROrderCountModel.h */,
+				35FC2E02239790B000C57AF3 /* DROrderCountModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3354,6 +3363,8 @@
 		E7A1F8812229292C009EA75D /* 其他管理 */ = {
 			isa = PBXGroup;
 			children = (
+				3506B4BD238BBB3C00640D82 /* SNUserInfoVC.h */,
+				3506B4BE238BBB3C00640D82 /* SNUserInfoVC.m */,
 				E7CAB431222D28DF000E3330 /* 子账号 */,
 				E7CAB42F222D22E2000E3330 /* 收货地址 */,
 				E7A1F88222292952009EA75D /* 站内短信 */,
@@ -3806,10 +3817,11 @@
 		E7F0011E22262C17007CDBD6 /* 切换视图 */ = {
 			isa = PBXGroup;
 			children = (
-				E7F0011F22262C17007CDBD6 /* FSSegmentTitleView2.h */,
-				E7F0012022262C17007CDBD6 /* FSPageContentView2.m */,
-				E7F0012122262C17007CDBD6 /* FSPageContentView2.h */,
-				E7F0012222262C17007CDBD6 /* FSSegmentTitleView2.m */,
+				3589D56823852732003DE11A /* FSPageContentView.h */,
+				3589D56923852733003DE11A /* FSPageContentView.m */,
+				3589D56623852732003DE11A /* FSScrollContentView.h */,
+				3589D56723852732003DE11A /* FSSegmentTitleView.h */,
+				3589D56523852732003DE11A /* FSSegmentTitleView.m */,
 			);
 			path = "切换视图";
 			sourceTree = "<group>";
@@ -4644,7 +4656,6 @@
 				E708B92F226D61F900C246AD /* CRNavigationBar.m in Sources */,
 				E7FC791C225F1915000832D9 /* DRAddShopView.m in Sources */,
 				E768DC6E224DE8D60072FFA7 /* VoucherModel.m in Sources */,
-				E7F0012422262C17007CDBD6 /* FSSegmentTitleView2.m in Sources */,
 				E704F3DB221A85E100F25971 /* DCObjManager.m in Sources */,
 				E7FDF47B2265EDD5008A3CA7 /* SelectPhotoView.m in Sources */,
 				E71C301E22321B4A00521960 /* MultilevelTableViewCell.m in Sources */,
@@ -4765,6 +4776,7 @@
 				E7CAB45E222E3EE5000E3330 /* SNAccount.m in Sources */,
 				E7BE44DC226EB6E100F7135B /* DRShopBannerCollectionViewCell.m in Sources */,
 				E71C301C22321B4A00521960 /* CatgoryDetailCell.m in Sources */,
+				3589D56B23852733003DE11A /* FSPageContentView.m in Sources */,
 				E71C30E222365A3300521960 /* TakeawayShopView.m in Sources */,
 				3589D56323823B3F003DE11A /* UIBarButtonItem+YeeBadge.m in Sources */,
 				35C29748237E5D5800442EC6 /* DRCustomLab.m in Sources */,
@@ -4784,7 +4796,6 @@
 				E7E674D4223660960061A94F /* HeaderReusableView.m in Sources */,
 				E7CAB46D222E428F000E3330 /* SNCrash.m in Sources */,
 				610A3FB7222A1B9300524164 /* CartModel.m in Sources */,
-				E7F0012322262C17007CDBD6 /* FSPageContentView2.m in Sources */,
 				E7FC7921225F2FB0000832D9 /* DRAddShopModel.m in Sources */,
 				E76020A52239070700CF1D14 /* DTHomePageControl.m in Sources */,
 				3589D56223823B3F003DE11A /* UITabBarItem+YeeBadge.m in Sources */,
@@ -4835,6 +4846,7 @@
 				E760205F2237844000CF1D14 /* DCGoodsCountDownCell.m in Sources */,
 				E7F001522226860D007CDBD6 /* AddNumberView.m in Sources */,
 				E7028F9E22E6981B001FFDD9 /* DRShouKuanDetailVC.m in Sources */,
+				35FC2E03239790B000C57AF3 /* DROrderCountModel.m in Sources */,
 				E7A1F896222D05EF009EA75D /* ChangeUserNameVC.m in Sources */,
 				E7FDF54D2266D61F008A3CA7 /* AJPhotoListView.m in Sources */,
 				E7BE44D9226EA79B00F7135B /* DRShopBannerFootView.m in Sources */,
@@ -4989,6 +5001,7 @@
 				E7FF42DF229D15260017AC49 /* LabelCell.m in Sources */,
 				E7FDF5482266D61F008A3CA7 /* FullCell.m in Sources */,
 				E704F3AD221A7C9A00F25971 /* JKDBModel.m in Sources */,
+				3506B4BF238BBB3D00640D82 /* SNUserInfoVC.m in Sources */,
 				E7FEE6BA229544B000F56C14 /* LSXAlertInputView.m in Sources */,
 				E7DA4A2122B798A60079EAC3 /* DRCatoryShopVC.m in Sources */,
 				E7FDF47022602CA3008A3CA7 /* OrderModel.m in Sources */,
@@ -5006,6 +5019,7 @@
 				E7DA49EF22B7595A0079EAC3 /* ZWPhotoPreviewCell.m in Sources */,
 				E755EAD422840F170075906F /* DRNullShopModel.m in Sources */,
 				E74C15782253530B0001A9E4 /* GoodsModel.m in Sources */,
+				3589D56A23852733003DE11A /* FSSegmentTitleView.m in Sources */,
 				E76020622237844000CF1D14 /* DCHomeRefreshGifHeader.m in Sources */,
 				E7F0010C222534AC007CDBD6 /* SalesOrderVC.m in Sources */,
 				E71C301722321B4A00521960 /* CategoryMeunModel.m in Sources */,

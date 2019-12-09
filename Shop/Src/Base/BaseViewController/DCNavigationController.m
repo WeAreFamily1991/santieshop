@@ -52,7 +52,7 @@
     
     NSMutableDictionary *attributes = [NSMutableDictionary dictionary];
     // 设置导航栏字体颜色
-    UIColor * naiColor = [UIColor blackColor];
+    UIColor * naiColor = BLACKCOLOR;
     attributes[NSForegroundColorAttributeName] = naiColor;
     attributes[NSFontAttributeName] = DR_FONT(18);
     bar.titleTextAttributes = attributes;

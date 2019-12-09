@@ -118,3 +118,24 @@ NS_ASSUME_NONNULL_END
 @end
 
 
+@interface CatgoryDetailCell4 : UITableViewCell
++(instancetype)cellWithTableView:(UITableView *)tableView;
+
+@property (weak, nonatomic) IBOutlet UIButton *shopCarBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UILabel *priceAccountLab;
+@property (weak, nonatomic) IBOutlet UIView *lineView;
+@property (weak, nonatomic) IBOutlet UILabel *orderPriceLab;
+@property (nonatomic,retain)GoodsModel *goodsModel;
+@property (nonatomic,retain)DRSameModel *sameModel;
+@property (nonatomic,retain)NSString *favoriteID;
+@property (nonatomic,retain)NSString *titleStr;
+@property (copy,nonatomic) void (^cancelBlock) (NSInteger canceltag);
+@property (copy,nonatomic) void (^shoucangBlock) (NSInteger shoucangtag);
+@property (copy,nonatomic) void (^shopCarBlock) (NSInteger shopCartag);
+@property (copy,nonatomic) void (^noticeBlock) (NSInteger noticeTag);
+@property (nonatomic,strong)NSArray *itemListArr;
+@property (nonatomic,strong)NSString *shoucangStr;
+@property (nonatomic,strong)NSString *daohuoTongzhiStr;
+@property (nonatomic,retain)NSMutableDictionary *sourceDic;
+@end

@@ -22,7 +22,7 @@
 @property (copy, nonatomic) NSString *homeURL;
 @property (copy, nonatomic)CRDetailModel *detailModel;
 @property (strong, nonatomic) DRNullGoodModel *nullGoodModel;
-@property (copy, nonatomic) NSString *sellerid;
+@property (copy, nonatomic) NSString *sellerId;
 @property (copy, nonatomic) ViewController *VC;
 @property (nonatomic, copy) void (^selectedBlock)(NSInteger selectIndex);
 /* 推荐商品属性 */

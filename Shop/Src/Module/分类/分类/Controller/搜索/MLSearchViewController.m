@@ -100,7 +100,7 @@
     NSArray * btnDataSource = @[@"搜商品", @"搜店铺"];
     
     //  第4部  调用创建
-    YJSegmentedControl * segment = [YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44) titleDataSource:btnDataSource backgroundColor:[UIColor whiteColor] titleColor:[UIColor blackColor] titleFont:[UIFont fontWithName:@".Helvetica Neue Interface" size:16.0f] selectColor:REDCOLOR buttonDownColor:REDCOLOR Delegate:self];
+    YJSegmentedControl * segment = [YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44) titleDataSource:btnDataSource backgroundColor:[UIColor whiteColor] titleColor:BLACKCOLOR titleFont:[UIFont fontWithName:@".Helvetica Neue Interface" size:16.0f] selectColor:REDCOLOR buttonDownColor:REDCOLOR Delegate:self];
     // 第5步 添加到试图上
     [self.view addSubview:segment];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, SCREEN_HEIGHT-44) style:UITableViewStylePlain];

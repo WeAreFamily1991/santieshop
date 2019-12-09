@@ -279,7 +279,7 @@
 //    NSArray *titleArray=  @[@"",@"订单留言",@"收货信息",@"配送信息",@"支付信息"];
 //    label.text =titleArray[section];
 //    label.font =DR_BoldFONT(15);
-//    label.textColor = [UIColor blackColor];
+//    label.textColor = BLACKCOLOR;
 //    [bgView addSubview:label];
 //
 //

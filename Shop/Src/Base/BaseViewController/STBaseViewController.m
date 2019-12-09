@@ -42,7 +42,7 @@
     // 去掉导航栏下面的线
 //    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 //    [self.navigationController.navigationBar setBackgroundImage:[Utility imageWithColor:f_UIColorFromColor16(0x74b1f0, 1.0)] forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setTintColor:[UIColor blackColor]];
+    [self.navigationController.navigationBar setTintColor:BLACKCOLOR];
 }
 
 // 自定义返回按钮图片
@@ -118,6 +118,7 @@
  */
 - (void)showLoginPage {
     LoginVC *loginVC = [[LoginVC alloc] init];
+    loginVC.modalPresentationStyle =UIModalPresentationFullScreen;
     [self st_presentViewController:loginVC animated:YES completion:nil];
 }
 

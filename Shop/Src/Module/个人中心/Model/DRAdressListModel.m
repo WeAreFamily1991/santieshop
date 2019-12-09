@@ -22,7 +22,7 @@
     CGFloat bottom = 46;
     CGFloat middle = [DCSpeedy dc_calculateTextSizeWithText:_address WithTextFont:14 WithMaxW:ScreenW - 24].height;
     
-    return top + middle + bottom;;
+    return WScale(90);
 }
 -(void)setValue:(id)value forUndefinedKey:(NSString *)key
 {

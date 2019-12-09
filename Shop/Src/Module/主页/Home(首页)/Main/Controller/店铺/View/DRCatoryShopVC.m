@@ -138,9 +138,9 @@ static NSString *const DRFactoryCellID = @"DRFactoryCell";
 //{
 //    [self.navigationController setNavigationBarHidden:NO animated:YES];
 //}
--(void)setSellerid:(NSString *)sellerid
+-(void)setsellerId:(NSString *)sellerId
 {
-    _sellerid =sellerid;
+    _sellerId =sellerId;
       [self setUpHeaderBtn];
       [self addSource];
 }
@@ -150,7 +150,7 @@ static NSString *const DRFactoryCellID = @"DRFactoryCell";
     backView.backgroundColor =[UIColor whiteColor];
     [self.view addSubview:backView];
     DRWeakSelf;
-    NSDictionary *dic =@{@"sellerId":self.sellerid?:@""};
+    NSDictionary *dic =@{@"sellerId":self.sellerId?:@""};
     [SNAPI getWithURL:@"seller/getCzList" parameters:dic.mutableCopy success:^(SNResult *result)
      {
         NSDictionary *dic =@{@"id":@"",@"name":@"全部"};
@@ -206,7 +206,7 @@ static NSString *const DRFactoryCellID = @"DRFactoryCell";
 {
     DRWeakSelf;
     [MBProgressHUD showMessage:@""];
-    [self.sendDataDictionary setObject:self.sellerid?:@"" forKey:@"sellerId"];
+    [self.sendDataDictionary setObject:self.sellerId?:@"" forKey:@"sellerId"];
     [SNAPI getWithURL:@"seller/sellerCategory" parameters:_sendDataDictionary success:^(SNResult *result) {
         
         weakSelf.mainItem =[NSMutableArray array];
@@ -394,7 +394,7 @@ static NSString *const DRFactoryCellID = @"DRFactoryCell";
         goodSetVc.czID =[_sendDataDictionary objectForKey:@"cz"];
         goodSetVc.queryTypeStr =@"normal";
         goodSetVc.shopStr =@"111";
-        goodSetVc.sellidStr =self.sellerid;
+        goodSetVc.sellidStr =self.sellerId;
         [[self.view viewController].navigationController pushViewController:goodSetVc animated:YES];    
 }
 

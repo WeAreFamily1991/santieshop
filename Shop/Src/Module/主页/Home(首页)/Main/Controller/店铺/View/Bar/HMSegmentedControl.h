@@ -113,7 +113,7 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 /**
  Color for the vertical divider between segments.
  
- Default is `[UIColor blackColor]`
+ Default is `BLACKCOLOR`
  */
 @property (nonatomic, strong) UIColor *verticalDividerColor UI_APPEARANCE_SELECTOR;
 
@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger, HMSegmentedControlImagePosition) {
 /**
  Specifies the border color.
  
- Default is `[UIColor blackColor]`
+ Default is `BLACKCOLOR`
  */
 @property (nonatomic, strong) UIColor *borderColor;
 

@@ -87,7 +87,7 @@ static const CGFloat kPortraitWH = 50;
     _detailModel = detailModel;
     
     [_portraitImageView sd_setImageWithURL:[NSURL URLWithString:detailModel.storeImgM]];
-    _nameLabel.text = detailModel.compName;
+    _nameLabel.text = detailModel.sellerName;
     if (detailModel.kpName.length!=0) {
         _contentLabel.text =[NSString stringWithFormat:@"开票方：%@",detailModel.kpName];        
     }

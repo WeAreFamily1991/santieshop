@@ -79,18 +79,19 @@
         return;
     }
     //    DRWeakSelf;
-    [SNAPI commonMessageValidWithMobile:_phoneStr validCode:_imgCodeStr success:^(NSString *response) {
-        [MBProgressHUD showError:@"验证码已发送"];
+    [SNAPI commonMessageValidWithMobile:_phoneStr validCode:_imgCodeStr success:^(SNResult *result) {
+        
+       [MBProgressHUD showSuccess:@"验证码已发送"];
         self.enabled = NO;
         [self refreshButtonView];
-        [self setTitle:[NSString stringWithFormat:@"获取验证码(%zi)", _timer] forState:UIControlStateNormal];
+        [self setTitle:[NSString stringWithFormat:@"%zi",_timer] forState:UIControlStateNormal];
         _myTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(myTimer) userInfo:nil repeats:YES];
     } failure:^(NSError *error) {
         [MBProgressHUD showError:error.domain];
     }] ;
 }
 - (void)myTimer{
-    [self setTitle:[NSString stringWithFormat:@"获取验证码(%zi)", _timer] forState:UIControlStateNormal];
+    [self setTitle:[NSString stringWithFormat:@"%zi", _timer] forState:UIControlStateNormal];
     if (_timer == 0) {
         [self setTitle:@"重新获取" forState:UIControlStateNormal];
         self.enabled = YES;
@@ -106,7 +107,7 @@
 
 
 - (void)refreshButtonView{
-    [self setBackgroundImage:[self imageWithColor:[UIColor colorWithRed:1.000 green:0.310 blue:0.000 alpha:1.00] andSize:self.frame.size] forState:UIControlStateNormal];
+    [self setBackgroundImage:[self imageWithColor:REDCOLOR andSize:self.frame.size] forState:UIControlStateNormal];
     [self setBackgroundImage:[self imageWithColor:[UIColor lightGrayColor] andSize:self.frame.size] forState:UIControlStateDisabled];
 }
 - (UIImage *)imageWithColor:(UIColor *)color andSize:(CGSize)aSize{

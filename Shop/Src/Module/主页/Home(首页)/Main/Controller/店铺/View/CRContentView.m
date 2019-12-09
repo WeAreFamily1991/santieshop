@@ -26,7 +26,7 @@
 @property (nonatomic, strong) CRDetailModel *detailModel;
 @property (nonatomic, strong) DRShopHeadModel *shopHeadModel;
 @property (nonatomic, strong) DRNullGoodModel *nullGoodModel;
-@property (nonatomic,strong)NSString *sellerid;
+@property (nonatomic,strong)NSString *sellerId;
 @end
 
 @implementation CRContentView {
@@ -41,13 +41,13 @@
 
 - (instancetype)initWithFrame:(CGRect)frame
               contentDelegate:(id<CRContentViewDelegate>)contentDelegate
-                  detailModel:(CRDetailModel *)detailModel  ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel *)nullGoodModel withSellID:(NSString *)sellerid{
+                  detailModel:(CRDetailModel *)detailModel  ShopHeadModel:(DRShopHeadModel *)shopHeadModel nullGoodModel:(DRNullGoodModel *)nullGoodModel withSellID:(NSString *)sellerId{
     if (self = [super initWithFrame:frame]) {
         _contentDelegate = contentDelegate;
         _detailModel = detailModel;
         _shopHeadModel =shopHeadModel;
         _nullGoodModel =nullGoodModel;
-        _sellerid =sellerid;
+        _sellerId =sellerId;
         [self setup];
     }
     return self;
@@ -86,7 +86,7 @@
     [_backgroundImageView sd_setImageWithURL:_detailModel.backgroundURL];
     
     UIView *alphaView = [UIView new];
-    alphaView.backgroundColor = [UIColor blackColor];
+    alphaView.backgroundColor = BLACKCOLOR;
     alphaView.alpha = 0.2;
     alphaView.frame = _headerView.bounds;
     [_backgroundImageView addSubview:alphaView];
@@ -116,7 +116,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     CRSegmentCell *cell = [CRSegmentCell cellWithTableView:tableView];
-    cell.sellerid =self.sellerid;
+    cell.sellerId =self.sellerId;
     cell.nullGoodModel =self.nullGoodModel;
     cell.model = _detailModel;
     return cell;

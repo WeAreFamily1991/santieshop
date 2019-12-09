@@ -452,7 +452,7 @@
  *  @param type     类型，0：默认类型；1：用户注册时手机用户已存在提示；2：绑定操作时手机用户不存在提示
  *  @param validCode 区号，支持国外手机传区号，不支持则传“86”
  */
-+ (void)commonMessageValidWithMobile:(NSString *)mobile validCode:(NSString *)validCode success:(void (^)(NSString *))success failure:(void (^)(NSError *))failure ;
++ (void)commonMessageValidWithMobile:(NSString *)mobile validCode:(NSString *)validCode success:(void (^)(SNResult *))success failure:(void (^)(NSError *))failure ;
 
 /**
  *  跳转到厂商商城

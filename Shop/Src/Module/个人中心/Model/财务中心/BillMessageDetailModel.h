@@ -33,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * rejectReason;
 @property (nonatomic , copy) NSString              * taxNo;
 @property (nonatomic , copy) NSString              * buyerId;
-@property (nonatomic , copy) NSString              * fpSellerId;
+@property (nonatomic , copy) NSString              * fpsellerId;
 @property (nonatomic , copy) NSString              * bankName;
 @property (nonatomic , copy) NSString              * bankAccount;
 @property (nonatomic , copy) NSString              * expressComp;
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * compId;
 @property (nonatomic , assign) CGFloat              realAmt;
 @property (nonatomic , copy) NSString              * applyId;
-@property (nonatomic , copy) NSString              * compName;
+@property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , assign) CGFloat              canReturnAmt;
 
 @end

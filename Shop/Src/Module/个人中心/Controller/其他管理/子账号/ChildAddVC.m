@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordTF;
 @property (weak, nonatomic) IBOutlet UITextField *sureTF;
 @property (weak, nonatomic) IBOutlet UIButton *lockBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
+@property (weak, nonatomic) IBOutlet UISwitch *lockSwitch;
 @property (weak, nonatomic) IBOutlet UIButton *submitBtn;
 @property (weak, nonatomic) IBOutlet UIButton *startBtn;
 @property (nonatomic,retain)UIButton *addBtn;
@@ -28,8 +30,9 @@
     [super viewDidLoad];
     self.title =self.selectType?@"修改子账号":@"新增子账号";
     self.submitBtn.selected =self.selectType;
-    self.submitBtn.layer.masksToBounds =self.submitBtn.height/2;
-    self.submitBtn.layer.cornerRadius =self.submitBtn.height/2;
+    self.view.backgroundColor =BACKGROUNDCOLOR;
+//    self.submitBtn.layer.masksToBounds =self.submitBtn.height/2;
+//    self.submitBtn.layer.cornerRadius =self.submitBtn.height/2;
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     
     [self loadBase];
@@ -47,11 +50,13 @@
     if (self.selectType) {
         
         self.surnView.hidden =NO;
+         self.cancelBtn.hidden =NO;
         self.nameTF.text =self.childModel.accountName;
         self.phoneTF.text =self.childModel.mobilePhone;
         self.passwordTF.text =[DEFAULTS objectForKey:@"password"];
         self.sureTF.text =[DEFAULTS objectForKey:@"password"];
-        self.startBtn.selected=!self.childModel.status;
+       
+        self.lockSwitch.on=self.childModel.status;
         self.lockBtn.selected=self.childModel.status;
     }
     else
@@ -59,6 +64,7 @@
         self.selectBtnView.top =self.passwordTF.bottom;
        
         self.selectBtnView.hidden =YES;
+        self.cancelBtn.hidden =YES;
     }
     
 }
@@ -130,6 +136,39 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (IBAction)lockSwitchClick:(id)sender {
+    
+}
+- (IBAction)removeBtnClick:(id)sender {
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
+                                                                                    message:@"此操作将永久删除该账户, 是否继续?"
+                                                                             preferredStyle:UIAlertControllerStyleAlert];
+           
+           UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"确定"
+                                                             style:UIAlertActionStyleDefault
+                                                           handler:^(UIAlertAction * _Nonnull action)
+                                     {
+                                           
+                                         NSDictionary *dic =@{@"id":self.childModel.child_id};
+                                        
+                                         [SNIOTTool deleteWithURL:@"buyer/deleteChildAccount" parameters:[dic mutableCopy] success:^(SNResult *result) {
+                                             [self.navigationController popViewControllerAnimated:YES];
+                                         } failure:^(NSError *error) {
+                                             
+                                         }];
+                                     }];
+           [alertController addAction:action1];
+           
+           UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"取消"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:nil];
+           //            [action2 setValue:HQColorRGB(0xFF8010) forKey:@"titleTextColor"];
+           [alertController addAction:action2];
+           
+           dispatch_async(dispatch_get_main_queue(),^{
+               [self presentViewController:alertController animated:YES completion:nil];
+           });
 }
 
 /*

@@ -170,7 +170,7 @@ static NSString *FullCellId = @"FullCellId";
 - (void)creatFullUI {
     UIView *navagationV = [[UIView alloc]initWithFrame:CGRectMake(0, 0,kWindowW, 64)];
     _navagationView     = navagationV;
-    _navagationView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    _navagationView.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0.6];
     UIButton *leftButton = [[UIButton alloc] initWithFrame: CGRectMake(15, 25, 32,24)];
     [leftButton setImage:[[UIImage imageNamed:@"album_back"] original]forState:UIControlStateNormal];
     [leftButton addTarget:self action:@selector(Taping) forControlEvents:UIControlEventTouchUpInside];
@@ -195,7 +195,7 @@ static NSString *FullCellId = @"FullCellId";
     
     
     _barView  = [[UIView alloc] initWithFrame:CGRectMake(0, kWindowH -49,kWindowW, 49)];
-    _barView.backgroundColor =  [[UIColor blackColor] colorWithAlphaComponent:0.6];
+    _barView.backgroundColor =  [BLACKCOLOR colorWithAlphaComponent:0.6];
     [_keyView addSubview:_barView];
     UIButton *completBtn = [[UIButton alloc] initWithFrame:CGRectMake(kWindowW-70, 10, 60, 30)];
     [completBtn setTitle:@"完成" forState:UIControlStateNormal];
@@ -456,7 +456,7 @@ static NSString *FullCellId = @"FullCellId";
    
      [_FullCollectionView reloadData];
     [self getPhotosNum];
-    self.FullCollectionView.backgroundColor = [UIColor blackColor];
+    self.FullCollectionView.backgroundColor = BLACKCOLOR;
 }
 
 //根据SmallCell的点击改变checkBtn的选中状态

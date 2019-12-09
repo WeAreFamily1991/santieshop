@@ -207,20 +207,20 @@
            
             titleArr =@[[NSString stringWithFormat:@"开票方：%@",self.detailModel.fpPartyName],[NSString stringWithFormat:@"申请时间：%@",self.detailModel.applyeTime],[NSString stringWithFormat:@"金额：%.2f",self.detailModel.invoiceAmt]];
             cell.textLabel.text =titleArr[indexPath.row];
-            cell.textLabel.textColor =[UIColor blackColor];
+            cell.textLabel.textColor =BLACKCOLOR;
             cell.textLabel.font =DR_FONT(12);
         }else if (indexPath.section==1)
         {
            
             cell.textLabel.text =self.titleArr[indexPath.row];
-            cell.textLabel.textColor =[UIColor blackColor];
+            cell.textLabel.textColor =BLACKCOLOR;
             cell.textLabel.font =DR_FONT(12);
         }
         else if (indexPath.section==2)
         {
             titleArr =@[[NSString stringWithFormat:@"收票人：%@",self.detailModel.receiverName],[NSString stringWithFormat:@"详细地址：%@",self.detailModel.receiverAddress],[NSString stringWithFormat:@"联系电话：%@",self.detailModel.receiverPhone]];
             cell.textLabel.text =titleArr[indexPath.row];
-            cell.textLabel.textColor =[UIColor blackColor];
+            cell.textLabel.textColor =BLACKCOLOR;
             cell.textLabel.font =DR_FONT(12);
         }
         return cell;

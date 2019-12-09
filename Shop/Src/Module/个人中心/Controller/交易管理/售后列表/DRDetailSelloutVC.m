@@ -129,7 +129,7 @@ public static final String BUYER_BUYERBACKSEND = Url_Head + "buyer/buyerBackSend
     self.customHeadView.seleectTypeBtnBlock = ^{
         CRDetailController *detailVC = [CRDetailController new];
        
-        detailVC.sellerid=self.infoModel.sellerId;
+        detailVC.sellerId=self.infoModel.sellerId;
         [self.navigationController pushViewController:detailVC animated:YES];
     };
     self.tableView.tableHeaderView =self.customHeadView;
@@ -557,7 +557,7 @@ public static final String BUYER_BUYERBACKSEND = Url_Head + "buyer/buyerBackSend
     }
     label.text =titleArray[section];
     label.font =DR_BoldFONT(15);
-    label.textColor = [UIColor blackColor];
+    label.textColor = BLACKCOLOR;
     [bgView addSubview:label];
     UILabel *detailLabel = [[UILabel alloc] init];
     detailLabel.frame = CGRectMake(SCREEN_WIDTH/4, 0,3*SCREEN_WIDTH/4-DCMargin, bgView.frame.size.height);

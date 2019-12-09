@@ -412,7 +412,7 @@
         UIView *bgMaskView = [[UIView alloc] init];
         bgMaskView.alpha = 0.4;
         bgMaskView.translatesAutoresizingMaskIntoConstraints = NO;
-        bgMaskView.backgroundColor = [UIColor blackColor];
+        bgMaskView.backgroundColor = BLACKCOLOR;
         [self.view insertSubview:bgMaskView aboveSubview:self.photoListView];
         bgMaskView.userInteractionEnabled = YES;
         [bgMaskView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBgMaskView:)]];

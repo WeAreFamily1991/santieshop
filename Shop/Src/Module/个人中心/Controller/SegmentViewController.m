@@ -12,7 +12,7 @@
 #define Default_BottomLineColor     REDCOLOR
 #define Default_BottomLineHeight    2
 #define Default_ButtonHeight        45
-#define Default_TitleColor          [UIColor blackColor]
+#define Default_TitleColor          BLACKCOLOR
 #define Default_HeadViewBackgroundColor  [UIColor whiteColor]
 #define Default_FontSize            14
 #define MainScreenWidth             [[UIScreen mainScreen]bounds].size.width

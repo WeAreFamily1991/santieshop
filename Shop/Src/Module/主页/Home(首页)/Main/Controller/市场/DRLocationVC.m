@@ -332,7 +332,7 @@
 {
     DRLocationModel *locationModel =self.MsgListArr[indexPath.row];
     CRDetailController *detailVC = [CRDetailController new];
-    detailVC.sellerid=locationModel.compId;
+    detailVC.sellerId=locationModel.compId;
     [self.navigationController pushViewController:detailVC animated:YES];
 }
 

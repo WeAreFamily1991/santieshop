@@ -47,24 +47,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor =BACKGROUNDCOLOR;
-    //    self.tableView.frame =CGRectMake(0, 40, SCREEN_WIDTH, self.tableView.height-80);
-//    __weak typeof(self) weakSelf = self;
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-//        if (weakSelf.MsgListArr.count) {
-//            [weakSelf.MsgListArr removeAllObjects];
-//        }
-//        pageCount=1;
-//        [weakSelf getMsgList];
-//        [weakSelf.tableView.mj_header endRefreshing];
-//
-//    }];
-//    [self.tableView.mj_header beginRefreshing];
-//    self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-//
-//        pageCount = pageCount +1;
-//        [weakSelf getMsgList];
-//    }];
-//    [self.tableView.mj_footer endRefreshing];
     [self loadTableView];
     if (self.fatherStatus==1) {
         [self addCustomChildHeadView];
@@ -135,12 +117,12 @@
                 [self.MsgListArr addObjectsFromArray:modelArray];
                 if (self.fatherStatus==0) {
                     //"totalAmt":2408.90,"onlineAmt":0,"lineAmt":2408.90,"lineReturnAmt":0,"onlineReturnAmt":0,"payAmt":2408.90,"
-                    self.headView.payAllLab.text =[NSString stringWithFormat:@"您需支付金额:￥%.2f",[result.data[@"payAmt"] doubleValue]]?:@"0.00";
-                    self.headView.allCountLab.text =[NSString stringWithFormat:@"账单总金额:￥%.2f",[result.data[@"totalAmt"] doubleValue]]?:@"0.00";
-                    self.headView.onlineLab.text =[NSString stringWithFormat:@"在线支付金额：￥%.2f",[result.data[@"onlineAmt"] doubleValue]]?:@"0.00";
-                    self.headView.onlineBackLab.text =[NSString stringWithFormat:@"在线支付退款：￥%.2f",[result.data[@"onlineReturnAmt"] doubleValue]]?:@"0.00";
-                    self.headView.EDuLab.text =[NSString stringWithFormat:@"额度支付金额：￥%.2f",[result.data[@"lineAmt"] doubleValue]]?:@"0.00";
-                    self.headView.eDuBackLab.text =[NSString stringWithFormat:@"额度支付退款：￥%.2f",[result.data[@"lineReturnAmt"] doubleValue]]?:@"0.00";
+                    self.headView.payAllLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"payAmt"] doubleValue]]?:@"0.00";
+                    self.headView.allCountLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"totalAmt"] doubleValue]]?:@"0.00";
+                    self.headView.onlineLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineAmt"] doubleValue]]?:@"0.00";
+                    self.headView.onlineBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineReturnAmt"] doubleValue]]?:@"0.00";
+                    self.headView.EDuLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineAmt"] doubleValue]]?:@"0.00";
+                    self.headView.eDuBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineReturnAmt"] doubleValue]]?:@"0.00";
                 }
                 else
                 {
@@ -212,8 +194,6 @@
     
     return UITableViewAutomaticDimension;
 }
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.detailModel = self.MsgListArr[indexPath.section];
@@ -228,7 +208,7 @@
         }
        
         cell.getTimeLab.text =[NSString stringWithFormat:@"生成时间：%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",self.listMOdel.orderDate]]];
-         cell.getTimeLab.textColor =[UIColor blackColor];
+         cell.getTimeLab.textColor =BLACKCOLOR;
         cell.saleTimeLab.text =[NSString stringWithFormat:@"对账数量：%.2f",self.listMOdel.qty];
         cell.saleCountLab.text =[NSString stringWithFormat:@"对账金额：￥%.2f",self.listMOdel.orderAmt];
         cell.saleCountLab.textColor =REDCOLOR;
@@ -258,7 +238,7 @@
         cell.orderLab.text =[NSString stringWithFormat:@"订单号：%@",self.listMOdel.orderNo];
     cell.getTimeLab.text =[NSString stringWithFormat:@"退货单号：%@",self.listMOdel.returnOrderNo];
     
-    cell.getTimeLab.textColor =[UIColor blackColor];
+    cell.getTimeLab.textColor =BLACKCOLOR;
     cell.saleTimeLab.text =[NSString stringWithFormat:@"生成时间：%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",self.listMOdel.addTime]]];
     cell.saleCountLab.text =[NSString stringWithFormat:@"退货金额：￥%.2f  费率：%.0f",self.listMOdel.orderAmt,[self.listMOdel.feeRatio doubleValue]];
     cell.moneyCountLab.text =[NSString stringWithFormat:@"费用金额：￥%.2f",[self.listMOdel.feeAmt doubleValue]];
@@ -309,7 +289,7 @@
     [headView addSubview:button];
     UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(button.dc_right+15, 0, 2*ScreenW/3, HScale(30))];
     headLab.font =DR_FONT(14);
-    headLab.textColor =[UIColor blackColor];
+    headLab.textColor =BLACKCOLOR;
     headLab.textAlignment = 0;
     headLab.text=self.detailModel.sellerName;
     [headView addSubview:headLab];
@@ -332,7 +312,7 @@
 //    [headView addSubview:button];
 //    UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, HScale(55))];
 //    headLab.font =DR_FONT(14);
-//    headLab.textColor =[UIColor blackColor];
+//    headLab.textColor =BLACKCOLOR;
 //    headLab.textAlignment = 0;
 //    headLab.text=self.detailModel.sellerName;
 //    [headView addSubview:headLab];

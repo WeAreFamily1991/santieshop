@@ -254,7 +254,7 @@
                 }
                 
                 cell.textLabel.text =titleArr[indexPath.row];
-                cell.textLabel.textColor =[UIColor blackColor];
+                cell.textLabel.textColor =BLACKCOLOR;
                 cell.textLabel.font =DR_BoldFONT(12);
                 NSArray *titleArr =@[@"待审核", @"已通过", @"未通过" ,@"已开票",@"已作废",@"已撤回"];
                 if (self.MessageModel.status<=5) {
@@ -281,7 +281,7 @@
                 }
                 
                 cell.textLabel.text =titleArr[indexPath.row];
-                cell.textLabel.textColor =[UIColor blackColor];
+                cell.textLabel.textColor =BLACKCOLOR;
                 cell.textLabel.font =DR_FONT(12);
                 cell.detailTextLabel.text =self.MessageModel.applyeTime;
                 cell.detailTextLabel.textColor =[UIColor lightGrayColor];

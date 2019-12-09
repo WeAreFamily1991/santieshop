@@ -46,7 +46,7 @@
         self.buttonNormalColor = GS_NORMALTITLE_COLOR;   //未选中标题颜色
         self.buttonHighlightColor = GS_SELECTTITLE_COLOR; //选中标题颜色
         self.buttonNormalBorderColor =[UIColor whiteColor]; //未选中边框颜色
-        self.buttonSelectBorderColor = [UIColor redColor]; //选中边框颜色
+        self.buttonSelectBorderColor = REDCOLOR; //选中边框颜色
         self.buttonSelectBackGroundColor = GS_SELECTBACKGROUND_COLOR; //选中按钮的背景色
         self.buttonNormalBackGroundColor = [UIColor lightGrayColor];//未选中按钮背景颜色
         

@@ -108,8 +108,9 @@
         _rightBtn.layer.masksToBounds = YES;
         _rightBtn.layer.borderWidth = self.manager.rightBtnBorderWidth;
         _rightBtn.layer.borderColor = self.manager.rightBtnborderColor.CGColor;
+        
         _rightBtn.titleLabel.font = [UIFont systemFontOfSize:self.manager.rightBtnTitleSize];
-        [_rightBtn setTitleColor:self.manager.rightBtnTitleColor forState:UIControlStateNormal];
+        [_rightBtn setTitleColor:REDCOLOR forState:UIControlStateNormal];
         [_rightBtn setTitle:self.manager.rightBtnTitle forState:UIControlStateNormal];
         [_rightBtn addTarget:self action:@selector(clickRightBtn) forControlEvents:UIControlEventTouchUpInside];
     }

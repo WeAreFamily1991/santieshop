@@ -63,7 +63,7 @@
     indexLabel.textAlignment = NSTextAlignmentCenter;
     indexLabel.textColor = [UIColor whiteColor];
     indexLabel.font = [UIFont boldSystemFontOfSize:20];
-    indexLabel.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    indexLabel.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0.5];
     indexLabel.layer.cornerRadius = indexLabel.bounds.size.height * 0.5;
     indexLabel.clipsToBounds = YES;
     if (self.imageCount > 1) {

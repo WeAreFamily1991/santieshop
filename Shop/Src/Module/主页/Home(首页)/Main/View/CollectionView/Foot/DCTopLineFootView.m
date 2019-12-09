@@ -56,7 +56,7 @@
     [self addSubview:iconImg];
     _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(iconImg.dc_right, 0, ScreenW-WScale(80), self.dc_height) delegate:self placeholderImage:nil];
     _cycleScrollView.titleLabelBackgroundColor =[UIColor whiteColor];
-     _cycleScrollView.titleLabelTextColor =[UIColor blackColor];
+     _cycleScrollView.titleLabelTextColor =BLACKCOLOR;
     _cycleScrollView.titleLabelTextFont =DR_FONT(14);
     _cycleScrollView.autoScrollTimeInterval = 5.0;
     _cycleScrollView.currentPageDotColor =REDCOLOR;

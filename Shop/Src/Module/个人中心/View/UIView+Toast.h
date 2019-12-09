@@ -202,7 +202,7 @@ extern const NSString * CSToastPositionBottom;
 @interface CSToastStyle : NSObject
 
 /**
- The background color. Default is `[UIColor blackColor]` at 80% opacity.
+ The background color. Default is `BLACKCOLOR` at 80% opacity.
  */
 @property (strong, nonatomic) UIColor *backgroundColor;
 
@@ -283,7 +283,7 @@ extern const NSString * CSToastPositionBottom;
 @property (assign, nonatomic) BOOL displayShadow;
 
 /**
- The shadow color. Default is `[UIColor blackColor]`.
+ The shadow color. Default is `BLACKCOLOR`.
  */
 @property (strong, nonatomic) UIColor *shadowColor;
 

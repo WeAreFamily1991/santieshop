@@ -108,7 +108,7 @@
 
 - (UIButton *)cellView:(NSString *)data tag:(NSInteger)tag{
     UIButton *bottomView = [[UIButton alloc]init];
-    [bottomView setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [bottomView setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     bottomView.titleLabel.font = [UIFont systemFontOfSize:13];
     bottomView.tag = tag;
     [bottomView addTarget:self action:@selector(tapProduct:) forControlEvents:UIControlEventTouchUpInside];
@@ -201,7 +201,7 @@
 
 - (void)setupUI:(NSString *)text{
     if (!text.length) return;
-    //self.contentView.backgroundColor = [UIColor redColor];
+    //self.contentView.backgroundColor = REDCOLOR;
     [self.button setTitle:text forState:UIControlStateNormal];
 }
 

@@ -48,7 +48,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign) CGFloat              totalAmt;
 @property (nonatomic , copy) NSString              * compType;
 @property (nonatomic , assign) CGFloat              lineAmt;
-@property (nonatomic , copy) NSString              *compName;
 @end
 NS_ASSUME_NONNULL_END
 

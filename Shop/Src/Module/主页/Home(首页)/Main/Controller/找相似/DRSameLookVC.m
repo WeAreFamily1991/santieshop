@@ -129,7 +129,7 @@
 //            [_menu selectIndexPath:[MoreIndexPath indexPathWithCol:1 row:1]];
             [self.headerIMG sd_setImageWithURL:[NSURL URLWithString:self.nullGoodModel.img]];
             self.titleLab.text =self.nullGoodModel.itemname;
-            self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelname?:@"",_nullGoodModel.surfacename?:@""];
+            self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelName?:@"",_nullGoodModel.surfaceName?:@""];
         }
     } failure:^(NSError *error) {
         
@@ -156,8 +156,8 @@
     };
     [_menu selectIndexPath:[MoreIndexPath indexPathWithCol:1 row:1]];
     [self.headerIMG sd_setImageWithURL:[NSURL URLWithString:self.nullGoodModel.img]];
-    self.titleLab.text =self.nullGoodModel.brandname;
-    self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelname?:@"",_nullGoodModel.surfacename?:@""];
+    self.titleLab.text =self.nullGoodModel.brandName;
+    self.contentLab.text =[NSString stringWithFormat:@"%@ %@",_nullGoodModel.levelName?:@"",_nullGoodModel.surfaceName?:@""];
 }
 -(void)addTableViewHeaderView
 {
@@ -344,7 +344,7 @@
             }
             if (indexPath.row==0) {
                 cell.imageView.image =[UIImage imageNamed:@"店铺"];
-                cell.textLabel.text =self.sameArr[indexPath.section].compName;
+                cell.textLabel.text =self.sameArr[indexPath.section].sellerName;
                 cell.textLabel.font =DR_FONT(15);
                 cell.textLabel.textColor =BLACKCOLOR;
                 cell.detailTextLabel.text =@"进入店铺";
@@ -424,7 +424,7 @@
     if (indexPath.row==0) {
         CRDetailController *detailVC = [CRDetailController new];
         
-        detailVC.sellerid=self.sameArr[indexPath.section].sellerid;
+        detailVC.sellerId=self.sameArr[indexPath.section].sellerId;
         [self.navigationController pushViewController:detailVC animated:YES];
     }
     if (indexPath.row==1) {

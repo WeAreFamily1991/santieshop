@@ -31,7 +31,7 @@
 -(void)setSameModel:(DRSameModel *)sameModel
 {
     _sameModel =sameModel;
-    [self.productImg sd_setImageWithURL:[NSURL URLWithString:sameModel.imgurl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:sameModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
     self.productName.text =sameModel.itemname;
     [self.moreBtn setImage: [UIImage imageNamed: @"arrow_right_grey" ]forState:UIControlStateSelected];
     
@@ -46,7 +46,7 @@
     [self.moreBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleBottom imageTitleSpace:5];
     self.moreBtn.hidden =YES;
     self.nullImg.hidden =NO;
-    NSArray * array = @[sameModel.spec?:@"",sameModel.materialname?:@"",sameModel.brandname?:@""];
+    NSArray * array = @[sameModel.spec?:@"",sameModel.materialName?:@"",sameModel.brandName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -56,31 +56,31 @@
     Height = WScale(30);
     [self setStandWithArray:titArr];
     
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([sameModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([sameModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([sameModel.basicunitid intValue]==6) {
+    if ([sameModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([sameModel.basicunitid intValue]==7) {
+    if ([sameModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
     NSString *nameStr;
-    if (sameModel.unitconversion1.length!=0&&![sameModel.unitconversion1 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[sameModel.unitconversion1 doubleValue],baseStr,sameModel.unitname1];
+    if (sameModel.unitConversion1.length!=0&&![sameModel.unitConversion1 isEqualToString:@"0"]) {
+        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[sameModel.unitConversion1 doubleValue],baseStr,sameModel.unitName1];
     }
-    if (sameModel.unitconversion2.length!=0&&![sameModel.unitconversion2 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitconversion2 doubleValue],baseStr,sameModel.unitname2];
+    if (sameModel.unitConversion2.length!=0&&![sameModel.unitConversion2 isEqualToString:@"0"]) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitConversion2 doubleValue],baseStr,sameModel.unitName2];
     }
-    if (sameModel.unitconversion3.length!=0&&![sameModel.unitconversion3 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitconversion3 doubleValue],baseStr,sameModel.unitname3];
+    if (sameModel.unitConversion3.length!=0&&![sameModel.unitConversion3 isEqualToString:@"0"]) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitConversion3 doubleValue],baseStr,sameModel.unitName3];
     }
-    if (sameModel.unitconversion4!=0&&![sameModel.unitconversion4 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitconversion4 doubleValue],baseStr,sameModel.unitname4];
+    if (sameModel.unitConversion4!=0&&![sameModel.unitConversion4 isEqualToString:@"0"]) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitConversion4 doubleValue],baseStr,sameModel.unitName4];
     }
-    if (sameModel.unitconversion5.length!=0&&![sameModel.unitconversion5 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitconversion5 doubleValue],baseStr,sameModel.unitname5];
+    if (sameModel.unitConversion5.length!=0&&![sameModel.unitConversion5 isEqualToString:@"0"]) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[sameModel.unitConversion5 doubleValue],baseStr,sameModel.unitName5];
     }
     
     self.parameterLabel.text =[NSString stringWithFormat:@"包装参数：%@",nameStr];
@@ -91,8 +91,8 @@
 {
     _goodsModel =goodsModel;
       _nullImg.hidden =YES;
-    [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodsModel.imgurl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
-    self.productName.text =goodsModel.itemname;
+    [self.productImg sd_setImageWithURL:[NSURL URLWithString:goodsModel.imgUrl] placeholderImage:[UIImage imageNamed:@"santie_default_img"]];
+    self.productName.text =goodsModel.itemName;
     [self.moreBtn setImage: [UIImage imageNamed: @"arrow_right_grey" ]forState:UIControlStateSelected];
     
     [self.moreBtn setImage: [UIImage imageNamed: @"arrow_down_grey" ]forState:UIControlStateNormal];
@@ -105,7 +105,7 @@
     [self.moreBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
       [self.moreBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleBottom imageTitleSpace:5];
      self.moreBtn.hidden =NO;
-    NSArray * array = @[goodsModel.spec?:@"",goodsModel.levelname?:@"",goodsModel.materialname?:@"",goodsModel.surfacename?:@"",goodsModel.brandname?:@""];
+    NSArray * array = @[goodsModel.spec?:@"",goodsModel.levelName?:@"",goodsModel.materialName?:@"",goodsModel.surfaceName?:@"",goodsModel.brandName?:@""];
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -115,36 +115,37 @@
     Height = WScale(30);
     [self setStandWithArray:titArr];
 
-    NSString *baseStr;//basicunitid 5千支  6公斤  7吨
-    if ([goodsModel.basicunitid intValue]==5) {
+    NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
+    if ([goodsModel.basicUnitId intValue]==5) {
         baseStr =@"千支";
     }
-    if ([goodsModel.basicunitid intValue]==6) {
+    if ([goodsModel.basicUnitId intValue]==6) {
         baseStr =@"公斤";
     }
-    if ([goodsModel.basicunitid intValue]==7) {
+    if ([goodsModel.basicUnitId intValue]==7) {
         baseStr =@"吨";
     }
     NSString *nameStr;
-    if (goodsModel.unitconversion1.length!=0&&![goodsModel.unitconversion1 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[goodsModel.unitconversion1 doubleValue],baseStr,goodsModel.unitname1];
+    if (goodsModel.unitConversion1!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion1 ,baseStr,goodsModel.unitName1];
     }
-    if (goodsModel.unitconversion2.length!=0&&![goodsModel.unitconversion2 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion2 doubleValue],baseStr,goodsModel.unitname2];
+    if (goodsModel.unitConversion2!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion2 ,baseStr,goodsModel.unitName2];
     }
-    if (goodsModel.unitconversion3.length!=0&&![goodsModel.unitconversion3 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion3 doubleValue],baseStr,goodsModel.unitname3];
+    if (goodsModel.unitConversion3!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion3 ,baseStr,goodsModel.unitName3];
     }
-    if (goodsModel.unitconversion4.length!=0&&![goodsModel.unitconversion4 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion4 doubleValue],baseStr,goodsModel.unitname4];
+    if (goodsModel.unitConversion4!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion4 ,baseStr,goodsModel.unitName4];
     }
-    if (goodsModel.unitconversion5.length!=0&&![goodsModel.unitconversion5 isEqualToString:@"0"]) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodsModel.unitconversion5 doubleValue],baseStr,goodsModel.unitname5];
+    if (goodsModel.unitConversion5!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodsModel.unitConversion5 ,baseStr,goodsModel.unitName5];
     }
+   
    
     self.parameterLabel.text =[NSString stringWithFormat:@"包装参数：%@",nameStr];
     self.cellLabel.text = nil;
-    self.countLabel.text =[NSString stringWithFormat:@"库存数(%@)：%.3f  %@",baseStr,[goodsModel.qty doubleValue],goodsModel.storeName] ;
+    self.countLabel.text =[NSString stringWithFormat:@"库存数(%@)：%.3ld  %@",baseStr,(long)goodsModel.qty,goodsModel.storeName] ;
     
 }
 -(UIImageView *)productImg
@@ -196,7 +197,7 @@
 {
     if (!_productName) {
         _productName = [[UILabel alloc] init];
-        _productName.textColor = [UIColor blackColor];
+        _productName.textColor = BLACKCOLOR;
         _productName.font = ZF_FONT(15);
         _productName.numberOfLines = 0;
         [self addSubview:_productName];
@@ -238,7 +239,7 @@
         UILabel * label = [[UILabel alloc] init];
         label.frame = CGRectMake(tagBtnX, tagBtnY, tagTextSize.width+WScale(5),WScale(25));
         label.text = array[i];
-        label.textColor = [UIColor redColor];
+        label.textColor = REDCOLOR;
         label.font = ZF_FONT(12);
         label.textAlignment = NSTextAlignmentCenter;
         label.layer.cornerRadius = 2;
@@ -257,7 +258,7 @@
 {
     if (!_parameterLabel) {
         _parameterLabel = [[UILabel alloc] init];
-        _parameterLabel.textColor = [UIColor blackColor];
+        _parameterLabel.textColor = BLACKCOLOR;
         _parameterLabel.font = ZF_FONT(12);
         _parameterLabel.numberOfLines = 0;
         [self addSubview:_parameterLabel];
@@ -274,7 +275,7 @@
 {
     if (!_cellLabel) {
         _cellLabel = [[UILabel alloc] init];
-        _cellLabel.textColor = [UIColor blackColor];
+        _cellLabel.textColor = BLACKCOLOR;
         _cellLabel.font = ZF_FONT(12);
         _cellLabel.numberOfLines = 0;
         [self addSubview:_cellLabel];
@@ -290,7 +291,7 @@
 {
     if (!_countLabel) {
         _countLabel = [[UILabel alloc] init];
-        _countLabel.textColor = [UIColor blackColor];
+        _countLabel.textColor = BLACKCOLOR;
         _countLabel.font = ZF_FONT(12);
         _countLabel.numberOfLines = 0;
         [self addSubview:_countLabel];

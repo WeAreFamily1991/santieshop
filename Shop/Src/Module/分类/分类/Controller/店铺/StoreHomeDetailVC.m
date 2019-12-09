@@ -9,8 +9,8 @@
 #import "StoreHomeDetailVC.h"
 #import "StoreDetaPageVC.h"
 @interface StoreHomeDetailVC ()<FSPageContentViewDelegate,FSSegmentTitleViewDelegate>
-@property (nonatomic, strong) FSPageContentView2 *pageContentView;
-@property (nonatomic, strong) FSSegmentTitleView2 *titleView;
+@property (nonatomic, strong) FSPageContentView *pageContentView;
+@property (nonatomic, strong) FSSegmentTitleView *titleView;
 @property (nonatomic,strong)UIView *backView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -47,14 +47,8 @@
     //    self.backView =[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 4)
     self.automaticallyAdjustsScrollViewInsets = NO;//,@"周三",@"周四",@"周五",@"周六",@"周日",
     NSMutableArray *titleArray = [[NSMutableArray alloc] initWithObjects:@"全部", @"碳钢" ,nil];
-    self.titleView = [[FSSegmentTitleView2 alloc]initWithFrame:CGRectMake(0,1,SCREEN_WIDTH,40) delegate:self indicatorType:0];
-    self.titleView.backgroundColor = [UIColor whiteColor];
-    self.titleView.button_Width = WScale(40);
-    self.titleView.titlesArr = titleArray;
-    _titleView.titleNormalColor = [UIColor darkGrayColor];
-    _titleView.titleSelectColor = REDCOLOR;
-    self.titleView.titleFont = DR_FONT(14);
-    self.titleView.indicatorView.image = [UIImage ImageWithColor:REDCOLOR frame:self.titleView.bounds];
+    self.titleView = [[FSSegmentTitleView alloc]initWithFrame:CGRectMake(0,1,SCREEN_WIDTH,40) titles:titleArray delegate:self indicatorType:2];
+
     [self.backView addSubview:_titleView];
     
     ///线
@@ -70,7 +64,7 @@
         VC.status = i;
         [childVCs addObject:VC];
     }
-    self.pageContentView = [[FSPageContentView2 alloc]initWithFrame:CGRectMake(0,40, SCREEN_WIDTH,SCREEN_HEIGHT-DRTopHeight-120) childVCs:childVCs parentVC:self delegate:self];
+    self.pageContentView = [[FSPageContentView alloc]initWithFrame:CGRectMake(0,40, SCREEN_WIDTH,SCREEN_HEIGHT-DRTopHeight-120) childVCs:childVCs parentVC:self delegate:self];
     self.pageContentView.backgroundColor = [UIColor clearColor];
     [self.backView addSubview:_pageContentView];
     
@@ -78,11 +72,11 @@
     self.pageContentView.contentViewCurrentIndex = _num;
 }
 //********************************  分段选择  **************************************
-- (void)FSSegmentTitleView:(FSSegmentTitleView2 *)titleView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
+- (void)FSSegmentTitleView:(FSSegmentTitleView *)titleView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
 {
     self.pageContentView.contentViewCurrentIndex = endIndex;
 }
-- (void)FSContenViewDidEndDecelerating:(FSPageContentView2 *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
+- (void)FSContenViewDidEndDecelerating:(FSPageContentView *)contentView startIndex:(NSInteger)startIndex endIndex:(NSInteger)endIndex
 {
     self.titleView.selectIndex = endIndex;
 }

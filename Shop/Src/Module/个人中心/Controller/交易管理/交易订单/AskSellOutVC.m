@@ -373,7 +373,7 @@
         if (indexPath.row==0) {
             NSLog(@"%ld",(long)indexPath.section);
             CRDetailController *detailVC = [CRDetailController new];
-            detailVC.sellerid=self.sellOutModel.sellerId;
+            detailVC.sellerId=self.sellOutModel.sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         }
     }
@@ -444,14 +444,14 @@
             if (imageArr.count!=0) {
                 
                 [SNAPI uploadAvatar:imageArr nickName:nil success:^(SNResult *result) {
-                    [self.sendDataDictionary setObject:result.data[@"src"] forKey:@"imgURL"];
+                    [self.sendDataDictionary setObject:result.data[@"src"] forKey:@"imgUrl"];
                     //                [self.tableView reloadData];
                 } failure:^(NSError *error) {
                     
                 }];
             }else
             {
-                 [self.sendDataDictionary removeObjectForKey:@"imgURL"];
+                 [self.sendDataDictionary removeObjectForKey:@"imgUrl"];
             }
         }];
         [bgView addSubview:mediaView];
@@ -470,18 +470,18 @@
 -(void)deleteButtonClick2:(UIButton *)button
 {
     [photoArray removeObjectAtIndex:button.tag];
-//NSArray *imgArr = [[self.sendDataDictionary objectForKey:@"imgURL"] componentsSeparatedByString:@","];
+//NSArray *imgArr = [[self.sendDataDictionary objectForKey:@"imgUrl"] componentsSeparatedByString:@","];
 //    
-//    [self.sendDataDictionary removeObjectForKey:@"imgURL"]
+//    [self.sendDataDictionary removeObjectForKey:@"imgUrl"]
     
     // [photo_upArray removeObjectAtIndex:button.tag];
-    NSMutableArray *ImgArr =[self.sendDataDictionary[@"imgURL"] componentsSeparatedByString:@","].mutableCopy;
+    NSMutableArray *ImgArr =[self.sendDataDictionary[@"imgUrl"] componentsSeparatedByString:@","].mutableCopy;
     [ImgArr removeObjectAtIndex:button.tag];
     NSString *selectName= @"";
     for (NSString *urlStr in ImgArr) {
         selectName = [selectName stringByAppendingString:[NSString stringWithFormat:@"%@,",urlStr]];
     }
-    [self.sendDataDictionary setObject:selectName forKey:@"imgURL"];
+    [self.sendDataDictionary setObject:selectName forKey:@"imgUrl"];
     [self.tableView reloadData];
 }
 
@@ -511,7 +511,7 @@
     [_sendDataDictionary setObject:imgsStr forKey:@"imgs"];
     [self.tableView reloadData];
     [SNAPI uploadAvatar:photoArray nickName:nil success:^(SNResult *result) {
-         [self.sendDataDictionary setObject:result.data[@"src"] forKey:@"imgURL"];
+         [self.sendDataDictionary setObject:result.data[@"src"] forKey:@"imgUrl"];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
     
@@ -557,7 +557,7 @@
         [MBProgressHUD showError:@"请描述具体原因"];
         return;
     }
-    NSString *urlStr =_sendDataDictionary[@"imgURL"];
+    NSString *urlStr =_sendDataDictionary[@"imgUrl"];
     if (urlStr.length==0) {
         [MBProgressHUD showError:@"请上传至少一张图片"];
         return;
@@ -567,7 +567,7 @@
         NSDictionary *dic =@{@"orderGoodsId":dict[@"orderGoodsId"]?:@"",@"qty":[NSString stringWithFormat:@"%@",dict[@"qty"]]?:@""};
         [listArr addObject:dic];
     }
-    NSDictionary *dic =@{@"sourceType":@"Wechat",@"orderId":self.sellOutModel.orderId?:@"",@"reason":_sendDataDictionary[@"reason"]?:@"",@"isQuality":_sendDataDictionary[@"isQuality"]?:@"",@"message":_sendDataDictionary[@"message"]?:@"",@"imgs":_sendDataDictionary[@"imgURL"]?:@""};
+    NSDictionary *dic =@{@"sourceType":@"Wechat",@"orderId":self.sellOutModel.orderId?:@"",@"reason":_sendDataDictionary[@"reason"]?:@"",@"isQuality":_sendDataDictionary[@"isQuality"]?:@"",@"message":_sendDataDictionary[@"message"]?:@"",@"imgs":_sendDataDictionary[@"imgUrl"]?:@""};
     
     NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:[SNTool jsontringData:listArr] forKey:@"goodsArray"];
     [mudic addEntriesFromDictionary:dic];

@@ -435,7 +435,7 @@ static const NSString * CSToastQueueKey             = @"CSToastQueueKey";
 - (instancetype)initWithDefaultStyle {
     self = [super init];
     if (self) {
-        self.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.8];
+        self.backgroundColor = [BLACKCOLOR colorWithAlphaComponent:0.8];
         self.titleColor = [UIColor whiteColor];
         self.messageColor = [UIColor whiteColor];
         self.maxWidthPercentage = 0.8;

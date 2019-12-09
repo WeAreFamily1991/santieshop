@@ -57,7 +57,7 @@ UICollectionViewDelegateFlowLayout>
 }
 #pragma mark - config
 - (void)configDefaultUI {
-    self.backgroundColor = [UIColor blackColor];
+    self.backgroundColor = BLACKCOLOR;
     [self configCollection];
     [self configPanGesture];
 }
@@ -401,7 +401,7 @@ UICollectionViewDelegateFlowLayout>
         _tips.layer.cornerRadius = 5;
         _tips.clipsToBounds = YES;
         _tips.textColor = [UIColor whiteColor];
-        _tips.backgroundColor = [UIColor blackColor];
+        _tips.backgroundColor = BLACKCOLOR;
         _tips.hidden = YES;
         [self addSubview:_tips];
     }

@@ -196,7 +196,7 @@
     [selectAll setTitle:@" 全选" forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:@"cart_unSelect_btn"] forState:UIControlStateNormal];
     [selectAll setImage:[UIImage imageNamed:@"cart_selected_btn"] forState:UIControlStateSelected];
-    [selectAll setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [selectAll setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [selectAll addTarget:self action:@selector(selectAllBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:selectAll];
 //

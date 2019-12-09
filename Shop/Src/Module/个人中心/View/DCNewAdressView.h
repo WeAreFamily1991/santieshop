@@ -26,7 +26,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *selectBtn;
 @property (weak, nonatomic) IBOutlet UILabel *addressLabel;
 @property (weak, nonatomic) IBOutlet UIButton *selectAddressBtn;
-@property (weak, nonatomic) IBOutlet UIButton *isDefautsBtn;
+@property (weak, nonatomic) IBOutlet UISwitch *isDefaultSwitch;
 
 
 @end

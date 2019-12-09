@@ -36,7 +36,7 @@
     }else{
         timestr =@"预计发货时间：当天发货";
     }
-    NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",sameModel.saleunitname],[NSString stringWithFormat:@"单规格起订量：%.3f%@",sameModel.minquantity,sameModel.saleunitname],timestr];
+    NSArray *titleArr =@[[NSString stringWithFormat:@"最小销售单位：%@",sameModel.saleUnitName],[NSString stringWithFormat:@"单规格起订量：%.3f%@",sameModel.minQuantity,sameModel.saleUnitName],timestr];
     self.danweiLab.text = titleArr[0];
     self.qidingliangLab.text = titleArr[1];
     self.timeLAb.text = titleArr[2];

@@ -52,7 +52,7 @@
     [self addSubview:_goodsImageView];
     _goodsTitleLabel = [[UILabel alloc] init];
     _goodsTitleLabel.font = DR_FONT(14);
-    _goodsTitleLabel.textColor =[UIColor blackColor];
+    _goodsTitleLabel.textColor =BLACKCOLOR;
     _goodsTitleLabel.textAlignment = 0;
     [self addSubview:_goodsTitleLabel];
     _goodsContentLabel = [[UILabel alloc] init];

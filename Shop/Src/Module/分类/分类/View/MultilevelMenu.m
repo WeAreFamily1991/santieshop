@@ -45,12 +45,12 @@
         }
         
         _block=selectIndex;
-        self.leftSelectColor=[UIColor blackColor];
+        self.leftSelectColor=BLACKCOLOR;
         self.leftSelectBgColor=[UIColor whiteColor];
         self.leftBgColor=RGBHex(0xF3F4F6);
         self.leftSeparatorColor=RGBHex(0xE5E5E5);
         self.leftUnSelectBgColor=RGBHex(0xF3F4F6);
-        self.leftUnSelectColor=[UIColor blackColor];
+        self.leftUnSelectColor=BLACKCOLOR;
         
         _selectIndex=0;
         

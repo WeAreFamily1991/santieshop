@@ -31,7 +31,7 @@
 -(instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor=[UIColor blackColor];
+        self.backgroundColor=BLACKCOLOR;
         self.alpha=0.0f;
         self.userInteractionEnabled=YES;
         

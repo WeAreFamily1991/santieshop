@@ -34,12 +34,13 @@
 @property (nonatomic,strong) UIView  *cover;
 /* headView */
 @property (strong , nonatomic)DCNewAdressView *adressHeadView;
-@property (weak, nonatomic) IBOutlet UIButton *saveChangeButton;
+@property (retain, nonatomic) UIButton *saveChangeButton;
 @property (strong,nonatomic)NSArray *townArr;
 @property (nonatomic,assign)NSInteger selectRow;
 @property (nonatomic,assign)BOOL isYes;
 @property (nonatomic,retain)NSDictionary *dataSource;
 @property (nonatomic,retain) DRAddressInfoModel *infoModel;
+@property (nonatomic,retain)UIButton  *saveBtn;
 @end
 
 @implementation DCNewAdressViewController
@@ -52,9 +53,10 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        _tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH - (DRTopHeight+ 100));
+        _tableView.frame = CGRectMake(0, 0, ScreenW, ScreenH - (DRTopHeight));
+        _tableView.rowHeight =WScale(50);
         [self.view addSubview:_tableView];
-        
+        _tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"UITableViewCell"];
         
     }
@@ -80,6 +82,7 @@
         [self getaddressInfo];
     }
     [self getDistrict];
+    [self addTableViewfooterView];
 }
 -(void)getaddressInfo
 {
@@ -106,7 +109,7 @@
              weakSelf.adressHeadView.mobileTF.text =weakSelf.infoModel.phone;
             //        _adressHeadView.provinceField.text =_adressItem.provAddress;
             weakSelf.adressHeadView.detailTextView.text = weakSelf.infoModel.address;
-            weakSelf.adressHeadView.isDefautsBtn.selected =[weakSelf.adressItem.isdefault boolValue];
+            weakSelf.adressHeadView.isDefaultSwitch.on =[weakSelf.adressItem.isdefault boolValue];
             
             
         }
@@ -136,7 +139,7 @@
         else if (weakSelf.saveType == DCSaveAdressNewType) {
             weakSelf.adressHeadView.addressLabel.text = [DRBuyerModel sharedManager].location;
             NSLog(@"code=%@",[DEFAULTS objectForKey:@"locationcode"]);
-            weakSelf.adressHeadView.isDefautsBtn.selected =YES;
+            weakSelf.adressHeadView.isDefaultSwitch.on =YES;
         }
 
     } failure:^(NSError *error) {
@@ -156,14 +159,14 @@
 - (void)setUpHeadView
 {
     _adressHeadView = [DCNewAdressView dc_viewFromXib];
-    _adressHeadView.frame = CGRectMake(0, 0, ScreenW, HScale(310));
-    self.saveChangeButton.layer.cornerRadius = 25;
-    self.saveChangeButton.layer.masksToBounds = 25;
+//    _adressHeadView.frame = CGRectMake(0, 0, ScreenW, HScale(310));
     self.tableView.tableHeaderView = _adressHeadView;
-    self.tableView.tableFooterView = self.saveChangeButton;
-    _adressHeadView.detailTextView.backgroundColor =BACKGROUNDCOLOR;
-    _adressHeadView.detailTextView.layer.cornerRadius =5;
-    _adressHeadView.detailTextView.layer.masksToBounds =5;
+    if (_saveType == DCSaveAdressNewType) {
+        [_adressHeadView.rePersonField addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
+        [_adressHeadView.rePhoneField addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
+    }
+//    self.tableView.tableFooterView = self.saveChangeButton;
+    
    
     DRWeakSelf;
     _adressHeadView.selectAdBlock = ^{
@@ -195,25 +198,60 @@
     };
     _adressHeadView.isDefautsBlock = ^{
       
-        weakSelf.adressHeadView.isDefautsBtn.selected =!weakSelf.adressHeadView.isDefautsBtn.selected;
+//        weakSelf.adressHeadView.isDefaultSwitch.on  =!weakSelf.adressHeadView.isDefaultSwitch.on ;
     };
 }
-
-
+-(void)saveChangeButtonClock:(UIButton *)sender
+{
+    
+}
+-(void)textFieldChangeAction:(UITextField *)textField
+{
+    if (_adressHeadView.rePersonField.text.length&&_adressHeadView.rePhoneField.text.length==11) {
+        self.saveBtn.backgroundColor =REDCOLOR;
+    }
+    else
+    {
+        self.saveBtn.backgroundColor =RGBHex(0XC0C0C0);
+    }
+}
+//区头的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return (_saveType == DCSaveAdressNewType) ? 0.01 : WScale(10);
+}
+//区尾的高度
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01;
+}
 #pragma mark - <UITableViewDataSource>
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return (_saveType == DCSaveAdressNewType) ? 0 : 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [UITableViewCell new];
+    static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                             SimpleTableIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                      reuseIdentifier: SimpleTableIdentifier];
+    }
+    cell.backgroundColor =WHITECOLOR;
+    cell.textLabel.text =@"删除此地址";
+    cell.textLabel.textAlignment =1;
+    cell.textLabel.textColor =REDCOLOR;
+    cell.textLabel.font =DR_FONT(14);
+    return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:YES];
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
@@ -223,7 +261,7 @@
 
 
 #pragma mark - 保存新地址
-- (IBAction)saveNewAdressClick {
+-(void)saveNewAdressClick {
     
     DRWeakSelf;
 
@@ -239,7 +277,7 @@
     NSString *urlStr ;
     NSString *defautStr;
     NSDictionary *dic =[NSDictionary dictionary];
-    if (_adressHeadView.isDefautsBtn.selected) {
+    if (_adressHeadView.isDefaultSwitch.on ) {
         defautStr =@"true";
     }
     else{
@@ -256,7 +294,7 @@
         }
     }else
     {
-        urlStr =@"buyer/addAddress";        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtId":[DEFAULTS objectForKey:@"locationcode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":[NSString stringWithFormat:@"%d",_adressHeadView.isDefautsBtn.selected],@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@""};
+        urlStr =@"buyer/addAddress";        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtId":[DEFAULTS objectForKey:@"locationcode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":[NSString stringWithFormat:@"%d",_adressHeadView.isDefaultSwitch.on ],@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@""};
        [smallDic addEntriesFromDictionary:dic];
         if (_adressHeadView.selectBtn.selected==YES) {
             [smallDic setObject:[NSString stringWithFormat:@"%@/%@",[DEFAULTS objectForKey:@"locationcode"],self.townArr[self.selectRow][@"code"]?:@""] forKey:@"districtId"];
@@ -280,5 +318,24 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+-(void)addTableViewfooterView
+{
+    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-WScale(50)-DRTopHeight, SCREEN_WIDTH, WScale(50))];
+    headView.backgroundColor =[UIColor clearColor];
+    [self.view addSubview:headView];
+    
+    self.saveBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.saveBtn.frame = CGRectMake(0, 0,SCREEN_WIDTH, WScale(50));
+    [self.saveBtn setTitle:@"保存" forState:UIControlStateNormal];
+       
+    [self.saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.saveBtn.titleLabel.font = DR_FONT(18);
+    self.saveBtn.backgroundColor =RGBHex(0XC0C0C0);
+    self.saveBtn.enabled =NO;
+    [self.saveBtn addTarget:self action:@selector(saveNewAdressClick) forControlEvents:UIControlEventTouchUpInside];
+    [headView addSubview:self.saveBtn];
+    
+    
 }
 @end

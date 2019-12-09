@@ -81,7 +81,7 @@
 }
 -(void)getSingleItem
 {
-    NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerid,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
+    NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObjects:@[self.goodsModel.sellerId,self.goodsModel.goods_id,self.goodsModel.storeId] forKeys:@[@"sellerId",@"id",@"storeId"]];
     [SNAPI getWithURL:@"mainPage/getSingleItem" parameters:mudic success:^(SNResult *result) {
         
     } failure:^(NSError *error) {
@@ -106,10 +106,9 @@
         urlStr =@"buyer/getItem";
         if (page) {
             [dic setObject:page forKey:@"pageindex"];
+            [dic setObject:@"10" forKey:@"pagesize"];
         }
-         [dic setObject:@"Wechat" forKey:@"sourceType"];
          [dic setObject:@"favorite" forKey:@"queryType"];
-         [dic setObject:@"" forKey:@"keyword"];
     }
     else
     {
@@ -118,7 +117,7 @@
             [dic setObject:page forKey:@"pageNum"];
             [dic setObject:@"10" forKey:@"pageSize"];
         }
-        [dic setObject:@"" forKey:@"name"];
+//        [dic setObject:@"" forKey:@"name"];
     }
     if (dictionary) {
         [dic addEntriesFromDictionary:dictionary];
@@ -127,9 +126,9 @@
     [MBProgressHUD showMessage:@""];
     [SNAPI getWithURL:urlStr parameters:dic success:^(SNResult *result) {
         if (self.status==0) {
-            NSLog(@"data=%@",result.data[@"itemdata"]);
-            NSMutableArray*addArr=result.data[@"itemdata"];
-            NSMutableArray *modelArray =[GoodsModel mj_objectArrayWithKeyValuesArray:result.data[@"itemdata"]];
+            NSLog(@"data=%@",result.data[@"list"]);
+            NSMutableArray*addArr=result.data[@"list"];
+            NSMutableArray *modelArray =[GoodsModel mj_objectArrayWithKeyValuesArray:result.data[@"list"]];
             [weakSelf.MsgListArr addObjectsFromArray:modelArray];
             [self.tableView reloadData];
             if (addArr.count<10){
@@ -196,7 +195,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.status==1) {
-        return HScale(150);
+        return WScale(112);
     }
     switch (indexPath.row) {
         case 0:
@@ -205,7 +204,7 @@
                  return 60;
             }else
             {
-                return HScale(60);
+                return WScale(60);
             }
            
             break;
@@ -218,7 +217,7 @@
             break;
             
         case 3:
-            return 40;
+            return WScale(50);
             break;
             
             
@@ -308,7 +307,7 @@
                 CatgoryDetailCell *cell =[CatgoryDetailCell cellWithTableView:tableView];
                 cell.goodsModel =self.goodsModel;
                 cell.shoucangStr =@"1";
-                if (self.goodsModel.favariteId.length==0)
+                if (self.goodsModel.favouriteId.length==0)
                 {
                     cell.shoucangBtn.selected =NO;
                 }
@@ -351,14 +350,14 @@
     if (self.status==1) {
         CRDetailController *detailVC = [CRDetailController new];
         self.favoriModel=self.MsgListArr[indexPath.section];
-        detailVC.sellerid=self.favoriModel.sellerId;
+        detailVC.sellerId=self.favoriModel.sellerId;
         [self.navigationController pushViewController:detailVC animated:YES];
     }else
     {
         if (indexPath.row==0) {
             CRDetailController *detailVC = [CRDetailController new];
             self.goodsModel=self.MsgListArr[indexPath.section];
-            detailVC.sellerid=self.goodsModel.sellerid;
+            detailVC.sellerId=self.goodsModel.sellerId;
             [self.navigationController pushViewController:detailVC animated:YES];
         }
     }

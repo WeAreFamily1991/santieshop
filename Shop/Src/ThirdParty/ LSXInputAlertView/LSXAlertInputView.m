@@ -97,7 +97,7 @@ typedef void(^doneBlock)(NSString *);
     okbtn=[UIButton new];
     
     [okbtn addTarget:self action:@selector(okTap) forControlEvents:UIControlEventTouchUpInside];
-    okbtn.backgroundColor=[UIColor redColor];
+    okbtn.backgroundColor=REDCOLOR;
     [okbtn setTitle:@"确定" forState:UIControlStateNormal];
     okbtn.titleLabel.font =DR_FONT(15);
     [alertView addSubview:okbtn];
@@ -169,7 +169,7 @@ typedef void(^doneBlock)(NSString *);
     
     if (!_shadowView) {
         _shadowView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT)];
-        _shadowView.backgroundColor = [UIColor blackColor];
+        _shadowView.backgroundColor = BLACKCOLOR;
         _shadowView.backgroundColor  = RGBA(0, 0, 0, 0.4);
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapToDismissNinaView)];
         [self.shadowView addGestureRecognizer:tap];

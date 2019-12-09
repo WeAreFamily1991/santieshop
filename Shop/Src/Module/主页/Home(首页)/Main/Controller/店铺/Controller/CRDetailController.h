@@ -10,5 +10,5 @@
 #import "DRNullGoodModel.h"
 @interface CRDetailController : STBaseViewController
 @property (nonatomic,strong)DRNullGoodModel *nullGoodModel;
-@property (nonatomic,strong)NSString *sellerid;
+@property (nonatomic,strong)NSString *sellerId;
 @end

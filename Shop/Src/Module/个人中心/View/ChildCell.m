@@ -24,15 +24,15 @@
          cell = [[[NSBundle mainBundle] loadNibNamed:@"ChildCell" owner:nil options:nil] firstObject];
     }
     cell.editBtn.layer.borderWidth =1;
-    cell.editBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
+    cell.editBtn.layer.borderColor =REDCOLOR.CGColor;
     cell.editBtn.layer.cornerRadius=5;
     cell.editBtn.layer.masksToBounds =5;
     cell.startBtn.layer.borderWidth =1;
-    cell.startBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
+    cell.startBtn.layer.borderColor =REDCOLOR.CGColor;
     cell.startBtn.layer.cornerRadius=5;
     cell.startBtn.layer.masksToBounds =5;
     cell.cancelBtn.layer.borderWidth =1;
-    cell.cancelBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
+    cell.cancelBtn.layer.borderColor =REDCOLOR.CGColor;
     cell.cancelBtn.layer.cornerRadius=5;
     cell.cancelBtn.layer.masksToBounds =5;
     

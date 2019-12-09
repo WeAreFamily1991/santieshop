@@ -27,8 +27,7 @@
 #import <MJRefresh.h>
 #import "UIView+Extension.h"
 #import "NSString+Extension.h"
-#import "FSPageContentView2.h"
-#import "FSSegmentTitleView2.h"
+#import "FSScrollContentView.h"
 #import <SDWebImage/UIButton+WebCache.h>
 #import "CanUsePhoto.h"
 #import <AssetsLibrary/AssetsLibrary.h>

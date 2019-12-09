@@ -99,7 +99,7 @@
 
 - (void)refreshAction {
     MBProgressHUD *hud = [MBProgressHUD cr_showLoadinWithView:self.view text:@"加载中..."];
-    NSDictionary *dic =@{@"sellerId":self.sellerid,@"districtId":[DEFAULTS objectForKey:@"code"]};
+    NSDictionary *dic =@{@"sellerId":self.sellerId,@"districtId":[DEFAULTS objectForKey:@"code"]};
     [SNAPI getWithURL:@"seller/getSellerInfo" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             _detailModel=[CRDetailModel mj_objectWithKeyValues:result.data];
@@ -154,11 +154,11 @@
     CGRect contentFrame = self.view.bounds;
     CGFloat bottomBarHeight = isIphoneX ? (kBottomBarHeight+kSafeAreaLayoutGuideBottomHeight) : kBottomBarHeight;
     contentFrame.size.height -= bottomBarHeight;
-    _contentView = [[CRContentView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerid];
+    _contentView = [[CRContentView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerId];
     
     [self.view addSubview:_contentView];
    
-//    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerid];
+//    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerId];
 //    _catoryShopView.hidden =YES;
 //    [self.view addSubview:_catoryShopView];
     
@@ -209,7 +209,7 @@
     DRShopListVC *goodSetVc =[[DRShopListVC alloc] init];
     goodSetVc.shopStr =@"111";
     goodSetVc.nullGoodModel =_nullGoodModel;
-    goodSetVc.selleridStr =self.sellerid;
+    goodSetVc.sellerIdStr =self.sellerId;
     [self.navigationController pushViewController:goodSetVc animated:YES];
 }
 
@@ -267,11 +267,11 @@
     CGRect contentFrame = self.view.bounds;
     CGFloat bottomBarHeight = isIphoneX ? (kBottomBarHeight+kSafeAreaLayoutGuideBottomHeight) : kBottomBarHeight;
     contentFrame.size.height -= bottomBarHeight;
-    _contentView = [[CRContentView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerid];
+    _contentView = [[CRContentView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerId];
     
     [self.view addSubview:_contentView];
     
-    //    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerid];
+    //    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerId];
     //    _catoryShopView.hidden =YES;
     //    [self.view addSubview:_catoryShopView];
     
@@ -286,7 +286,7 @@
     CGFloat bottomBarHeight = isIphoneX ? (kBottomBarHeight+kSafeAreaLayoutGuideBottomHeight) : kBottomBarHeight;
     contentFrame.size.height -= bottomBarHeight;
     
-    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerid];
+    _catoryShopView = [[DRCatoryShopView alloc] initWithFrame:contentFrame contentDelegate:self detailModel:_detailModel ShopHeadModel:_shopHeadModel nullGoodModel:_nullModel withSellID:self.sellerId];
 //    _catoryShopView.hidden =YES;
     [self.view addSubview:_catoryShopView];
      [self.view bringSubviewToFront:_navigationBar];
@@ -311,7 +311,7 @@
 {
     DRShopListVC *goodSetVc =[[DRShopListVC alloc] init];
     goodSetVc.shopStr =@"111";
-    goodSetVc.selleridStr =self.sellerid;
+    goodSetVc.sellerIdStr =self.sellerId;
     goodSetVc.nullGoodModel =(DRNullGoodModel*)nullShopModel;
     [self.navigationController pushViewController:goodSetVc animated:YES];
 }

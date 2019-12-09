@@ -146,8 +146,8 @@
     self.verticalDividerEnabled = NO;
     self.type = HMSegmentedControlTypeText;
     self.verticalDividerWidth = 1.0f;
-    _verticalDividerColor = [UIColor blackColor];
-    self.borderColor = [UIColor blackColor];
+    _verticalDividerColor = BLACKCOLOR;
+    self.borderColor = BLACKCOLOR;
     self.borderWidth = 1.0f;
     
     self.shouldAnimateUserSelection = YES;
@@ -947,7 +947,7 @@
 - (NSDictionary *)resultingTitleTextAttributes {
     NSDictionary *defaults = @{
         NSFontAttributeName : [UIFont systemFontOfSize:19.0f],
-        NSForegroundColorAttributeName : [UIColor blackColor],
+        NSForegroundColorAttributeName : BLACKCOLOR,
     };
     
     NSMutableDictionary *resultingAttrs = [NSMutableDictionary dictionaryWithDictionary:defaults];

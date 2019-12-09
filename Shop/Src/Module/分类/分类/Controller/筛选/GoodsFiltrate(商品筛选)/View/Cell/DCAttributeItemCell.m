@@ -77,7 +77,7 @@
     }else{
         
         [_contentButton setImage:nil forState:0];
-        [_contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_contentButton setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         _contentButton.backgroundColor = BACKGROUNDCOLOR;
         
         [DCSpeedy dc_chageControlCircularWith:self AndSetCornerRadius:3 SetBorderWidth:1 SetBorderColor:BACKGROUNDCOLOR canMasksToBounds:YES];
@@ -89,14 +89,14 @@
     [_contentButton setTitle:titleItem.code forState:0];
     if (titleItem.isSelect) {
         [_contentButton setImage:[UIImage imageNamed:@"checked"] forState:0];
-        //        [_contentButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+        //        [_contentButton setTitleColor:REDCOLOR forState:UIControlStateNormal];
         //        _contentButton.backgroundColor = [UIColor whiteColor];
         
-        //        [DCSpeedy dc_chageControlCircularWith:self AndSetCornerRadius:3 SetBorderWidth:1 SetBorderColor:[UIColor redColor] canMasksToBounds:YES];
+        //        [DCSpeedy dc_chageControlCircularWith:self AndSetCornerRadius:3 SetBorderWidth:1 SetBorderColor:REDCOLOR canMasksToBounds:YES];
     }else{
         
         [_contentButton setImage:[UIImage imageNamed:@"Unchecked"] forState:0];
-        [_contentButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_contentButton setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
         
         //        _contentButton.backgroundColor = RGB(230, 230, 230);
         

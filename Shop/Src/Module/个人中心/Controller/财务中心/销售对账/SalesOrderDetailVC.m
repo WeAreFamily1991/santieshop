@@ -13,6 +13,7 @@
 #import "SalesOrderModel.h"
 #import "CHDatePickerMenu.h"
 #import "SalesOrderVC.h"
+
 @interface SalesOrderDetailVC ()
 {
     int pageCount;
@@ -22,6 +23,7 @@
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic,assign)NSInteger selectIndex;
 @property (nonatomic,strong)NSMutableArray *MsgListArr;
+@property (nonatomic,strong)NSArray *titleArr,*detailArr;
 @property (nonatomic,strong)SalesOrderModel *saleModel;
 /* 暂无子账号提示 */
 @property (strong , nonatomic)DCUpDownButton *bgTipButton;
@@ -66,6 +68,7 @@
     [super viewDidLoad];
     [self.view addSubview:self.bgTipButton];
     self.view.backgroundColor =BACKGROUNDCOLOR;
+    self.titleArr =@[@"对账单号",@"生成日期",@"对账日期",@"对账数量",@"对账金额",@"运费"];
 //    self.tableView.frame =CGRectMake(0, 40, SCREEN_WIDTH, self.tableView.height-80);
     __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -163,6 +166,7 @@
         else{
             [self.tableView.mj_footer endRefreshing];
         }
+        self.titleArr =self.status? @[@"对账单号",@"费用账期",@"退货金额",@"费用金额"]:@[@"对账单号",@"生成日期",@"对账日期",@"对账数量",@"对账金额",@"运费"];
         [self.tableView.mj_header endRefreshing];
         [MBProgressHUD hideHUD];
     } failure:^(NSError *error) {
@@ -194,18 +198,21 @@
     }
     return _bgTipButton;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    self.bgTipButton.hidden = (_MsgListArr.count > 0) ? YES : NO;
+    return _MsgListArr.count;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    return UITableViewAutomaticDimension;
-    if (self.status==1) {
-        return HScale(100) ;
-    }
-    return HScale(120);
+    return WScale(40);
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    self.bgTipButton.hidden = (self.MsgListArr.count > 0) ? YES : NO;
-    return self.MsgListArr.count;
+    if (self.status==0) {
+        return 6;
+    }
+    return 4;
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -214,55 +221,72 @@
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return WScale(10);
 }
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.01;
+    return WScale(50);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    if (self.MsgListArr.count!=0) {
-        self.saleModel =self.MsgListArr[indexPath.row];
-        if (self.status==0) {
-            SaleOrderCell *cell =[SaleOrderCell cellWithTableView:tableView];
-            cell.typeLab.hidden =YES;
-            cell.saleModel =self.saleModel;
-            cell.status =self.status;
-            cell.detailClickBlock = ^{
-                SaleDetailVC *saleDetailVC =[[SaleDetailVC alloc]init];
-                self.saleModel =self.MsgListArr[indexPath.row];
-                saleDetailVC.saleModel =self.saleModel;
-                saleDetailVC.fatherStatus =self.status;
-                [self.navigationController pushViewController:saleDetailVC animated:YES];
-            };
-            return cell;
-        }else
-        {
-            SaleOrderCell1 *cell =[SaleOrderCell1 cellWithTableView:tableView];
-            cell.typeLab.hidden =YES;
-            cell.saleModel =self.saleModel;
-            cell.status =self.status;
-            cell.detailClickBlock = ^{
-                self.saleModel =self.MsgListArr[indexPath.row];
-                SaleDetailVC *saleDetailVC =[[SaleDetailVC alloc]init];
-                saleDetailVC.saleModel =self.saleModel;
-                saleDetailVC.fatherStatus =self.status;
-                [self.navigationController pushViewController:saleDetailVC animated:YES];
-            };
-            return cell;
-        }
-        
-    }
+   
     static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              SimpleTableIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
                                       reuseIdentifier: SimpleTableIdentifier];
     }
+    
+    self.saleModel =self.MsgListArr[indexPath.section];
+    
+    self.detailArr =self.status?@[self.saleModel.dzNo,self.saleModel.dzPeriod,[NSString stringWithFormat:@"￥%@",self.saleModel.returnOrderAmt?:@""],[NSString stringWithFormat:@"￥%@",self.saleModel.qty?:@""]]:@[self.saleModel.dzNo,self.saleModel.createTime,self.saleModel.dzPeriod,self.saleModel.qty,[NSString stringWithFormat:@"￥%@",self.saleModel.totalOrderAmt],[NSString stringWithFormat:@"￥%@",self.saleModel.expressFeeTotal]];
+    cell.textLabel.text =self.titleArr[indexPath.row];
+    cell.textLabel.font =DR_FONT(14);
+    
+    cell.detailTextLabel.text =self.detailArr[indexPath.row];
+    cell.detailTextLabel.font =DR_FONT(14);
+    if (self.status==0&indexPath.row==4||indexPath.row==5) {
+        cell.detailTextLabel.textColor =REDCOLOR;
+    }
+    
+    if (self.status==1&indexPath.row==2||indexPath.row==3) {
+        cell.detailTextLabel.textColor =REDCOLOR;
+    }
+//    if (self.MsgListArr.count!=0) {
+//
+//           if (self.status==0) {
+//               SaleOrderCell *cell =[SaleOrderCell cellWithTableView:tableView];
+//               cell.typeLab.hidden =YES;
+//               cell.saleModel =self.saleModel;
+//               cell.status =self.status;
+//               cell.detailClickBlock = ^{
+//                   SaleDetailVC *saleDetailVC =[[SaleDetailVC alloc]init];
+//                   self.saleModel =self.MsgListArr[indexPath.row];
+//                   saleDetailVC.saleModel =self.saleModel;
+//                   saleDetailVC.fatherStatus =self.status;
+//                   [self.navigationController pushViewController:saleDetailVC animated:YES];
+//               };
+//               return cell;
+//           }else
+//           {
+//               SaleOrderCell1 *cell =[SaleOrderCell1 cellWithTableView:tableView];
+//               cell.typeLab.hidden =YES;
+//               cell.saleModel =self.saleModel;
+//               cell.status =self.status;
+//               cell.detailClickBlock = ^{
+//                   self.saleModel =self.MsgListArr[indexPath.row];
+//                   SaleDetailVC *saleDetailVC =[[SaleDetailVC alloc]init];
+//                   saleDetailVC.saleModel =self.saleModel;
+//                   saleDetailVC.fatherStatus =self.status;
+//                   [self.navigationController pushViewController:saleDetailVC animated:YES];
+//               };
+//               return cell;
+//           }
+//
+//       }
 //    cell.textLabel.text = [_titleStr stringByAppendingString:[NSString stringWithFormat:@"-%d",(int)indexPath.row]];
     return cell;
 }
@@ -275,5 +299,30 @@
     saleDetailVC.fatherStatus =self.status;
     [self.navigationController pushViewController:saleDetailVC animated:YES];
 }
-
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, WScale(50))];
+    footerView.backgroundColor =WHITECOLOR;
+    
+    UIButton *footerBtn =[UIButton buttonWithTitle:@"查看详细" font:DR_FONT(14) titleColor:REDCOLOR backGroundColor:CLEARCOLOR buttonTag:section target:self action:@selector(footerBtnClick:) showView:footerView];
+    footerBtn.frame =CGRectMake(WScale(285), WScale(10), WScale(80), WScale(30));
+    footerBtn.layer.borderColor = REDCOLOR.CGColor;
+    //设置边框宽度
+    footerBtn.layer.borderWidth = 1.0f;
+    //给按钮设置角的弧度
+    footerBtn.layer.cornerRadius = 4.0f;
+    
+    footerBtn.layer.masksToBounds =YES;
+    
+    return footerView;
+}
+-(void)footerBtnClick:(UIButton *)sender
+{
+    self.saleModel =self.MsgListArr[sender.tag];  
+    SaleDetailVC *saleDetailVC =[[SaleDetailVC alloc]init];
+    saleDetailVC.saleModel =self.saleModel;
+    saleDetailVC.fatherStatus =self.status;
+    [self.navigationController pushViewController:saleDetailVC animated:YES];
+   
+}
 @end

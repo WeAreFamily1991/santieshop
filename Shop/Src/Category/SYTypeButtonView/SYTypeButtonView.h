@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 /// 默认行高
-static CGFloat const heightTypeButtonView = 40.0f;
+static CGFloat const heightTypeButtonView = 40;
 
 /// 常规按钮key
 static NSString *const keyImageNormal         = @"keyImageNormal";

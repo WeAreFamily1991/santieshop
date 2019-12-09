@@ -24,7 +24,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * afterSaleStatus;
 @property (nonatomic , copy) NSString              * orderReturnWay;
 @property (nonatomic , copy) NSString              * orderNo;
-@property (nonatomic , copy) NSString              * compName;
 @property (nonatomic , copy) NSString              * isHy;
 @property (nonatomic , copy) NSString              * kfPhone;
 @property (nonatomic , copy) NSString              * priceTypeName;

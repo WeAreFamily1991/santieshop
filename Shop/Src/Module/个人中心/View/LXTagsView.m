@@ -83,7 +83,7 @@
     
     for (int i = 0; i<_dataA.count; i++) {
         
-        UIButton *button =[UIButton LXButtonNoFrameWithTitle:_dataA[i] titleFont:self.tagFont Image:nil backgroundImage:nil backgroundColor:BACKGROUNDCOLOR titleColor:BLACKCOLOR];
+        UIButton *button =[UIButton LXButtonNoFrameWithTitle:_dataA[i] titleFont:self.tagFont Image:nil backgroundImage:nil backgroundColor:nil titleColor:BLACKCOLOR];
         button.layer.cornerRadius =2;
         button.layer.masksToBounds =2;
         

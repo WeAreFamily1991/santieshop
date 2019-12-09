@@ -33,7 +33,7 @@
     if (!_contentLabel) {
         _contentLabel = [[UILabel alloc]init];
         _contentLabel.text = @"我是label的内容";
-        _contentLabel.textColor = [UIColor blackColor];
+        _contentLabel.textColor = BLACKCOLOR;
         _contentLabel.numberOfLines = 0;
         _contentLabel.font = [UIFont systemFontOfSize:12];
     }

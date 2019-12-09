@@ -215,7 +215,7 @@ static NSString *const str_openCamera_error = @"设备不能打开相机";
 //        [[self viewController] popoverPresentationController];
 //    };
     imagePickerVc.navigationBar.tintColor =BLACKCOLOR;
-    [imagePickerVc.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor blackColor],UITextAttributeTextColor,nil]];
+    [imagePickerVc.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:BLACKCOLOR,UITextAttributeTextColor,nil]];
     imagePickerVc.naviTitleColor =BLACKCOLOR;
     ///是否 在相册中显示拍照按钮
     imagePickerVc.allowTakePicture = YES;

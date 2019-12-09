@@ -13,5 +13,5 @@
 @interface CRSegmentCell : CRTableViewCell
 @property (strong, nonatomic) CRDetailModel *model;
 @property (strong, nonatomic) DRNullGoodModel *nullGoodModel;
-@property (nonatomic,strong)NSString *sellerid;
+@property (nonatomic,strong)NSString *sellerId;
 @end

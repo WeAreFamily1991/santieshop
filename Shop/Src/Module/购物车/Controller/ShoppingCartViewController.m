@@ -175,7 +175,7 @@
     if ([message.name isEqualToString:@"toStoreInfo"]) {
         CRDetailController *detailVC = [CRDetailController new];
        
-        detailVC.sellerid=message.body[@"sellerId"];
+        detailVC.sellerId=message.body[@"sellerId"];
         [self.navigationController pushViewController:detailVC animated:YES];
 
     }

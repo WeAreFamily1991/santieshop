@@ -81,7 +81,7 @@
         self.backgroundColor = [UIColor whiteColor];
     }else{
         _indicatorView.hidden = YES;
-        _titleLabel.textColor = [UIColor blackColor];
+        _titleLabel.textColor = BLACKCOLOR;
         self.backgroundColor = [UIColor clearColor];
     }
 }

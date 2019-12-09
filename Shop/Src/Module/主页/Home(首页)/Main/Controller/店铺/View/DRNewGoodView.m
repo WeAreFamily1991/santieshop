@@ -59,7 +59,7 @@ CRSortBarDelegate>
 }
 -(void)newRecommend
 {
-    NSDictionary *dic =@{@"type":@"1",@"sellerId":self.sellerid,@"pageIndex":@"1",@"pageSize":@"10000"};
+    NSDictionary *dic =@{@"type":@"1",@"sellerId":self.sellerId,@"pageIndex":@"1",@"pageSize":@"10000"};
     [SNAPI getWithURL:@"seller/newRecommend" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
             

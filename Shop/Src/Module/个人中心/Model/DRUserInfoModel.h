@@ -8,6 +8,7 @@
 #import <Foundation/Foundation.h>
 @class DROpenUserListModel;
 @class DRBuyerModel;
+@class OpenUserList;
 @interface DRUserInfoModel : NSObject
 #pragma mark - 单例
 +(instancetype)sharedManager;
@@ -26,6 +27,20 @@
 @property (nonatomic , assign) BOOL              sessionStatus;//会话状态
 @property (nonatomic , assign) NSInteger              lastLoginTime;//最近登陆时间
 @property (nonatomic , assign) NSInteger              status;//后台预留字段
+@property (nonatomic , copy) NSString              * commpany_id;
+@property (nonatomic , copy) NSString              * businessLic;
+@property (nonatomic , copy) NSString              * cTel;
+@property (nonatomic , copy) NSString              * cPhone;
+@property (nonatomic , copy) NSArray<OpenUserList *>* openUserList;
+@property (nonatomic , copy) NSString              * buyerName;
+@property (nonatomic , copy) NSString              * companyAddress;
+@property (nonatomic , copy) NSString              * accountId;
+@property (nonatomic , copy) NSString              * cName;
+@property (nonatomic , copy) NSString              * location;
+@property (nonatomic , copy) NSString              * logo;
+@property (nonatomic , copy) NSString              * locationCode;
+@property (nonatomic , assign) NSInteger             ticketType;
+@property (nonatomic , copy) NSString              * parentId;
 - (void)setValue:(id)value forUndefinedKey:(NSString *)key;
 
 @end
