@@ -156,7 +156,7 @@
 }
 -(void)addGetSellInfo
 {
-    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerId,@"districtId":[DRBuyerModel sharedManager].locationcode?:@""};
+    NSDictionary *dic =@{@"sellerId":self.nullGoodModel.sellerId,@"districtId":[DRUserInfoModel sharedManager].locationCode?:@""};
     [SNAPI getWithURL:@"seller/getSellerInfo" parameters:[dic mutableCopy] success:^(SNResult *result) {
         if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
               CRDetailModel *detailModel=[CRDetailModel mj_objectWithKeyValues:result.data];            
@@ -287,7 +287,7 @@
 //    pageSize: 10
 //    pageNum: 1
 //    dcType:
-    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullGoodModel.sellerId?:@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"districtId",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
+    _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRUserInfoModel sharedManager].locationCode?:@"",self.nullGoodModel.sellerId?:@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"districtId",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
     }
     //    [MBProgressHUD showMessage:@""];
     [self loadDataSource:_sendDataDictionary withpagecount:[NSString stringWithFormat:@"%d",pageCount]];

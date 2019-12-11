@@ -221,7 +221,7 @@
 {
     if (self.MsgListArr.count!=0) {
         self.MessageModel =self.MsgListArr[indexPath.section];
-        NSArray *titleArr =@[[NSString stringWithFormat:@"申请单号：%@",self.MessageModel.applyNo],[NSString stringWithFormat:@"开票方：%@",self.MessageModel.fpPartyName],[NSString stringWithFormat:@"金额：%.2f",self.MessageModel.invoiceAmt]];
+        NSArray *titleArr =@[[NSString stringWithFormat:@"申请单号：%@",self.MessageModel.applyNo],[NSString stringWithFormat:@"开票方：%@",self.MessageModel.kpName],[NSString stringWithFormat:@"金额：%.2f",self.MessageModel.invoiceAmt]];
         switch (indexPath.row) {
             case 0:
             {
@@ -262,7 +262,7 @@
                     cell.detailTextLabel.text = titleArr[self.MessageModel.status];
                 }
                 cell.detailTextLabel.textColor =REDCOLOR;
-                cell.detailTextLabel.font =DR_FONT(12);
+                cell.detailTextLabel.font =DR_FONT(14);
                 
                 return cell;
                 
@@ -283,9 +283,9 @@
                 cell.textLabel.text =titleArr[indexPath.row];
                 cell.textLabel.textColor =BLACKCOLOR;
                 cell.textLabel.font =DR_FONT(12);
-                cell.detailTextLabel.text =self.MessageModel.applyeTime;
+                cell.detailTextLabel.text =self.MessageModel.applyTime;
                 cell.detailTextLabel.textColor =[UIColor lightGrayColor];
-                cell.detailTextLabel.font =DR_FONT(12);
+                cell.detailTextLabel.font =DR_FONT(14);
                 
                 return cell;
             }

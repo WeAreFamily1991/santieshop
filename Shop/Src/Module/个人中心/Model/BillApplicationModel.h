@@ -11,7 +11,7 @@
 @interface BillApplicationModel :DRBaseModel
 @property (nonatomic , copy) NSString              * compId;
 @property (nonatomic , copy) NSString              * fpParty;
-@property (nonatomic , copy) NSString              * fpPartyName;
+@property (nonatomic , copy) NSString              * kpName;
 @property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , copy) NSString              * priceType;
 @property (nonatomic , copy) NSArray<ShoppingModel *>   * orderList;
@@ -97,7 +97,7 @@
 @property (nonatomic , copy) NSString              * orderservicetype;
 @property (nonatomic , copy) NSString              * ztAddress;
 @property (nonatomic , copy) NSString              * sellerName;
-@property (nonatomic , copy) NSString              * fpPartyName;
+@property (nonatomic , copy) NSString              * kpName;
 @property (nonatomic , copy) NSString              * fpTitle;
 @property (nonatomic , copy) NSString              * stypeid;
 @property (nonatomic , copy) NSString              * batchNo;

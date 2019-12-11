@@ -164,7 +164,7 @@
 
 #pragma mark - 背景视图的点击事件
 - (void)didTapBackgroundView:(UITapGestureRecognizer *)sender {
-    if ([DEFAULTS objectForKey:@"locationcode"])
+    if ([DEFAULTS objectForKey:@"locationCode"])
     {
         [self dismissWithAnimation:YES];
     }
@@ -243,7 +243,7 @@
 
 #pragma mark - 取消按钮的点击事件
 - (void)clickLeftBtn {
-    if ([DEFAULTS objectForKey:@"locationcode"])
+    if ([DEFAULTS objectForKey:@"locationCode"])
     {
         [self dismissWithAnimation:YES];
        

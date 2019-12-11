@@ -278,7 +278,7 @@
                                 <rect key="frame" x="282" y="65" width="94" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                <state key="normal" title="个人资料" image="personal_ico_chengweimaijia">
+                                <state key="normal" title="成为卖家" image="personal_ico_chengweimaijia">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                             </button>

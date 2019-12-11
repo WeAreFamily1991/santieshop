@@ -288,7 +288,7 @@ static NSString *const DRCuXiaoHeaderViewID = @"DRCuXiaoHeaderView";
 -(void)getPromotion
 {
     
-    NSDictionary *dic =@{@"cz":self.sendDic[@"cz"]?:@"",@"district":[DRBuyerModel sharedManager].locationcode,@"id":self.sendDic[@"id"]?:@""};
+    NSDictionary *dic =@{@"cz":self.sendDic[@"cz"]?:@"",@"district":[DRUserInfoModel sharedManager].locationCode,@"id":self.sendDic[@"id"]?:@""};
     [SNAPI getWithURL:@"mainPage/getPromotion" parameters:dic.mutableCopy success:^(SNResult *result) {
         _cuxiaoArr =[DRCuXiaoModel mj_objectArrayWithKeyValuesArray:result.data];
         [_collectionView reloadData];
@@ -304,7 +304,7 @@ static NSString *const DRCuXiaoHeaderViewID = @"DRCuXiaoHeaderView";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSLog(@"location =%@",[DRBuyerModel sharedManager].locationcode);
+    NSLog(@"location =%@",[DRUserInfoModel sharedManager].locationCode);
 }
 #pragma mark - initialize
 - (void)setUpBase
@@ -360,7 +360,7 @@ static NSString *const DRCuXiaoHeaderViewID = @"DRCuXiaoHeaderView";
 }
 -(void)promotionCategory
 {
-    NSDictionary *dic =@{@"cz":self.sendDic[@"cz"],@"district": [DRBuyerModel sharedManager].locationcode};
+    NSDictionary *dic =@{@"cz":self.sendDic[@"cz"],@"district": [DRUserInfoModel sharedManager].locationCode};
     [SNAPI getWithURL:@"mainPage/promotionCategory" parameters:dic.mutableCopy success:^(SNResult *result) {
         NSDictionary *dic =@{@"name":@"大类",@"code":@"",@"id":@""};
         self.areas =[NSMutableArray array];

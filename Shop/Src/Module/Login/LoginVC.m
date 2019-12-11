@@ -137,16 +137,16 @@
                 [User currentUser].token =result.token;
                 [User currentUser].isLogin =YES;
                 DRUserInfoModel *model =[DRUserInfoModel mj_objectWithKeyValues:result.data];
-                [DRBuyerModel sharedManager].alllocationcode =result.data[@"locationcode"];
+                [DRUserInfoModel sharedManager].locationCode =result.data[@"locationCode"];
                 
-                if (![result.data[@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"locationcode"] isKindOfClass:[NSNull class]]) {
+                if (![result.data[@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"locationCode"] isKindOfClass:[NSNull class]]) {
                     [DEFAULTS setObject:result.data[@"location"] forKey:@"address"];
-                    [DEFAULTS setObject:result.data[@"locationcode"] forKey:@"locationcode"];
-                    NSArray *codeArr =[result.data[@"locationcode"] componentsSeparatedByString:@"/"];
+                    [DEFAULTS setObject:result.data[@"locationCode"] forKey:@"locationCode"];
+                    NSArray *codeArr =[result.data[@"locationCode"] componentsSeparatedByString:@"/"];
                     [DEFAULTS setObject:[codeArr lastObject] forKey:@"code"];
                 }
                 self.locationStr =result.data[@"location"]?:@"";
-                self.locationCodeStr =[NSString stringWithFormat:@"%@",result.data[@"locationcode"]]?:@"";
+                self.locationCodeStr =[NSString stringWithFormat:@"%@",result.data[@"locationCode"]]?:@"";
                 if (self.locationCodeStr.length!=0&&self.locationStr.length!=0) {
                     [self success];
                 }
@@ -160,7 +160,7 @@
             {
                 [self addwebView];
                 self.locationStr =result.data[@"location"]?:@"";
-                self.locationCodeStr =result.data[@"locationcode"]?:@"";
+                self.locationCodeStr =result.data[@"locationCode"]?:@"";
                 
             }
         }else
@@ -227,12 +227,12 @@
 {
     [CGXPickerView showAddressPickerWithTitle:@"请选择你的城市" DefaultSelected:@[@0, @0,@0] IsAutoSelect:YES Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
         //NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
-        [DRBuyerModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
-        [DRBuyerModel sharedManager].locationcode =[selectAddressArr lastObject];
+        [DRUserInfoModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
+        [DRUserInfoModel sharedManager].locationCode =[selectAddressArr lastObject];
         [DEFAULTS setObject:[NSString stringWithFormat:@"%@/%@/%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]] forKey:@"address"];
-        [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationcode"];
+        [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationCode"];
         [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"code"];
-        NSDictionary *dic =@{@"account":self.phoneTF.text,@"password":[self.passwordTF.text MD5],@"location":[NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]],@"locationcode":[selectAddressArr lastObject]};
+        NSDictionary *dic =@{@"account":self.phoneTF.text,@"password":[self.passwordTF.text MD5],@"location":[NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]],@"locationCode":[selectAddressArr lastObject]};
         [SNAPI postWithURL:@"user/sureLocation" parameters:dic success:^(SNResult *result) {
             [self loginCustom];
         } failure:^(NSError *error) {
@@ -250,12 +250,12 @@
         [User currentUser].token =result.token;
         [User currentUser].isLogin =YES;
         DRUserInfoModel *model =[DRUserInfoModel mj_objectWithKeyValues:result.data];
-        [DRBuyerModel sharedManager].alllocationcode =result.data[@"buyer"][@"locationcode"];
+        [DRUserInfoModel sharedManager].locationCode =result.data[@"locationCode"];
         
-        if (![result.data[@"buyer"][@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"buyer"][@"locationcode"] isKindOfClass:[NSNull class]]) {
-            [DEFAULTS setObject:result.data[@"buyer"][@"location"] forKey:@"address"];
-            [DEFAULTS setObject:result.data[@"buyer"][@"locationcode"] forKey:@"locationcode"];
-            NSArray *codeArr =[result.data[@"buyer"][@"locationcode"] componentsSeparatedByString:@"/"];
+        if (![result.data[@"location"] isKindOfClass:[NSNull class]]&&![result.data[@"locationCode"] isKindOfClass:[NSNull class]]) {
+            [DEFAULTS setObject:result.data[@"location"] forKey:@"address"];
+            [DEFAULTS setObject:result.data[@"locationCode"] forKey:@"locationCode"];
+            NSArray *codeArr =[result.data[@"locationCode"] componentsSeparatedByString:@"/"];
             [DEFAULTS setObject:[codeArr lastObject] forKey:@"code"];
         }
         [self success];

@@ -158,7 +158,7 @@
 //            }
 //
 //            cell.textLabel.text = @"用户名";
-//            cell.detailTextLabel.text=[DRBuyerModel sharedManager].cPhone;
+//            cell.detailTextLabel.text=[DRUserInfoModel sharedManager].cPhone;
 //            cell.textLabel.font =DR_FONT(14);
 //            cell.detailTextLabel.textColor =RGBHex(0X888888);
 //            cell.detailTextLabel.font =DR_FONT(14);
@@ -183,7 +183,7 @@
     cell.contentTF.secureTextEntry =YES;
     //            cell.contentTF.text = contentArray[indexPath.row];
     if (indexPath.row==1) {
-         cell.contentTF.text =[DRBuyerModel sharedManager].cPhone;
+         cell.contentTF.text =[DRUserInfoModel sharedManager].cPhone;
         cell.contentTF.secureTextEntry =NO;
         cell.contentTF.enabled =NO;
     }

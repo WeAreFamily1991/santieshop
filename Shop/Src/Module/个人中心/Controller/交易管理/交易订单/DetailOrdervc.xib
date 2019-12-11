@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailOrdervc">
             <connections>
                 <outlet property="againBuyBtn" destination="b61-dw-KEm" id="jfb-Ls-AdS"/>
+                <outlet property="bottomView" destination="xvb-n3-Yyg" id="biq-Lz-PCh"/>
                 <outlet property="cancelBtn" destination="mLs-ZF-MZh" id="NSj-l6-DFx"/>
                 <outlet property="saleOutBtn" destination="r8O-DX-oj7" id="OMA-MA-ziF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -31,8 +30,8 @@
                                 <constraint firstAttribute="width" secondItem="mLs-ZF-MZh" secondAttribute="height" multiplier="35:12" id="19T-af-x7M"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="取消订单" backgroundImage="分类购买_16">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="取消订单">
+                                <color key="titleColor" red="0.96862745100000003" green="0.1764705882" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <state key="selected" title="确认收货"/>
                             <connections>
@@ -45,8 +44,8 @@
                                 <constraint firstAttribute="width" secondItem="b61-dw-KEm" secondAttribute="height" multiplier="35:12" id="IqW-Mo-YL6"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="再次购买" backgroundImage="分类购买_16">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="再次购买">
+                                <color key="titleColor" red="0.96862745100000003" green="0.1764705882" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="againBuyBtnClick:" destination="-1" eventType="touchUpInside" id="Qjt-aP-4fb"/>
@@ -59,8 +58,8 @@
                                 <constraint firstAttribute="width" secondItem="r8O-DX-oj7" secondAttribute="height" multiplier="35:12" id="NAJ-jB-8VY"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="整单申请售后" backgroundImage="分类购买_16">
-                                <color key="titleColor" red="1" green="0.0" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="整单申请售后">
+                                <color key="titleColor" red="0.96862745100000003" green="0.1764705882" blue="0.30588235289999999" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
                                 <action selector="saleOutBtnClick:" destination="-1" eventType="touchUpInside" id="zRE-eb-FfL"/>
@@ -90,7 +89,4 @@
             <point key="canvasLocation" x="132" y="154.27286356821591"/>
         </view>
     </objects>
-    <resources>
-        <image name="分类购买_16" width="250" height="73"/>
-    </resources>
 </document>

@@ -258,9 +258,9 @@
             cell.photoBtn.tag = [tagStr intValue];
             cell.titleLabel.text =@"营业执照";
             [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
-            id imgStr1 = [DRBuyerModel sharedManager].yingyeLogo?:@"default_head";
+            id imgStr1 = [DRUserInfoModel sharedManager].businessLic?:@"default_head";
             if (![imgStr1 isEqualToString:@"default_head"]) {
-                [cell.photoBtn sd_setImageWithURL:[NSURL URLWithString:[DRBuyerModel sharedManager].yingyeLogo] forState:UIControlStateNormal];
+                [cell.photoBtn sd_setImageWithURL:[NSURL URLWithString:[DRUserInfoModel sharedManager].businessLic] forState:UIControlStateNormal];
             }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -268,7 +268,7 @@
         {
 //            titleArray = @[@"手机号：",@"公司名称：",@"公司地址：",@"联系人：",@"固定电话：",@"手机号码："];
 //            placeholdArray= @[@"请输入手机号",@"请输入公司名称",@"请输入公司地址",@"请输入联系人",@"请输入固定电话",@"请输入手机号码"];
-//            NSArray *contentArray = @[[DRBuyerModel sharedManager].mobilephone?:@"",[DRBuyerModel sharedManager].name?:@"",[DRBuyerModel sharedManager].companyAddress?:@"",[DRBuyerModel sharedManager].cName?:@"",[DRBuyerModel sharedManager].cTel?:@"",[DRBuyerModel sharedManager].cPhone?:@""];
+//            NSArray *contentArray = @[[DRUserInfoModel sharedManager].mobilephone?:@"",[DRUserInfoModel sharedManager].buyerName ?:@"",[DRUserInfoModel sharedManager].companyAddress?:@"",[DRUserInfoModel sharedManager].cName?:@"",[DRUserInfoModel sharedManager].cTel?:@"",[DRUserInfoModel sharedManager].cPhone?:@""];
             InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
             self.tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
             //           self.dataArr[indexPath.section][indexPath.row];
@@ -636,7 +636,7 @@
     {
         numType =@"12";
     }
-    NSDictionary *dic=@{@"contact":self.contactStr,@"mobile":self.mobileStr,@"validCode":self.numCodeStr,@"sellerName":self.companyNameStr,@"busLic":[DRBuyerModel sharedManager].logo?:@"",@"code":self.numCodeStr,@"area":self.compAddressStr,@"areaCode":self.compAddressIDStr,@"address":self.detailAddressStr,@"compType":comType,@"creditId":self.tongyiStr,@"regType":@"1",@"invoiceHead":self.fapiaoStr,@"tfn":self.shuihaoStr,@"bankAccount":self.bankNumStr,@"openBank":self.bankIDTypeStr ,@"bankAccountType":numType,@"bankAccountName":self.bankNumStr,@"bankAccountProvince":self.provinceIDStr,@"bankAccountCity":self.cityIDStr};
+    NSDictionary *dic=@{@"contact":self.contactStr,@"mobile":self.mobileStr,@"validCode":self.numCodeStr,@"sellerName":self.companyNameStr,@"busLic":[DRUserInfoModel sharedManager].logo?:@"",@"code":self.numCodeStr,@"area":self.compAddressStr,@"areaCode":self.compAddressIDStr,@"address":self.detailAddressStr,@"compType":comType,@"creditId":self.tongyiStr,@"regType":@"1",@"invoiceHead":self.fapiaoStr,@"tfn":self.shuihaoStr,@"bankAccount":self.bankNumStr,@"openBank":self.bankIDTypeStr ,@"bankAccountType":numType,@"bankAccountName":self.bankNumStr,@"bankAccountProvince":self.provinceIDStr,@"bankAccountCity":self.cityIDStr};
 //    NSDictionary *dic =@{keyArr[0]:valueArray[0],keyArr[1]:valueArray[1],keyArr[2]:valueArray[2],keyArr[3]:valueArray[3],keyArr[4]:valueArray[4],keyArr[5]:valueArray[5],keyArr[6]:valueArray[6],keyArr[7]:valueArray[7]};
     NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:[SNTool jsontringData:dic] forKey:@"sellerRegister"];
     [mudic setObject:@"" forKey:@"spread"];
@@ -745,13 +745,13 @@
     //    DRWeakSelf;
 //    [SNAPI userAvatar:image nickName:nil success:^(SNResult *result){
 //        [MBProgressHUD showSuccess:SNStandardString(@"上传成功")];
-//        [DRBuyerModel sharedManager].logo =result.data[@"src"];
+//        [DRUserInfoModel sharedManager].logo =result.data[@"src"];
 //        [self.tableView reloadData];
 //    } failure:^(NSError *error) {
 //    }];
     [SNAPI userAvatar:image nickName:nil success:^(SNResult *result){
         [MBProgressHUD showSuccess:SNStandardString(@"上传成功")];
-        [DRBuyerModel sharedManager].yingyeLogo =result.data[@"src"];
+        [DRUserInfoModel sharedManager].businessLic =result.data[@"src"];
          [self releadWithRow:9];
     } failure:^(NSError *error) {
         

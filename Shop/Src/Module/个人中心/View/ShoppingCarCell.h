@@ -19,20 +19,18 @@
 @property (nonatomic,strong) UIButton;
 
 @property (nonatomic,strong) DDButton *selectBtn;
-
+@property (nonatomic,strong) UILabel *orderNameLab;//单据编码
 @property (nonatomic,strong) UILabel *orderLab;//单据编码
-
+@property (nonatomic,strong) UILabel *timeNameLab;
 @property (nonatomic,strong) UILabel *timeLab;//单据时间
-
+@property (nonatomic,strong) UILabel *orderNamePriceLab;
 @property (nonatomic,strong) UILabel *orderPriceLab;//单据金额
-
+@property (nonatomic,strong) UILabel *backNamePriceLab;
 @property (nonatomic,strong) UILabel *backPriceLab;//退货金额
-
+@property (nonatomic,strong) UILabel *numberNameLab;
 @property (nonatomic,strong) UILabel *numberLab;//可开票金额
-
-
+@property (nonatomic,strong) UILabel *typeRightNameLab;
 @property (nonatomic,strong) UILabel *typeRightLab;//可开票
-
 @property (nonatomic,strong) UIButton *detailBtn;//查看详情
 
 @property (nonatomic,strong) ShoppingModel *shoppingModel;

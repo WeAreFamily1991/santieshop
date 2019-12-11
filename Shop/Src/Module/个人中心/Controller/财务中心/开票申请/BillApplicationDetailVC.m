@@ -15,6 +15,7 @@
 #import "OrderModel.h"
 #import "DetailOrdervc.h"
 #import "ShoopingCartBottomView.h"
+#import "SaleOrderCell.h"
 @interface BillApplicationDetailVC ()<UITableViewDelegate,UITableViewDataSource,ShoopingCartBottomViewDelegate,ShoppingCarCellDelegate>
 {
     int pageCount;
@@ -25,7 +26,7 @@
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic,strong) UIButton *selectAllBtn;//全选按钮
 @property (nonatomic,strong) UIButton *jieSuanBtn;//结算按钮
-@property (nonatomic,strong) UILabel *totalMoneyLab;//总金额
+@property (nonatomic,strong) UILabel *totalMoneyLab;//合计（元）
 @property (nonatomic,retain)BillApplicationModel *applicationModel;
 @property (nonatomic,retain)ShoppingModel *model;
 @property(nonatomic,assign) float allPrice;
@@ -141,11 +142,11 @@
         NSMutableArray *shoppingCartArray = [[NSMutableArray alloc] init];
         for (NSDictionary *shop in listArr) {
            BillApplicationModel *aModel =[[BillApplicationModel alloc]init];
-            aModel.compId =shop[@"compId"];
+            aModel.compId =shop[@"sellerId"];
              aModel.compType =shop[@"compType"];
              aModel.sellerName =shop[@"sellerName"];
-             aModel.fpPartyName =shop[@"fpPartyName"];
-            NSArray *orderListArr =shop[@"orderList"];
+             aModel.kpName =shop[@"kpName"];
+            NSArray *orderListArr =shop[@"list"];
             //存储商品模型的数组
             NSMutableArray *goosArray = [[NSMutableArray alloc] init];
             for (NSDictionary *goodsDict in orderListArr)
@@ -186,56 +187,77 @@
   
     self.applicationModel =self.MsgListArr[indexPath.section];
     self.model =self.applicationModel.orderList[indexPath.row];
-    static NSString *cellStr = @"ShopCarCell";
-    ShoppingCarCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
-    if(!cell)
-    {
-        cell = [[ShoppingCarCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
-        cell.delegate = self;
-    }
-    cell.indexPath = indexPath;
-//    cell.detailBtn.tag =indexPath.section;
-    cell.selectClickBlock = ^{
-        NSLog(@"sender=%ld",(long)indexPath.section);
-        self.applicationModel =self.MsgListArr[indexPath.section];
-        self.model =self.applicationModel.orderList[indexPath.row];
-        DetailOrdervc *detailVC =[[DetailOrdervc alloc]init];
-        detailVC.orderID =self.model.orderId;
-        [self.navigationController pushViewController:detailVC animated:YES];
-    };
-//    [cell.detailBtn addTarget:self action:@selector(detailBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    cell.shoppingModel = self.model;
-    NSArray *typeArr =@[@"可开票",@"审核中",@"已开票",@"已过期"];
-    cell.typeRightLab.text =typeArr[self.status];
-    if (self.status==1||self.status==2) {
-        cell.orderPriceLab.text = [NSString stringWithFormat:@"单据金额：%.2f",self.model.orderAmt];
-        NSString *longStr =[NSString stringWithFormat:@"%.2f",self.model.orderAmt];
-        [SNTool setTextColor:cell.orderPriceLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5,longStr.length) AndColor:REDCOLOR];
-    }else
-    {
-        cell.orderPriceLab.text = [NSString stringWithFormat:@"单据金额：%.2f",[self.model.realAmt doubleValue]];
-        NSString *longStr =[NSString stringWithFormat:@"%.2f",[self.model.realAmt doubleValue]];
-        [SNTool setTextColor:cell.orderPriceLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5,longStr.length) AndColor:REDCOLOR];
-    }
-  
-    [self caculatePrice:self.model];
     if (self.status==0) {
-        cell.selectBtn.hidden =NO;
+        static NSString *cellStr = @"ShopCarCell";
+        ShoppingCarCell *cell = [tableView dequeueReusableCellWithIdentifier:cellStr];
+        if(!cell)
+        {
+            cell = [[ShoppingCarCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellStr];
+            cell.delegate = self;
+        }
+        cell.indexPath = indexPath;
+        //    cell.detailBtn.tag =indexPath.section;
+        cell.selectClickBlock = ^{
+            NSLog(@"sender=%ld",(long)indexPath.section);
+            self.applicationModel =self.MsgListArr[indexPath.section];
+            self.model =self.applicationModel.orderList[indexPath.row];
+            DetailOrdervc *detailVC =[[DetailOrdervc alloc]init];
+            detailVC.orderID =self.model.orderId;
+            [self.navigationController pushViewController:detailVC animated:YES];
+        };
+        //    [cell.detailBtn addTarget:self action:@selector(detailBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        cell.shoppingModel = self.model;
+        NSArray *typeArr =@[@"可开票",@"审核中",@"已开票",@"已过期"];
+        cell.typeRightLab.text =typeArr[self.status];
+        if (self.status==1||self.status==2) {
+            cell.orderPriceLab.text = [NSString stringWithFormat:@"单据金额：%.2f",self.model.orderAmt];
+            NSString *longStr =[NSString stringWithFormat:@"%.2f",self.model.orderAmt];
+            [SNTool setTextColor:cell.orderPriceLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5,longStr.length) AndColor:REDCOLOR];
+        }else
+        {
+            cell.orderPriceLab.text = [NSString stringWithFormat:@"单据金额：%.2f",[self.model.realAmt doubleValue]];
+            NSString *longStr =[NSString stringWithFormat:@"%.2f",[self.model.realAmt doubleValue]];
+            [SNTool setTextColor:cell.orderPriceLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5,longStr.length) AndColor:REDCOLOR];
+        }
+        
+        [self caculatePrice:self.model];
+        if (self.status==0) {
+            cell.selectBtn.hidden =NO;
+        }
+        else
+        {
+            cell.selectBtn.hidden =YES;
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+        
     }
-    else
-    {
-        cell.selectBtn.hidden =YES;
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-   
+    SaleOrderCell5 *cell =[SaleOrderCell5 cellWithTableView:tableView];
+    cell.shoppingModel =self.model;
+    NSArray *typeArr =@[@"可开票",@"审核中",@"已开票",@"已过期"];
+    cell.orderStstus.text =typeArr[self.status];
+    cell.detailClickBlock = ^{
+               NSLog(@"sender=%ld",(long)indexPath.section);
+               self.applicationModel =self.MsgListArr[indexPath.section];
+               self.model =self.applicationModel.orderList[indexPath.row];
+               DetailOrdervc *detailVC =[[DetailOrdervc alloc]init];
+               detailVC.orderID =self.model.orderId;
+               [self.navigationController pushViewController:detailVC animated:YES];
+           };
     return cell;
+    
+    
 }
 -(void)rightbuttonClick:(UIButton *)sender
 {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"telprompt://4006185027"]];
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 120;
+    if (self.status==0) {
+        return WScale(167);
+    }
+    return WScale(300);
 }
 //单元格选中事件
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -342,15 +364,15 @@
                 allPriceDecimal = [allPriceDecimal decimalNumberByAdding:decimalPrice];
             }
             NSString *allPriceStr = [allPriceDecimal stringValue];
-            NSLog(@"总金额：%@",allPriceStr);
+            NSLog(@"合计（元）：%@",allPriceStr);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if ([allPriceStr floatValue]>0) {
                     [self.bottomView setPayEnable:YES];
-                    self.bottomView.allPriceLabel.text = [NSString stringWithFormat:@"总金额：￥%@",[allPriceDecimal stringValue]];
+                    self.bottomView.allPriceLabel.text = [NSString stringWithFormat:@"合计（元）：￥%@",[allPriceDecimal stringValue]];
                 } else {
                     [self.bottomView setPayEnable:NO];
-                    self.bottomView.allPriceLabel.text = @"总金额：￥0.00";
+                    self.bottomView.allPriceLabel.text = @"合计（元）：￥0.00";
                     
                 }
                 [SNTool setTextColor:self.bottomView.allPriceLabel FontNumber:DR_FONT(15) AndRange:NSMakeRange(4, self.bottomView.allPriceLabel.text.length-4) AndColor:REDCOLOR];

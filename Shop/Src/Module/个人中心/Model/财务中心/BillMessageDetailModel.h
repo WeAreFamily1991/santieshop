@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , assign) NSInteger              status;
 @property (nonatomic , copy) NSString              * checkTime;
 @property (nonatomic , copy) NSString              * checkUser;
-@property (nonatomic , copy) NSString              * applyeTime;
+@property (nonatomic , copy) NSString              * applyTime;
 @property (nonatomic , copy) NSString              * sellerId;
 @property (nonatomic , copy) NSString              * invoiceAddress;
 @property (nonatomic , copy) NSString              * receiverAddress;
@@ -37,7 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * bankName;
 @property (nonatomic , copy) NSString              * bankAccount;
 @property (nonatomic , copy) NSString              * expressComp;
-@property (nonatomic , copy) NSString              * fpPartyName;
+@property (nonatomic , copy) NSString              * kpName;
 @property (nonatomic , copy) NSMutableArray<DetailListModel *>   * list;
 @end
 

@@ -131,12 +131,13 @@
             NSArray *statusArr =@[@"已取消", @"待审核", @"待付款", @"待发货", @"待收货",@"已完成",@"退货中",@"已退货"];
             weakSelf.sellOutModel =[AskSellOutModel mj_objectWithKeyValues:result.data];
              _sourcemuArr =[NSMutableArray array];
-            NSArray *modelArr =[GoodModel mj_objectArrayWithKeyValuesArray:self.sellOutModel.list];
+            NSArray *modelArr =[GoodModel mj_objectArrayWithKeyValuesArray:self.sellOutModel.goodsList];
             [_sourcemuArr addObjectsFromArray:modelArr];
             [weakSelf.sendDataDictionary setObject:weakSelf.sellOutModel.orderId forKey:@"orderId"];
+            
             NSMutableDictionary *mudic =[NSMutableDictionary dictionary];
             NSMutableArray *muArr =[NSMutableArray array];
-            for (NSDictionary *dic in weakSelf.sellOutModel.list) {
+            for (NSDictionary *dic in weakSelf.sellOutModel.goodsList) {
                 [mudic setObject:dic[@"orderGoodsId"] forKey:@"orderGoodsId"];
                 [mudic setObject:[NSString stringWithFormat:@"%@",dic[@"qty"]] forKey:@"qty"];
                 [muArr addObject:mudic];
@@ -404,7 +405,7 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    if (section==0&&self.sellOutModel.list.count>1) {
+    if (section==0&&self.sellOutModel.goodsList.count>1) {
         UIView*  sectionBackView=[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
         sectionBackView.backgroundColor=[UIColor whiteColor];
         UIButton*  button=[UIButton buttonWithType:UIButtonTypeCustom];
@@ -414,11 +415,11 @@
         [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         if ([[_isOpenArr objectAtIndex:section] isEqualToString:@"open"]) {
             [button setImage:[UIImage imageNamed:@"arrow_right_grey"] forState:UIControlStateNormal];
-            [button setTitle:[NSString stringWithFormat:@"收起全部(%lu)",(unsigned long)self.sellOutModel.list.count] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@"收起全部(%lu)",(unsigned long)self.sellOutModel.goodsList.count] forState:UIControlStateNormal];
         }
         else if ([[_isOpenArr objectAtIndex:section] isEqualToString:@"close"]) {
             [button setImage:[UIImage imageNamed:@"arrow_down_grey"] forState:UIControlStateNormal];
-            [button setTitle:[NSString stringWithFormat:@"查看全部(%lu)",(unsigned long)self.sellOutModel.list.count] forState:UIControlStateNormal];
+            [button setTitle:[NSString stringWithFormat:@"查看全部(%lu)",(unsigned long)self.sellOutModel.goodsList.count] forState:UIControlStateNormal];
         }
         [button layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:10];
         [button addTarget:self action:@selector(ClickSection:) forControlEvents:UIControlEventTouchUpInside];
@@ -563,7 +564,7 @@
         return;
     }
     NSMutableArray *listArr =[NSMutableArray array];
-    for (NSDictionary *dict in self.sellOutModel.list) {
+    for (NSDictionary *dict in self.sellOutModel.goodsList) {
         NSDictionary *dic =@{@"orderGoodsId":dict[@"orderGoodsId"]?:@"",@"qty":[NSString stringWithFormat:@"%@",dict[@"qty"]]?:@""};
         [listArr addObject:dic];
     }

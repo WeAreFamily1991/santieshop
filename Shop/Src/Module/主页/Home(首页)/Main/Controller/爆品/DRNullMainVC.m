@@ -106,7 +106,7 @@ static NSString *const DCCountDownHeadViewID = @"DCCountDownHeadView";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSLog(@"location =%@",[DRBuyerModel sharedManager].locationcode);
+    NSLog(@"location =%@",[DRUserInfoModel sharedManager].locationCode);
 }
 #pragma mark - initialize
 - (void)setUpBase

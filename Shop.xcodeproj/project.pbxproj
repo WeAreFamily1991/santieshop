@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3506B4BF238BBB3D00640D82 /* SNUserInfoVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 3506B4BE238BBB3C00640D82 /* SNUserInfoVC.m */; };
+		35744D4F239E23CE00243FFD /* WeiShuiHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 35744D4E239E23CE00243FFD /* WeiShuiHeaderView.m */; };
+		35744D53239E242C00243FFD /* WeiShuiHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35744D52239E242C00243FFD /* WeiShuiHeaderView.xib */; };
+		35744D57239E353300243FFD /* CountPayVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 35744D55239E353300243FFD /* CountPayVC.m */; };
+		35744D58239E353300243FFD /* CountPayVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 35744D56239E353300243FFD /* CountPayVC.xib */; };
 		3589D56123823B3F003DE11A /* YeeBadgeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55C23823B3F003DE11A /* YeeBadgeView.m */; };
 		3589D56223823B3F003DE11A /* UITabBarItem+YeeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55D23823B3F003DE11A /* UITabBarItem+YeeBadge.m */; };
 		3589D56323823B3F003DE11A /* UIBarButtonItem+YeeBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3589D55F23823B3F003DE11A /* UIBarButtonItem+YeeBadge.m */; };
@@ -666,6 +670,12 @@
 /* Begin PBXFileReference section */
 		3506B4BD238BBB3C00640D82 /* SNUserInfoVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNUserInfoVC.h; sourceTree = "<group>"; };
 		3506B4BE238BBB3C00640D82 /* SNUserInfoVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SNUserInfoVC.m; sourceTree = "<group>"; };
+		35744D4D239E23CE00243FFD /* WeiShuiHeaderView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WeiShuiHeaderView.h; sourceTree = "<group>"; };
+		35744D4E239E23CE00243FFD /* WeiShuiHeaderView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeiShuiHeaderView.m; sourceTree = "<group>"; };
+		35744D52239E242C00243FFD /* WeiShuiHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeiShuiHeaderView.xib; sourceTree = "<group>"; };
+		35744D54239E353300243FFD /* CountPayVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CountPayVC.h; sourceTree = "<group>"; };
+		35744D55239E353300243FFD /* CountPayVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CountPayVC.m; sourceTree = "<group>"; };
+		35744D56239E353300243FFD /* CountPayVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CountPayVC.xib; sourceTree = "<group>"; };
 		3589D55723823B3F003DE11A /* YeeBadgeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YeeBadgeView.h; sourceTree = "<group>"; };
 		3589D55823823B3F003DE11A /* UITabBarItem+YeeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITabBarItem+YeeBadge.h"; sourceTree = "<group>"; };
 		3589D55923823B3F003DE11A /* UIBarButtonItem+YeeBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIBarButtonItem+YeeBadge.h"; sourceTree = "<group>"; };
@@ -1941,6 +1951,9 @@
 				E7028FA022E6B336001FFDD9 /* DRShouKuanChildVC.h */,
 				E7028FA122E6B336001FFDD9 /* DRShouKuanChildVC.m */,
 				E7028FA222E6B336001FFDD9 /* DRShouKuanChildVC.xib */,
+				35744D54239E353300243FFD /* CountPayVC.h */,
+				35744D55239E353300243FFD /* CountPayVC.m */,
+				35744D56239E353300243FFD /* CountPayVC.xib */,
 			);
 			path = "未税收款";
 			sourceTree = "<group>";
@@ -3069,6 +3082,9 @@
 				E7A1F87722290511009EA75D /* ChildCustomHeadView.h */,
 				E7A1F87822290511009EA75D /* ChildCustomHeadView.m */,
 				E7A1F87A2229052E009EA75D /* ChildCustomHeadView.xib */,
+				35744D4D239E23CE00243FFD /* WeiShuiHeaderView.h */,
+				35744D4E239E23CE00243FFD /* WeiShuiHeaderView.m */,
+				35744D52239E242C00243FFD /* WeiShuiHeaderView.xib */,
 				E7CAB437222D463A000E3330 /* AddressCell.h */,
 				E7CAB438222D463A000E3330 /* AddressCell.m */,
 				E7CAB439222D463A000E3330 /* AddressCell.xib */,
@@ -4456,6 +4472,7 @@
 				E7FEE6CE2296779200F56C14 /* DRNetVC.xib in Resources */,
 				E7DA49F722B762A80079EAC3 /* DRMessageDetailView.xib in Resources */,
 				E760208022378ED700CF1D14 /* CountDownShop.plist in Resources */,
+				35744D58239E353300243FFD /* CountPayVC.xib in Resources */,
 				E7A1F8A1222D0E91009EA75D /* ChangePhoneDetailVC.xib in Resources */,
 				E763CE5921D5E9C80012E580 /* Main.storyboard in Resources */,
 				E7FEE6B4229511E800F56C14 /* bankList.json in Resources */,
@@ -4516,6 +4533,7 @@
 				E7E14E0F2251F9F400E09AD9 /* ClasiftyGoods.plist in Resources */,
 				E7E1B3C2221C02E400D791A8 /* MineViewController.xib in Resources */,
 				E7D9A23722238FDB003A820E /* CGXPickerView.bundle in Resources */,
+				35744D53239E242C00243FFD /* WeiShuiHeaderView.xib in Resources */,
 				E7FDF5582266D61F008A3CA7 /* PhotoTableViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4673,6 +4691,7 @@
 				E72BF1A7227FC6E800ADE3B6 /* DRHeaderSelectedView.m in Sources */,
 				E7FC7911225DDC16000832D9 /* ShareView.m in Sources */,
 				E708B91D226D61F900C246AD /* MBProgressHUD+CRExtention.m in Sources */,
+				35744D57239E353300243FFD /* CountPayVC.m in Sources */,
 				E708B935226DA2C300C246AD /* DRShopHeadView.m in Sources */,
 				E7FD6D352275B8D30062FBAE /* DRCuXiaoHeaderView.m in Sources */,
 				E7FD6D1E22758CFA0062FBAE /* DRTigetsVC.m in Sources */,
@@ -4866,6 +4885,7 @@
 				E7E14DF72251F1DD00E09AD9 /* DCBrandsSortHeadView.m in Sources */,
 				E71C300922321B4A00521960 /* MLSearchResultsTableViewController.m in Sources */,
 				E708B919226D61F900C246AD /* CRDetailModel.m in Sources */,
+				35744D4F239E23CE00243FFD /* WeiShuiHeaderView.m in Sources */,
 				E7D9A22022238258003A820E /* SYTypeButtonView.m in Sources */,
 				E7CAB458222E3DE8000E3330 /* NSDataSNCategory.m in Sources */,
 				E7FC3E2E229E90E8008FE2B8 /* DRDetailSelloutVC.m in Sources */,

@@ -37,46 +37,94 @@ static CGFloat const ButtonHeight = 38;
 }
 -(void)setUI
 {
+//    DRWeakSelf;
+//    self.buttonView = [[SYTypeButtonView alloc] initWithFrame:CGRectMake(0.0, 40, SCREEN_WIDTH/4, heightTypeButtonView) view:self.view];
+//    self.buttonView.backgroundColor = [UIColor whiteColor];
+//
+//    self.buttonView.buttonClick = ^(NSInteger index, BOOL isDescending){
+//        NSLog(@"click index %ld, isDescending %d", index, isDescending);
+//
+//        [weakSelf selectDatePickViewWithIndex:0];
+//    };
+//    self.buttonView.titleColorNormal = BLACKCOLOR;
+//    self.buttonView.titleColorSelected = REDCOLOR;
+//    self.buttonView.titles = @[@"对账时间"];
+//    self.buttonView.enableTitles =  @[@"对账时间"];
+//    NSDictionary *dict01 = [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"accessoryArrow_down"], keyImageNormal, [UIImage imageNamed:@"accessoryArrow_downSelected"], keyImageSelected, nil];
+//
+//    self.buttonView.imageTypeArray = @[dict01];
+//    self.buttonView.selectedIndex = -1;
+//
+//    UIView *backView =[[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4, 40, SCREEN_WIDTH-SCREEN_WIDTH/4, 40)];
+//    backView.backgroundColor =[UIColor whiteColor];
+//    [self.view addSubview:backView];
+//
+//    UIImageView *backIMG =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search_bg.png"]];
+//    backIMG.frame =CGRectMake(5, 4, SCREEN_WIDTH/2, 30);
+//    backIMG.userInteractionEnabled =YES;
+//    [backView addSubview:backIMG];
+//    self.orderTF =[[UITextField alloc]initWithFrame:CGRectMake(10, 0,SCREEN_WIDTH/2-20, 30)];
+//    self.orderTF.placeholder =@"请输入对账单查询";
+//    self.orderTF.delegate =self;
+//    self.orderTF.font =DR_FONT(14);
+//    [backIMG addSubview:self.orderTF];
+//    UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
+//    searchBtn.layer.cornerRadius =15;
+//    searchBtn.layer.masksToBounds =15;
+//    searchBtn.backgroundColor =REDCOLOR;
+//    searchBtn.titleLabel.font =DR_FONT(14);
+//    [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+//    searchBtn.frame =CGRectMake(SCREEN_WIDTH/2+15, 4,SCREEN_WIDTH/4-25, 30);
+//    [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//    [backView addSubview:searchBtn];
     DRWeakSelf;
-    self.buttonView = [[SYTypeButtonView alloc] initWithFrame:CGRectMake(0.0, 40, SCREEN_WIDTH/4, heightTypeButtonView) view:self.view];
+    UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, WScale(40), SCREEN_WIDTH, WScale(10))];
+    lineView.backgroundColor =BACKGROUNDCOLOR;
+    [self.view addSubview:lineView];
+    
+    UILabel *titleLab =[UILabel labelWithText:@"对账时间" font:DR_FONT(14) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:0 superView:self.view];
+    titleLab.frame =CGRectMake(WScale(20), WScale(50), WScale(60), WScale(40));
+    
+    self.buttonView = [[SYTypeButtonView alloc] initWithFrame:CGRectMake(titleLab.dc_right+WScale(20), WScale(50), SCREEN_WIDTH/4, WScale(40)) view:self.view];
     self.buttonView.backgroundColor = [UIColor whiteColor];
     
     self.buttonView.buttonClick = ^(NSInteger index, BOOL isDescending){
         NSLog(@"click index %ld, isDescending %d", index, isDescending);
         
-        [weakSelf selectDatePickViewWithIndex:0];
+                [weakSelf selectDatePickViewWithIndex:0];
     };
-    self.buttonView.titleColorNormal = BLACKCOLOR;
-    self.buttonView.titleColorSelected = REDCOLOR;
-    self.buttonView.titles = @[@"对账时间"];
-    self.buttonView.enableTitles =  @[@"对账时间"];
-    NSDictionary *dict01 = [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"accessoryArrow_down"], keyImageNormal, [UIImage imageNamed:@"accessoryArrow_downSelected"], keyImageSelected, nil];
-    
+    self.buttonView.titleColorNormal = RGBHex(0XC0C0C0);
+    self.buttonView.titleColorSelected = RGBHex(0XC0C0C0);
+    self.buttonView.titles = @[@"请选择对账时间"];
+    self.buttonView.enableTitles =  @[@"请选择对账时间"];
+    NSDictionary *dict01 = [NSDictionary dictionaryWithObjectsAndKeys:[UIImage imageNamed:@"ico／more"], keyImageNormal, [UIImage imageNamed:@"ico／more"], keyImageSelected, nil];
+
     self.buttonView.imageTypeArray = @[dict01];
     self.buttonView.selectedIndex = -1;
-    
-    UIView *backView =[[UIView alloc]initWithFrame:CGRectMake(SCREEN_WIDTH/4, 40, SCREEN_WIDTH-SCREEN_WIDTH/4, 40)];
-    backView.backgroundColor =[UIColor whiteColor];
+
+    UIView *backView =[[UIView alloc]initWithFrame:CGRectMake(WScale(10), WScale(90), WScale(270), WScale(30))];
+    backView.backgroundColor =BACKGROUNDCOLOR;
     [self.view addSubview:backView];
     
-    UIImageView *backIMG =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search_bg.png"]];
-    backIMG.frame =CGRectMake(5, 4, SCREEN_WIDTH/2, 30);
+    UIImageView *backIMG =[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"search_ico"]];
+    backIMG.frame =CGRectMake(WScale(15),WScale(5), WScale(20),WScale(20));
     backIMG.userInteractionEnabled =YES;
     [backView addSubview:backIMG];
-    self.orderTF =[[UITextField alloc]initWithFrame:CGRectMake(10, 0,SCREEN_WIDTH/2-20, 30)];
+    self.orderTF =[[UITextField alloc]initWithFrame:CGRectMake(WScale(45), 0,backView.dc_width-WScale(45), WScale(30))];
     self.orderTF.placeholder =@"请输入对账单查询";
     self.orderTF.delegate =self;
     self.orderTF.font =DR_FONT(14);
-    [backIMG addSubview:self.orderTF];
+    [backView addSubview:self.orderTF];
     UIButton *searchBtn =[UIButton buttonWithType:UIButtonTypeCustom];
-    searchBtn.layer.cornerRadius =15;
-    searchBtn.layer.masksToBounds =15;
+    searchBtn.layer.cornerRadius =4;
+    searchBtn.layer.masksToBounds =4;
     searchBtn.backgroundColor =REDCOLOR;
     searchBtn.titleLabel.font =DR_FONT(14);
-    [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    searchBtn.frame =CGRectMake(SCREEN_WIDTH/2+15, 4,SCREEN_WIDTH/4-25, 30);
+    [searchBtn setTitle:@"查询" forState:UIControlStateNormal];
+    searchBtn.frame =CGRectMake(backView.dc_width+WScale(25),WScale(90),WScale(70), WScale(30));
     [searchBtn addTarget:self action:@selector(searchBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [backView addSubview:searchBtn];
+    [self.view addSubview:searchBtn];
+    
 }
 -(void)searchBtnClick:(UIButton *)sender
 {
@@ -116,7 +164,7 @@ static CGFloat const ButtonHeight = 38;
     self.titleView = [[FSSegmentTitleView alloc]initWithFrame:CGRectMake(0,0,SCREEN_WIDTH,40) titles:titleArray delegate:self indicatorType:2];
     [self.view addSubview:_titleView];
     ///线
-    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40-1,SCREEN_WIDTH,0.8)];
+    UILabel *lineLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, WScale(40)-1,SCREEN_WIDTH,0.8)];
     lineLabel.backgroundColor = BACKGROUNDCOLOR;
     [self.titleView addSubview:lineLabel];
     self.childVCs = [[NSMutableArray alloc]init];
@@ -126,7 +174,7 @@ static CGFloat const ButtonHeight = 38;
         self.VC.status = i;
         [self.childVCs addObject:self.VC];
     }
-    self.pageContentView = [[FSPageContentView alloc]initWithFrame:CGRectMake(0,80, SCREEN_WIDTH,SCREEN_HEIGHT-80-DRTopHeight) childVCs:self.childVCs parentVC:self delegate:self];
+    self.pageContentView = [[FSPageContentView alloc]initWithFrame:CGRectMake(0,WScale(130), SCREEN_WIDTH,SCREEN_HEIGHT-WScale(130)-DRTopHeight) childVCs:self.childVCs parentVC:self delegate:self];
     self.pageContentView.backgroundColor = [UIColor clearColor];
     [self.view addSubview:_pageContentView];
     self.titleView.selectIndex = _num;

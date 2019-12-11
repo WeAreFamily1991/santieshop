@@ -36,6 +36,9 @@
     [self.phoneTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
     
     [self loadBase];
+    [self.submitBtn mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(-kIPhoneXBottomHeight);
+    }];
     // Do any additional setup after loading the view from its nib.
 }
 -(void)textFieldChangeAction:(UITextField *)textField

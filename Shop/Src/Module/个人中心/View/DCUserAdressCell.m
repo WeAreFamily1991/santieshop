@@ -49,8 +49,16 @@
     
     if ([[NSString stringWithFormat:@"%@",adItem.isdefault] isEqualToString:@"1"]) {//判断是否是默认选择
         self.chooseButton.selected = YES;
+        self.morenLab.hidden =NO;
+        [self.perNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.morenLab.mas_right).offset(WScale(10));
+        }];
     } else {
         self.chooseButton.selected = NO;
+        self.morenLab.hidden =YES;
+        [self.perNameLabel mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self).offset(WScale(10));
+        }];
     }
 }
 #pragma mark - 编辑按钮点击

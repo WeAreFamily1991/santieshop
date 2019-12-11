@@ -65,10 +65,10 @@ static NSString *const DCUserAdressCellID = @"DCUserAdressCell";
     if (!_bgTipButton) {
         
         _bgTipButton = [DCUpDownButton buttonWithType:UIButtonTypeCustom];
-        [_bgTipButton setImage:[UIImage imageNamed:@"MG_Empty_dizhi"] forState:UIControlStateNormal];
+        [_bgTipButton setImage:[UIImage imageNamed:@"img_msg_tupian"] forState:UIControlStateNormal];
         _bgTipButton.titleLabel.font = DR_FONT(13);
         [_bgTipButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-        [_bgTipButton setTitle:@"您还没有收货地址" forState:UIControlStateNormal];
+        [_bgTipButton setTitle:@"暂无收货地址" forState:UIControlStateNormal];
         _bgTipButton.frame = CGRectMake((ScreenW - 150) * 1/2 , (ScreenH - 150) * 1/2-DRTopHeight , 150, 150);
         _bgTipButton.adjustsImageWhenHighlighted = false;
     }

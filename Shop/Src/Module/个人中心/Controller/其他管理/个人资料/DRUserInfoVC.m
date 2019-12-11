@@ -146,7 +146,7 @@
 #pragma mark 按钮点击事件
 -(void)saveBtnClick:(UIButton *)sender
 {
-    NSArray *valueArray = @[[DRBuyerModel sharedManager].logo?:@"",[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRBuyerModel sharedManager].name?:@"",[DRBuyerModel sharedManager].companyAddress?:@"",[DRBuyerModel sharedManager].cName?:@"",[DRBuyerModel sharedManager].cPhone?:@"",[DRBuyerModel sharedManager].cTel?:@"",[DRBuyerModel sharedManager].ticketType,[DRBuyerModel sharedManager].businessLic?:@""];
+    NSArray *valueArray = @[[DRUserInfoModel sharedManager].logo?:@"",[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRUserInfoModel sharedManager].buyerName?:@"",[DRUserInfoModel sharedManager].companyAddress?:@"",[DRUserInfoModel sharedManager].cName?:@"",[DRUserInfoModel sharedManager].cPhone?:@"",[DRUserInfoModel sharedManager].cTel?:@"",[NSString stringWithFormat:@"%ld",[DRUserInfoModel sharedManager].ticketType],[DRUserInfoModel sharedManager].businessLic?:@""];
     NSArray *keyArr =@[@"logo",@"mobilephone",@"name",@"companyAddress",@"cName",@"cPhone",@"cTel",@"ticketType",@"businessLic"];
     NSDictionary *dic =@{keyArr[0]:valueArray[0],keyArr[1]:valueArray[1],keyArr[2]:valueArray[2],keyArr[3]:valueArray[3],keyArr[4]:valueArray[4],keyArr[5]:valueArray[5],keyArr[6]:valueArray[6],keyArr[7]:valueArray[7],keyArr[8]:valueArray[8]};
     NSMutableDictionary *mudic =[NSMutableDictionary dictionaryWithObject:[SNTool jsontringData:dic] forKey:@"buyer"];
@@ -245,12 +245,12 @@
         cell.titleLabel.text =@"用户头像";
         
         [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
-        id imgStr1 = [DRBuyerModel sharedManager].logo?:@"personal_img_head portrait";
+        id imgStr1 = [DRUserInfoModel sharedManager].logo?:@"personal_img_head portrait";
         
         if (![imgStr1 isEqualToString:@"personal_img_head portrait"]) {
            
         }
-         [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[DRBuyerModel sharedManager].logo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
+         [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:[DRUserInfoModel sharedManager].logo] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else
@@ -258,7 +258,7 @@
         titleArray = @[@"账号手机",@"公司名称",@"公司所在地",@"",@"联系人",@"固定电话",@"手机号码",@"",@"发票类型"];
         placeholdArray= @[@"请输入手机号",@"请输入公司名称",@"请输入公司所在地",@"",@"请输入联系人",@"请输入固定电话",@"请输入手机号码",@"",@""];
         
-        NSArray *contentArray = @[[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRBuyerModel sharedManager].name?:@"",[DRBuyerModel sharedManager].companyAddress?:@"",@"",[DRBuyerModel sharedManager].cName?:@"",[DRBuyerModel sharedManager].cTel?:@"",[DRBuyerModel sharedManager].cPhone?:@"",@"",[[DRBuyerModel sharedManager].ticketType boolValue]?@"增值税专用发票":@"增值税普通发票"];
+        NSArray *contentArray = @[[DRUserInfoModel sharedManager].mobilePhone?:@"",[DRUserInfoModel sharedManager].buyerName?:@"",[DRUserInfoModel sharedManager].companyAddress?:@"",@"",[DRUserInfoModel sharedManager].cName?:@"",[DRUserInfoModel sharedManager].cTel?:@"",[DRUserInfoModel sharedManager].cPhone?:@"",@"",[DRUserInfoModel sharedManager].ticketType?@"增值税专用发票":@"增值税普通发票"];
         InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
         if (indexPath.row==1) {
             cell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
@@ -304,14 +304,14 @@
     yingyeBtn.titleLabel.font =DR_FONT(12);
     [yingyeBtn setTitle:@"营业执照(企业名称需保持一致)" forState:UIControlStateNormal];
     [yingyeBtn setTitleColor:RGBHex(0XC0C0C0) forState:UIControlStateNormal];
-    NSLog(@"%@",[DRBuyerModel sharedManager].businessLic);
+    NSLog(@"%@",[DRUserInfoModel sharedManager].businessLic);
     NSString *urlStr;
-    if ([DRBuyerModel sharedManager].businessLic.length==0) {
+    if ([DRUserInfoModel sharedManager].businessLic.length==0) {
         urlStr =@"";
     }
     else
     {
-        urlStr=[DRBuyerModel sharedManager].businessLic;
+        urlStr=[DRUserInfoModel sharedManager].businessLic;
     }
     [yingyeBtn sd_setImageWithURL:[NSURL URLWithString:urlStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"login_ico_tianjia"]];
    [yingyeBtn layoutButtonWithEdgeInsetsStyle:LXButtonEdgeInsetsStyleTop imageTitleSpace:WScale(15)];
@@ -356,22 +356,22 @@
     }
     else if (textField.tag == 3)
     {
-        [DRBuyerModel sharedManager].name = textField.text;
+        [DRUserInfoModel sharedManager].buyerName = textField.text;
     }
     else if (textField.tag == 4)
     {
-        [DRBuyerModel sharedManager].companyAddress = textField.text;
+        [DRUserInfoModel sharedManager].companyAddress = textField.text;
     }
     else if (textField.tag == 5)
     {
-        [DRBuyerModel sharedManager].cName = textField.text;
+        [DRUserInfoModel sharedManager].cName = textField.text;
     } else if (textField.tag == 6)
     {
-        [DRBuyerModel sharedManager].cTel = textField.text;
+        [DRUserInfoModel sharedManager].cTel = textField.text;
     }
     else if (textField.tag == 7)
     {
-        [DRBuyerModel sharedManager].cPhone = textField.text;
+        [DRUserInfoModel sharedManager].cPhone = textField.text;
     }
 
 }
@@ -508,10 +508,10 @@
     [SNAPI userAvatar:image nickName:nil success:^(SNResult *result){
         [MBProgressHUD showSuccess:SNStandardString(@"上传成功")];
         if (self.isFooter==YES) {
-             [DRBuyerModel sharedManager].businessLic =result.data[@"src"];
+             [DRUserInfoModel sharedManager].businessLic =result.data[@"src"];
         }else
         {
-            [DRBuyerModel sharedManager].logo =result.data[@"src"];
+            [DRUserInfoModel sharedManager].logo =result.data[@"src"];
             
         }
        

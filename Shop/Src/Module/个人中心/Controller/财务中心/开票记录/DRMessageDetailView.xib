@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,8 +17,8 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lhb-0u-DxH">
                     <rect key="frame" x="0.0" y="230" width="375" height="437"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIQ-Yq-1kj">
-                            <rect key="frame" x="15" y="377" width="345" height="50"/>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CIQ-Yq-1kj">
+                            <rect key="frame" x="0.0" y="387" width="375" height="50"/>
                             <color key="backgroundColor" red="1" green="0.0" blue="0.0039215686269999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="E9R-te-2vc"/>
@@ -28,16 +26,12 @@
                             <state key="normal" title="关闭">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="25"/>
-                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                            </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="closeBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="Yer-oQ-5SI"/>
+                                <action selector="closeBtnClick:" destination="iN0-l3-epB" eventType="touchUpInside" id="YUC-Oz-PDG"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DQo-xI-jtb">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="367"/>
+                            <rect key="frame" x="0.0" y="0.0" width="375" height="377"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                     </subviews>
@@ -46,10 +40,10 @@
                         <constraint firstAttribute="trailing" secondItem="DQo-xI-jtb" secondAttribute="trailing" id="K6N-oj-hpq"/>
                         <constraint firstItem="DQo-xI-jtb" firstAttribute="leading" secondItem="lhb-0u-DxH" secondAttribute="leading" id="L2G-FU-93c"/>
                         <constraint firstItem="DQo-xI-jtb" firstAttribute="top" secondItem="lhb-0u-DxH" secondAttribute="top" id="Sd2-Nb-BoP"/>
-                        <constraint firstItem="CIQ-Yq-1kj" firstAttribute="top" secondItem="DQo-xI-jtb" secondAttribute="bottom" constant="10" id="dks-YR-Otv"/>
-                        <constraint firstItem="CIQ-Yq-1kj" firstAttribute="leading" secondItem="lhb-0u-DxH" secondAttribute="leading" constant="15" id="hok-aN-GZo"/>
-                        <constraint firstAttribute="bottom" secondItem="CIQ-Yq-1kj" secondAttribute="bottom" constant="10" id="nBZ-KE-WVJ"/>
-                        <constraint firstAttribute="trailing" secondItem="CIQ-Yq-1kj" secondAttribute="trailing" constant="15" id="q3R-ha-do8"/>
+                        <constraint firstItem="CIQ-Yq-1kj" firstAttribute="top" secondItem="DQo-xI-jtb" secondAttribute="bottom" constant="10" id="XnP-5h-0cy"/>
+                        <constraint firstItem="CIQ-Yq-1kj" firstAttribute="leading" secondItem="lhb-0u-DxH" secondAttribute="leading" id="hok-aN-GZo"/>
+                        <constraint firstAttribute="bottom" secondItem="CIQ-Yq-1kj" secondAttribute="bottom" id="nBZ-KE-WVJ"/>
+                        <constraint firstAttribute="trailing" secondItem="CIQ-Yq-1kj" secondAttribute="trailing" id="q3R-ha-do8"/>
                     </constraints>
                 </view>
                 <button opaque="NO" alpha="0.5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvn-rv-Xsj">
@@ -79,7 +73,7 @@
                 <outlet property="backVIew" destination="DQo-xI-jtb" id="tVJ-I4-pfT"/>
                 <outlet property="colseBtn" destination="CIQ-Yq-1kj" id="fuG-2m-QJB"/>
             </connections>
-            <point key="canvasLocation" x="40.799999999999997" y="46.326836581709152"/>
+            <point key="canvasLocation" x="52" y="40"/>
         </view>
     </objects>
 </document>

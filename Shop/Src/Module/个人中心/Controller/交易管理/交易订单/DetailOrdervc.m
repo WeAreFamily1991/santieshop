@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saleOutBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cancelBtn;
 @property (weak, nonatomic) IBOutlet UIButton *againBuyBtn;
+@property (weak, nonatomic) IBOutlet UIView *bottomView;
 @property (nonatomic,retain)UIButton *footBtn;
 
 @property(nonatomic,strong)NSDictionary* dataDict;
@@ -76,6 +77,23 @@
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
     [self.view addSubview:self.tableView];
+    self.saleOutBtn.layer.borderColor =REDCOLOR.CGColor;
+    self.saleOutBtn.layer.borderWidth =0.5;
+    self.saleOutBtn.layer.cornerRadius =4;
+    self.saleOutBtn.layer.masksToBounds =4;
+    
+    self.cancelBtn.layer.borderColor =REDCOLOR.CGColor;
+    self.cancelBtn.layer.borderWidth =0.5;
+    self.cancelBtn.layer.cornerRadius =4;
+    self.cancelBtn.layer.masksToBounds =4;
+    
+    self.againBuyBtn.layer.borderColor =REDCOLOR.CGColor;
+    self.againBuyBtn.layer.borderWidth =0.5;
+    self.againBuyBtn.layer.cornerRadius =4;
+    self.againBuyBtn.layer.masksToBounds =4;
+    [self.bottomView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.mas_equalTo(self.view).offset(-50);
+    }];
 }
 -(void)loadSource
 {

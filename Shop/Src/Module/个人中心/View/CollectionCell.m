@@ -302,7 +302,7 @@
         [self.typeBtn setTitle:@"批发商" forState:UIControlStateNormal];
     }
     self.companyLab.text =applicationModel.sellerName;
-    self.contentLab.text =[NSString stringWithFormat:@"开票方：%@",applicationModel.fpPartyName];
+    self.contentLab.text =[NSString stringWithFormat:@"开票方：%@",applicationModel.kpName];
     
 }
 -(void)setGoodsModel:(GoodsModel *)goodsModel

@@ -13,6 +13,7 @@
 @interface DCUserAdressCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIButton *chooseButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *morenLab;
 @property (nonatomic, copy) void (^selectBtnClickBlock)(BOOL isSelected);
 
 /* 模型数据 */

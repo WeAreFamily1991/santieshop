@@ -94,7 +94,7 @@
         if (weakSelf.saveType == DCSaveAdressChangeType) { //编辑
             weakSelf.adressHeadView.rePersonField.text =weakSelf.infoModel.receiver;
             NSArray *addressArr =[weakSelf.infoModel.districtAddress componentsSeparatedByString:@"/"];
-//            [DRBuyerModel sharedManager].alllocationcode =weakSelf.infoModel.districtAddress;
+//            [DRUserInfoModel sharedManager].alllocationCode =weakSelf.infoModel.districtAddress;
             if (addressArr.count==3) {
                 
                 weakSelf.adressHeadView.addressLabel.text =[NSString stringWithFormat:@"%@%@%@",addressArr[0],addressArr[1],addressArr[2]];
@@ -122,7 +122,7 @@
 -(void)getDistrict
 {
     DRWeakSelf;
-    NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode] forKeys:@[@"parentId"]];
+    NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithObjects:@[[DRUserInfoModel sharedManager].locationCode] forKeys:@[@"parentId"]];
     [SNAPI getWithURL:@"mainPage/getDistrict" parameters:dic success:^(SNResult *result) {
         weakSelf.townArr =result.data;
         if (weakSelf.saveType ==DCSaveAdressChangeType&&weakSelf.townArr.count!=0) {
@@ -134,12 +134,16 @@
                     [nameArr addObject:dic[@"name"]];
                 }
                 self.selectRow =[nameArr indexOfObject:[DEFAULTS objectForKey:@"town"]];
+                self.saveBtn.backgroundColor =REDCOLOR;
+                self.saveBtn.enabled =YES;
             }
         }
         else if (weakSelf.saveType == DCSaveAdressNewType) {
-            weakSelf.adressHeadView.addressLabel.text = [DRBuyerModel sharedManager].location;
-            NSLog(@"code=%@",[DEFAULTS objectForKey:@"locationcode"]);
+            weakSelf.adressHeadView.addressLabel.text = [DRUserInfoModel sharedManager].location;
+            NSLog(@"code=%@",[DEFAULTS objectForKey:@"locationCode"]);
             weakSelf.adressHeadView.isDefaultSwitch.on =YES;
+             self.saveBtn.backgroundColor =RGBHex(0XC0C0C0);
+            self.saveBtn.enabled =NO;
         }
 
     } failure:^(NSError *error) {
@@ -209,10 +213,12 @@
 {
     if (_adressHeadView.rePersonField.text.length&&_adressHeadView.rePhoneField.text.length==11) {
         self.saveBtn.backgroundColor =REDCOLOR;
+        self.saveBtn.enabled =YES;
     }
     else
     {
         self.saveBtn.backgroundColor =RGBHex(0XC0C0C0);
+         self.saveBtn.enabled =NO;
     }
 }
 //区头的高度
@@ -286,18 +292,18 @@
      NSMutableDictionary *smallDic =[NSMutableDictionary dictionary];
     if (_saveType ==DCSaveAdressChangeType) {
         urlStr =@"buyer/updateAddress";
-        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtid":[DEFAULTS objectForKey:@"locationcode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":defautStr,@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@"",@"id":self.infoModel.address_id?:@"",@"buyerid":self.infoModel.buyerid?:@""};
+        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtid":[DEFAULTS objectForKey:@"locationCode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":defautStr,@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@"",@"id":self.infoModel.address_id?:@"",@"buyerid":self.infoModel.buyerid?:@""};
         
         [smallDic addEntriesFromDictionary:dic];
         if (_adressHeadView.selectBtn.selected==YES) {
-            [smallDic setObject:[NSString stringWithFormat:@"%@/%@",[DEFAULTS objectForKey:@"locationcode"]?:@"",self.townArr[self.selectRow][@"code"]?:@""] forKey:@"districtid"];
+            [smallDic setObject:[NSString stringWithFormat:@"%@/%@",[DEFAULTS objectForKey:@"locationCode"]?:@"",self.townArr[self.selectRow][@"code"]?:@""] forKey:@"districtid"];
         }
     }else
     {
-        urlStr =@"buyer/addAddress";        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtId":[DEFAULTS objectForKey:@"locationcode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":[NSString stringWithFormat:@"%d",_adressHeadView.isDefaultSwitch.on ],@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@""};
+        urlStr =@"buyer/addAddress";        dic=@{@"receiver":self.adressHeadView.rePersonField.text,@"mobile":self.adressHeadView.rePhoneField.text,@"districtId":[DEFAULTS objectForKey:@"locationCode"]?:@"",@"address": _adressHeadView.detailTextView.text,@"isdefault":[NSString stringWithFormat:@"%d",_adressHeadView.isDefaultSwitch.on ],@"phone":self.adressHeadView.mobileTF.text?:@"",@"receiver":self.townArr[self.selectRow][@"name"]?:@""};
        [smallDic addEntriesFromDictionary:dic];
         if (_adressHeadView.selectBtn.selected==YES) {
-            [smallDic setObject:[NSString stringWithFormat:@"%@/%@",[DEFAULTS objectForKey:@"locationcode"],self.townArr[self.selectRow][@"code"]?:@""] forKey:@"districtId"];
+            [smallDic setObject:[NSString stringWithFormat:@"%@/%@",[DEFAULTS objectForKey:@"locationCode"],self.townArr[self.selectRow][@"code"]?:@""] forKey:@"districtId"];
         }
     }
     NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:smallDic] forKey:@"address"];

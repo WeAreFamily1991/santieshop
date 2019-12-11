@@ -164,25 +164,25 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:YES];
-    NSLog(@"location =%@",[DRBuyerModel sharedManager].locationcode);
+    NSLog(@"location =%@",[DRUserInfoModel sharedManager].locationCode);
 //    [self loadLocation];
 }
 -(void)loadLocation
 {
     if (![User currentUser].isLogin) {
-        if (![DRBuyerModel sharedManager].location) {
+        if (![DRUserInfoModel sharedManager].location) {
             [CGXPickerView showAddressPickerWithTitle:@"请选择地区" DefaultSelected:@[@0, @0,@0] IsAutoSelect:YES Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
                 NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
                 self.topToolView.voiceButton.titleLabel.text =selectAddressArr[2];
                 
-                [DRBuyerModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
-                [DRBuyerModel sharedManager].locationcode =[selectAddressArr lastObject];
+                [DRUserInfoModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
+                [DRUserInfoModel sharedManager].locationCode =[selectAddressArr lastObject];
                 //            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
             }];
         }
         else
         {
-            NSArray *nameArr =[[DRBuyerModel sharedManager].location componentsSeparatedByString:@"/"];
+            NSArray *nameArr =[[DRUserInfoModel sharedManager].location componentsSeparatedByString:@"/"];
             if (nameArr.count==3) {
                 _topToolView.voiceButton.titleLabel.text =[nameArr lastObject];
                 
@@ -193,8 +193,8 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         DRWeakSelf;
         [SNAPI userInfoSuccess:^(SNResult *result) {
             [[DRUserInfoModel sharedManager] setValuesForKeysWithDictionary:result.data];
-            [[DRBuyerModel sharedManager] setValuesForKeysWithDictionary:result.data[@"buyer"]];
-            NSArray *nameArr =[[DRBuyerModel sharedManager].location componentsSeparatedByString:@"/"];
+            [[DRUserInfoModel sharedManager] setValuesForKeysWithDictionary:result.data[@"buyer"]];
+            NSArray *nameArr =[[DRUserInfoModel sharedManager].location componentsSeparatedByString:@"/"];
             if (nameArr.count==3) {
                 weakSelf.topToolView.voiceButton.titleLabel.text =[nameArr lastObject];
                 
@@ -413,8 +413,8 @@ static NSString *const DRTopViewID = @"HQTopStopView";
             NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
             weakSelf.topToolView.voiceButton.titleLabel.text =selectAddressArr[2];
             
-            [DRBuyerModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
-            [DRBuyerModel sharedManager].locationcode =[selectAddressArr lastObject];
+            [DRUserInfoModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
+            [DRUserInfoModel sharedManager].locationCode =[selectAddressArr lastObject];
             
         }];
         NSLog(@"点击了首页语音");

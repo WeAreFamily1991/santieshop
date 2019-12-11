@@ -74,7 +74,7 @@
 #pragma mark 添加表尾
 -(void)addTableViewfooterView
 {
-    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-HScale(60)-DRTopHeight, SCREEN_WIDTH, HScale(60))];
+    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-HScale(60)-DRTopHeight-kIPhoneXBottomHeight, SCREEN_WIDTH, HScale(60))];
     headView.backgroundColor =[UIColor clearColor];
     [self.view addSubview:headView];
     

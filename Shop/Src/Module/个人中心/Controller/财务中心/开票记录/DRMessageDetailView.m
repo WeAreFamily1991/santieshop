@@ -69,9 +69,11 @@
     titleLabel.font = [UIFont systemFontOfSize:14];
     //    [titleLabel sizeToFit];
     [view addSubview:titleLabel];
+   
     
     return view;
 }
+
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewAutomaticDimension;

@@ -208,16 +208,16 @@ static NSString *const DRTopViewID = @"HQTopStopView";
 -(void)loadLocation
 {
     if (![User currentUser].isLogin) {
-        if (![DEFAULTS objectForKey:@"locationcode"]) {
+        if (![DEFAULTS objectForKey:@"locationCode"]) {
             
             [CGXPickerView showAddressPickerWithTitle:@"请选择地区" DefaultSelected:@[@0, @0,@0] IsAutoSelect:YES Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
                 //NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
                 self.topToolView.voiceButton.titleLabel.text =selectAddressArr[2];
-                [DRBuyerModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
-                [DRBuyerModel sharedManager].locationcode =[selectAddressArr lastObject];
+                [DRUserInfoModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
+                [DRUserInfoModel sharedManager].locationCode =[selectAddressArr lastObject];
                
                 [DEFAULTS setObject:[NSString stringWithFormat:@"%@/%@/%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]] forKey:@"address"];
-                [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationcode"];
+                [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationCode"];
                 [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"code"];
                 //            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
                     [_collectionView.mj_header beginRefreshing];
@@ -225,10 +225,10 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         }
         else
         {
-            NSArray *codeArr =[[DEFAULTS objectForKey:@"locationcode"] componentsSeparatedByString:@"/"];
-            [DRBuyerModel sharedManager].locationcode  = [codeArr lastObject];
-            [DRBuyerModel sharedManager].location  = [DEFAULTS objectForKey:@"address"];
-            NSArray *nameArr =[[DRBuyerModel sharedManager].location componentsSeparatedByString:@"/"];
+            NSArray *codeArr =[[DEFAULTS objectForKey:@"locationCode"] componentsSeparatedByString:@"/"];
+            [DRUserInfoModel sharedManager].locationCode  = [codeArr lastObject];
+            [DRUserInfoModel sharedManager].location  = [DEFAULTS objectForKey:@"address"];
+            NSArray *nameArr =[[DRUserInfoModel sharedManager].location componentsSeparatedByString:@"/"];
             if (nameArr.count==3)
             {
                 [_topToolView.voiceButton setTitle:[nameArr lastObject] forState:UIControlStateNormal];
@@ -236,10 +236,10 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         }
     }else
     {
-        NSArray *codeArr =[[DEFAULTS objectForKey:@"locationcode"] componentsSeparatedByString:@"/"];
-        [DRBuyerModel sharedManager].locationcode  = [codeArr lastObject];
-        [DRBuyerModel sharedManager].location  = [DEFAULTS objectForKey:@"address"];
-        NSArray *nameArr =[[DRBuyerModel sharedManager].location componentsSeparatedByString:@"/"];
+        NSArray *codeArr =[[DEFAULTS objectForKey:@"locationCode"] componentsSeparatedByString:@"/"];
+        [DRUserInfoModel sharedManager].locationCode  = [codeArr lastObject];
+        [DRUserInfoModel sharedManager].location  = [DEFAULTS objectForKey:@"address"];
+        NSArray *nameArr =[[DRUserInfoModel sharedManager].location componentsSeparatedByString:@"/"];
         if (nameArr.count==3)
         {
             [_topToolView.voiceButton setTitle:[nameArr lastObject] forState:UIControlStateNormal];
@@ -483,10 +483,10 @@ static NSString *const DRTopViewID = @"HQTopStopView";
         if (![User currentUser].isLogin) {
             [CGXPickerView showAddressPickerWithTitle:@"请选择你的城市" DefaultSelected:@[@0, @0,@0] IsAutoSelect:YES Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
                 //NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
-                [DRBuyerModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
-                [DRBuyerModel sharedManager].locationcode =[selectAddressArr lastObject];
+                [DRUserInfoModel sharedManager].location = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
+                [DRUserInfoModel sharedManager].locationCode =[selectAddressArr lastObject];
                 [DEFAULTS setObject:[NSString stringWithFormat:@"%@/%@/%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]] forKey:@"address"];
-                [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationcode"];
+                [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationCode"];
                 [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"code"];
                 
                 [weakSelf.topToolView.voiceButton setTitle:selectAddressArr[2] forState:UIControlStateNormal];

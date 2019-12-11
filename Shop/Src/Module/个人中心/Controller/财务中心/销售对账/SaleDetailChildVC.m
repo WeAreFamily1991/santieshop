@@ -21,7 +21,7 @@
 @property (strong, nonatomic) NSMutableDictionary *sendDataDictionary;
 @property (nonatomic, copy) NSString *titleStr;
 @property (nonatomic,assign)NSInteger selectIndex;
-@property (nonatomic,strong)NSMutableArray *MsgListArr;
+@property (nonatomic,strong)NSMutableArray *MsgListArr,*isOpenArr;
 @property (nonatomic,strong)ChildCustomHeadView *childheadView;
 @property (nonatomic,strong)CustomHeadView *headView;
 @property (nonatomic,strong)detailSalesOrderModel *detailModel;
@@ -55,24 +55,25 @@
     {
         [self addCustomHeadView];
     }
+   
     //   self.tableView.height = self.tableView.height - 50 - DRTopHeight -100;
     [self orderDzInfo];
 // Do any additional setup after loading the view.
 }
 -(void)loadTableView
 {
-    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT-DRTopHeight-40) style:UITableViewStylePlain];
-    self.tableView.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
+    self.tableView=[[UITableView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH,SCREEN_HEIGHT-DRTopHeight-40) style:UITableViewStyleGrouped];
+    self.tableView.separatorStyle=UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor =CLEARCOLOR;
-    if (@available(iOS 11.0, *)) {
-        
-        _tableView.estimatedRowHeight = 0;
-        
-        _tableView.estimatedSectionHeaderHeight = 0;
-        
-        _tableView.estimatedSectionFooterHeight = 0;
-        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    }
+//    if (@available(iOS 11.0, *)) {
+//
+//        _tableView.estimatedRowHeight = 0;
+//
+//        _tableView.estimatedSectionHeaderHeight = 0;
+//
+//        _tableView.estimatedSectionFooterHeight = 0;
+//        self.tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+//    }
  
     self.tableView.delegate=self;
     self.tableView.dataSource=self;
@@ -108,31 +109,35 @@
      NSMutableDictionary *dic=[NSMutableDictionary dictionaryWithObjects:@[self.saleModel.sale_id,stateStr] forKeys:@[@"dzId",@"type"]];
     [SNAPI getWithURL:urlStr parameters:dic success:^(SNResult *result) {
         
-        if ([[NSString stringWithFormat:@"%ld",result.state] isEqualToString:@"200"]) {
-            self.MsgListArr =[NSMutableArray array];
-            NSArray *resultArr =result.data[@"sellerList"];
-            if (resultArr.count!=0) {
-                
-                NSMutableArray *modelArray = [detailSalesOrderModel mj_objectArrayWithKeyValuesArray:resultArr];
-                [self.MsgListArr addObjectsFromArray:modelArray];
-                if (self.fatherStatus==0) {
-                    //"totalAmt":2408.90,"onlineAmt":0,"lineAmt":2408.90,"lineReturnAmt":0,"onlineReturnAmt":0,"payAmt":2408.90,"
-                    self.headView.payAllLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"payAmt"] doubleValue]]?:@"0.00";
-                    self.headView.allCountLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"totalAmt"] doubleValue]]?:@"0.00";
-                    self.headView.onlineLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineAmt"] doubleValue]]?:@"0.00";
-                    self.headView.onlineBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineReturnAmt"] doubleValue]]?:@"0.00";
-                    self.headView.EDuLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineAmt"] doubleValue]]?:@"0.00";
-                    self.headView.eDuBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineReturnAmt"] doubleValue]]?:@"0.00";
-                }
-                else
-                {
-                    self.childheadView.allCountMoneyLab.text =[NSString stringWithFormat:@"您需支付金额:￥%@",result.data[@"totalAmt"]]?:@"0.00";
-                    self.childheadView.payCountMoneyLab.text =[NSString stringWithFormat:@"在线支付金额:￥%@",result.data[@"onlineAmt"]]?:@"0.00";
-                    self.childheadView.backCountLab.text =[NSString stringWithFormat:@"额度支付金额：￥%@",result.data[@"lineAmt"]]?:@"0.00";
-                }
+        self.MsgListArr =[NSMutableArray array];
+        NSArray *resultArr =result.data[@"sellerList"];
+        if (resultArr.count!=0) {
+            NSMutableArray *modelArray = [detailSalesOrderModel mj_objectArrayWithKeyValuesArray:resultArr];
+            [self.MsgListArr addObjectsFromArray:modelArray];
+            
+            self.isOpenArr=[[NSMutableArray alloc] init];
+            for (int i=0; i<self.MsgListArr.count; i++) {
+                NSString*  state=@"close";
+                [self.isOpenArr addObject:state];
             }
-            [self.tableView reloadData];
+            if (self.fatherStatus==0) {
+                //"totalAmt":2408.90,"onlineAmt":0,"lineAmt":2408.90,"lineReturnAmt":0,"onlineReturnAmt":0,"payAmt":2408.90,"
+                self.headView.payAllLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"payAmt"] doubleValue]]?:@"0.00";
+                self.headView.allCountLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"totalAmt"] doubleValue]]?:@"0.00";
+                self.headView.onlineLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineAmt"] doubleValue]]?:@"0.00";
+                self.headView.onlineBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"onlineReturnAmt"] doubleValue]]?:@"0.00";
+                self.headView.EDuLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineAmt"] doubleValue]]?:@"0.00";
+                self.headView.eDuBackLab.text =[NSString stringWithFormat:@"￥%.2f",[result.data[@"lineReturnAmt"] doubleValue]]?:@"0.00";
+            }
+            else
+            {
+                self.childheadView.allCountMoneyLab.text =[NSString stringWithFormat:@"您需支付金额:￥%@",result.data[@"totalAmt"]]?:@"0.00";
+                self.childheadView.payCountMoneyLab.text =[NSString stringWithFormat:@"在线支付金额:￥%@",result.data[@"onlineAmt"]]?:@"0.00";
+                self.childheadView.backCountLab.text =[NSString stringWithFormat:@"额度支付金额：￥%@",result.data[@"lineAmt"]]?:@"0.00";
+            }
         }
+        [self.tableView reloadData];
+        
         
     } failure:^(NSError *error) {
         
@@ -173,11 +178,8 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (self.fatherStatus==0) {
-        return HScale(120) ;
-    }
-    return HScale(110);
+{    
+    return WScale(340);
 }
 #pragma mark 表的区数
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -189,11 +191,11 @@
     self.detailModel =self.MsgListArr[section];
     return self.detailModel.list.count;
 }
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-    return UITableViewAutomaticDimension;
-}
+//- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//    return UITableViewAutomaticDimension;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.detailModel = self.MsgListArr[indexPath.section];
@@ -212,8 +214,9 @@
         cell.saleTimeLab.text =[NSString stringWithFormat:@"对账数量：%.2f",self.listMOdel.qty];
         cell.saleCountLab.text =[NSString stringWithFormat:@"对账金额：￥%.2f",self.listMOdel.orderAmt];
         cell.saleCountLab.textColor =REDCOLOR;
-        cell.typeLab.text =[self.listMOdel.payType boolValue]?@"在线支付":@"额度支付";
+        cell.payLab.text =[self.listMOdel.payType boolValue]?@"在线支付":@"额度支付";
         cell.yunfeiLab.text=[NSString stringWithFormat:@"运费：￥%@",self.listMOdel.orderExpressPrice?:@"0"];
+      
         cell.detailClickBlock = ^{
             self.detailModel = self.MsgListArr[indexPath.section];
             self.listMOdel =[ListModel mj_objectWithKeyValues:self.detailModel.list[indexPath.row]];
@@ -266,7 +269,7 @@
     headView.backgroundColor=[UIColor whiteColor];
     UIButton*  button=[UIButton buttonWithType:UIButtonTypeCustom];
     [button setFrame:CGRectMake(15, HScale(5), WScale(50), HScale(20))];
-    button.titleLabel.font =DR_FONT(12);
+    button.titleLabel.font =DR_FONT(16);
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
   
     if ([self.detailModel.compType intValue]==0) {
@@ -288,7 +291,7 @@
    
     [headView addSubview:button];
     UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(button.dc_right+15, 0, 2*ScreenW/3, HScale(30))];
-    headLab.font =DR_FONT(14);
+    headLab.font =DR_FONT(16);
     headLab.textColor =BLACKCOLOR;
     headLab.textAlignment = 0;
     headLab.text=self.detailModel.sellerName;
@@ -296,28 +299,101 @@
     return headView;
     
 }
-//- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *headView =[[UIView alloc]initWithFrame:CGRectMake(0, 20, SCREEN_WIDTH, HScale(55))];
-//    headView.backgroundColor =[UIColor whiteColor];
-//    UIButton*  button=[UIButton buttonWithType:UIButtonTypeCustom];
-//    [button setFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-//    button.tag=100+section;
-//    button.titleLabel.font =[UIFont systemFontOfSize:14];
-//    [button setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-//    [button setTitleColor:REDCOLOR forState:UIControlStateSelected];
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    
+    UIView*  sectionBackView=[[UIView alloc] initWithFrame:CGRectMake(0, WScale(0), ScreenW, WScale(50))];
+    sectionBackView.backgroundColor=[UIColor whiteColor];
+   
+  
+    UIButton*  button=[UIButton buttonWithType:UIButtonTypeCustom];
+    [button setFrame:CGRectMake(WScale(10), 0, ScreenW/3.5, WScale(50))];
+    button.tag=100+section;
+    [button setTitle:@"查看统计金额" forState:UIControlStateNormal];
+    button.titleLabel.font =DR_FONT(14);
+    [button setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"ico_dingdanxiangqing_more"] forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"ico_dingdanxiangqing_more"] forState:UIControlStateSelected];
+    [button addTarget:self action:@selector(ClickSection:) forControlEvents:UIControlEventTouchUpInside];
+    [button layoutButtonWithEdgeInsetsStyle:LXButtonEdgeInsetsStyleRight imageTitleSpace:0];
+    [sectionBackView addSubview:button];
+    UILabel*  numLabel=[[UILabel alloc] initWithFrame:CGRectMake(ScreenW/2, 0, ScreenW/2, WScale(50))];
+     self.detailModel = self.MsgListArr[section];
+      
+    numLabel.text=[NSString stringWithFormat:@"支付金额：￥%.3f",self.detailModel.payAmt];
+   
+    [SNTool setTextColor:numLabel FontNumber:DR_FONT(18) AndRange:NSMakeRange(5, numLabel.text.length-5) AndColor:REDCOLOR];
+    [sectionBackView addSubview:numLabel];
+    
+    UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, WScale(50), ScreenW, WScale(1))];
+    lineView.backgroundColor =BACKGROUNDCOLOR;
+    [sectionBackView addSubview:lineView];
+ 
+    if ([[_isOpenArr objectAtIndex:section] isEqualToString:@"open"]) {
+        button.selected =YES;
+        if (self.fatherStatus==0) {
+            
+            sectionBackView.frame =CGRectMake(0, WScale(0), ScreenW, WScale(240));
+            UILabel *payNameLab =[UILabel labelWithText:[NSString stringWithFormat:@"您需支付金额\n￥%.2f",self.detailModel.payAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            payNameLab.frame =CGRectMake(0, WScale(50), ScreenW/2, WScale(38));
+            [SNTool setTextColor:payNameLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, payNameLab.text.length-6) AndColor:BLACKCOLOR];
+            
+            UILabel *allLab =[UILabel labelWithText:[NSString stringWithFormat:@"账单总金额\n￥%.2f",self.detailModel.totalAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            allLab.frame =CGRectMake(ScreenW/2, WScale(50), ScreenW/2, WScale(38));
+            [SNTool setTextColor:allLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(5, allLab.text.length-5) AndColor:BLACKCOLOR];
+            
+            UILabel *onlineLab =[UILabel labelWithText:[NSString stringWithFormat:@"在线支付金额\n￥%.2ld",(long)self.detailModel.onlineAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            onlineLab.frame =CGRectMake(0, WScale(103), ScreenW/2, WScale(38));
+            [SNTool setTextColor:onlineLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, onlineLab.text.length-6) AndColor:BLACKCOLOR];
+            
+            UILabel *backLab =[UILabel labelWithText:[NSString stringWithFormat:@"在线支付退款\n￥%.2ld",(long)self.detailModel.onlineReturnAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            backLab.frame =CGRectMake(ScreenW/2, WScale(103), ScreenW/2, WScale(38));
+            [SNTool setTextColor:backLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, backLab.text.length-6) AndColor:BLACKCOLOR];
+            
+            UILabel *eduPayLab =[UILabel labelWithText:[NSString stringWithFormat:@"额度支付金额\n￥%.2f",self.detailModel.lineAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            eduPayLab.frame =CGRectMake(0, WScale(156), ScreenW/2, WScale(38));
+            [SNTool setTextColor:eduPayLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, eduPayLab.text.length-6) AndColor:BLACKCOLOR];
+            
+            UILabel *ebackLab =[UILabel labelWithText:[NSString stringWithFormat:@"额度支付退款\n￥%.2ld",(long)self.detailModel.lineReturnAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            ebackLab.frame =CGRectMake(ScreenW/2, WScale(156), ScreenW/2, WScale(38));
+            [SNTool setTextColor:ebackLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, ebackLab.text.length-6) AndColor:BLACKCOLOR];
+        }
+        else
+        {
+            UILabel *onlineLab =[UILabel labelWithText:[NSString stringWithFormat:@"在线支付金额\n￥%.2ld",(long)self.detailModel.onlineAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            onlineLab.frame =CGRectMake(0, WScale(50), ScreenW/2, WScale(38));
+            [SNTool setTextColor:onlineLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, onlineLab.text.length-6) AndColor:BLACKCOLOR];
+            
+            
+            
+            UILabel *eduPayLab =[UILabel labelWithText:[NSString stringWithFormat:@"额度支付金额\n￥%.2f",self.detailModel.lineAmt] font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+            eduPayLab.frame =CGRectMake(ScreenW/2, WScale(50), ScreenW/2, WScale(38));
+            [SNTool setTextColor:eduPayLab FontNumber:DR_BoldFONT(18) AndRange:NSMakeRange(6, eduPayLab.text.length-6) AndColor:BLACKCOLOR];
+        }
+    }
+    else if ([[_isOpenArr objectAtIndex:section] isEqualToString:@"close"]) {
+        button.selected=NO;
+        sectionBackView.frame =CGRectMake(0, WScale(5), ScreenW, WScale(50));
+        
+       
+        
+//        UILabel *payNameLab =[UILabel labelWithText:@"您需支付金额" font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+//               payNameLab.frame =CGRectMake(0, WScale(70), ScreenW/2, WScale(12));
 //
-//    [button layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleRight imageTitleSpace:10];
-//    [button addTarget:self action:@selector(ClickSection:) forControlEvents:UIControlEventTouchUpInside];
-//    [headView addSubview:button];
-//    UILabel *headLab =[[UILabel alloc]initWithFrame:CGRectMake(20, 0, 70, HScale(55))];
-//    headLab.font =DR_FONT(14);
-//    headLab.textColor =BLACKCOLOR;
-//    headLab.textAlignment = 0;
-//    headLab.text=self.detailModel.sellerName;
-//    [headView addSubview:headLab];
-//    return headView;
-//}
+//        UILabel *payNameLab =[UILabel labelWithText:@"您需支付金额" font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+//               payNameLab.frame =CGRectMake(0, WScale(70), ScreenW/2, WScale(12));
+//
+//        UILabel *payNameLab =[UILabel labelWithText:@"您需支付金额" font:DR_FONT(12) textColor:BLACKCOLOR backGroundColor:CLEARCOLOR textAlignment:1 superView:sectionBackView];
+//               payNameLab.frame =CGRectMake(0, WScale(70), ScreenW/2, WScale(12));
+        
+        
+        
+        
+        
+    }
+    
+    return sectionBackView;
+}
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -327,7 +403,31 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.01;
+    NSString*  state=[self.isOpenArr objectAtIndex:section];
+    if ([state isEqualToString:@"open"]) {
+        // NSString*  key=[self.dataDict.allKeys objectAtIndex:section];
+        //   NSArray*  arr=[self.dataDict objectForKey:key];
+        if (self.fatherStatus==0) {
+            
+            return WScale(220);
+        }
+        return WScale(118);
+
+    }
+    return WScale(50);
 }
 
+-(void)ClickSection:(UIButton*)sender
+{
+    NSString*  state=[self.isOpenArr objectAtIndex:sender.tag-100];
+    if ([state isEqualToString:@"open"]) {
+        state=@"close";
+    }else
+    {
+        state=@"open";
+    }
+    self.isOpenArr[sender.tag-100]=state;
+    NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:sender.tag-100];
+    [self.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationFade];
+}
 @end

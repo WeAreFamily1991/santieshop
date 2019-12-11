@@ -23,6 +23,7 @@
 @property (nonatomic,assign)NSInteger selectIndex;
 @property (nonatomic,strong)NSMutableArray *MsgListArr;
 @property (nonatomic,strong)SalesOrderModel *saleModel;
+@property (nonatomic,strong)NSArray *titleArr,*detailArr;
 /* 暂无子账号提示 */
 @property (strong , nonatomic)DCUpDownButton *bgTipButton;
 @end
@@ -65,8 +66,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.bgTipButton];
+    
     self.view.backgroundColor =BACKGROUNDCOLOR;
+    self.titleArr =@[@"对账单号",@"生成日期",@"对账日期",@"对账数量",@"对账金额",@"运费",@"支付状态"];
     //    self.tableView.frame =CGRectMake(0, 40, SCREEN_WIDTH, self.tableView.height-80);
+    self.tableView.tableFooterView =[UIView new];
     __weak typeof(self) weakSelf = self;
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         if (weakSelf.MsgListArr.count) {
@@ -186,23 +190,27 @@
 {
     if (!_bgTipButton) {
         _bgTipButton = [DCUpDownButton buttonWithType:UIButtonTypeCustom];
-        [_bgTipButton setImage:[UIImage imageNamed:@"MG_Empty_dizhi"] forState:UIControlStateNormal];
+        [_bgTipButton setImage:[UIImage imageNamed:@"img_msg_biaodan"] forState:UIControlStateNormal];
         _bgTipButton.titleLabel.font = DR_FONT(13);
         [_bgTipButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
         [_bgTipButton setTitle:@"暂无数据" forState:UIControlStateNormal];
-        _bgTipButton.frame = CGRectMake((ScreenW - 150) * 1/2 , (ScreenH - 150) * 1/2-DRTopHeight, 150, 150);
+        _bgTipButton.frame = CGRectMake(ScreenW * 1/4 , (ScreenH - ScreenW/2) * 1/2-DRTopHeight, ScreenW/2, ScreenW/2);
         _bgTipButton.adjustsImageWhenHighlighted = false;
     }
     return _bgTipButton;
 }
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    self.bgTipButton.hidden = (_MsgListArr.count > 0) ? YES : NO;
+    return _MsgListArr.count;
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return HScale(120);
+    return WScale(40);
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    self.bgTipButton.hidden = (self.MsgListArr.count > 0) ? YES : NO;
-    return self.MsgListArr.count;
+{    
+    return self.titleArr.count;
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -211,51 +219,108 @@
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01;
+    return WScale(10);
 }
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.01;
+    return WScale(50);
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+//    if (self.MsgListArr.count!=0)
+//    {
+//        self.saleModel =self.MsgListArr[indexPath.row];
+//        SaleOrderCell *cell =[SaleOrderCell cellWithTableView:tableView];
+//
+//        cell.shoukuanModel =self.saleModel;
+//        cell.status =self.status;
+//        cell.detailClickBlock = ^{
+//            DRShouKuanChildVC *saleDetailVC =[[DRShouKuanChildVC alloc]init];
+//            self.saleModel =self.MsgListArr[indexPath.row];
+//            saleDetailVC.saleModel =self.saleModel;
+//            saleDetailVC.fatherStatus =self.status;
+//            [self.navigationController pushViewController:saleDetailVC animated:YES];
+//        };
+//        return cell;
+//
+//    }
     if (self.MsgListArr.count!=0)
     {
-        self.saleModel =self.MsgListArr[indexPath.row];
-        SaleOrderCell *cell =[SaleOrderCell cellWithTableView:tableView];
-        
-        cell.shoukuanModel =self.saleModel;
-        cell.status =self.status;
-        cell.detailClickBlock = ^{
-            DRShouKuanChildVC *saleDetailVC =[[DRShouKuanChildVC alloc]init];
-            self.saleModel =self.MsgListArr[indexPath.row];
-            saleDetailVC.saleModel =self.saleModel;
-            saleDetailVC.fatherStatus =self.status;
-            [self.navigationController pushViewController:saleDetailVC animated:YES];
-        };
-        return cell;
-     
+        static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
+           UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
+                                    SimpleTableIdentifier];
+           if (cell == nil) {
+               cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1
+                                             reuseIdentifier: SimpleTableIdentifier];
+           }
+           
+           self.saleModel =self.MsgListArr[indexPath.section];
+           NSString *payStr ;
+           if ([self.saleModel.payStatus intValue]==1) {
+               payStr  =@"已付款";
+           }
+           else
+           {
+               payStr = @"未付款";
+           }
+           self.detailArr =@[self.saleModel.dzNo,self.saleModel.createTime,self.saleModel.dzPeriod,self.saleModel.qty,[NSString stringWithFormat:@"￥%@",self.saleModel.totalOrderAmt],[NSString stringWithFormat:@"￥%@",self.saleModel.expressFeeTotal],payStr];
+           cell.textLabel.text =self.titleArr[indexPath.row];
+           cell.textLabel.font =DR_FONT(14);
+           
+           cell.detailTextLabel.text =self.detailArr[indexPath.row];
+           cell.detailTextLabel.font =DR_FONT(14);
+           if (self.status==0&indexPath.row==4||indexPath.row==5) {
+               cell.detailTextLabel.textColor =REDCOLOR;
+           }
+           
+           if (self.status==1&indexPath.row==2||indexPath.row==3) {
+               cell.detailTextLabel.textColor =REDCOLOR;
+           }
+           //    cell.textLabel.text = [_titleStr stringByAppendingString:[NSString stringWithFormat:@"-%d",(int)indexPath.row]];
+           return cell;
     }
-    static NSString *SimpleTableIdentifier = @"SimpleTableIdentifier";
+    static NSString *SimpleTableIdentifier = @"Simple";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:
                              SimpleTableIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier: SimpleTableIdentifier];
     }
-    //    cell.textLabel.text = [_titleStr stringByAppendingString:[NSString stringWithFormat:@"-%d",(int)indexPath.row]];
     return cell;
+   
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.saleModel =self.MsgListArr[indexPath.row];
+   
+}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footerView =[[UIView alloc]initWithFrame:CGRectMake(0, 1, ScreenW, WScale(50))];
+    footerView.backgroundColor =WHITECOLOR;
+    
+    UIButton *footerBtn =[UIButton buttonWithTitle:@"查看详细" font:DR_FONT(14) titleColor:REDCOLOR backGroundColor:CLEARCOLOR buttonTag:section target:self action:@selector(footerBtnClick:) showView:footerView];
+    footerBtn.frame =CGRectMake(WScale(285), WScale(10), WScale(80), WScale(30));
+    footerBtn.layer.borderColor = REDCOLOR.CGColor;
+    //设置边框宽度
+    footerBtn.layer.borderWidth = 1.0f;
+    //给按钮设置角的弧度
+    footerBtn.layer.cornerRadius = 4.0f;
+    
+    footerBtn.layer.masksToBounds =YES;
+    
+    return footerView;
+}
+-(void)footerBtnClick:(UIButton *)sender
+{
+    self.saleModel =self.MsgListArr[sender.tag];
     DRShouKuanChildVC *saleDetailVC =[[DRShouKuanChildVC alloc]init];
     saleDetailVC.saleModel =self.saleModel;
     saleDetailVC.fatherStatus =self.status;
     [self.navigationController pushViewController:saleDetailVC animated:YES];
+   
 }
-
 @end

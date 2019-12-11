@@ -223,7 +223,7 @@
         return;
     }
 
-    NSDictionary *dic =@{@"name":company,@"mobile":mobile, @"validCode":valid_code,@"location":location,@"locationCode":locationCode,@"source":@"1",@"businessLic":[DRBuyerModel sharedManager].businessLic?:@""};
+    NSDictionary *dic =@{@"name":company,@"mobile":mobile, @"validCode":valid_code,@"location":location,@"locationCode":locationCode,@"source":@"1",@"businessLic":[DRUserInfoModel sharedManager].businessLic?:@""};
     
     NSMutableDictionary *muDic =[NSMutableDictionary dictionaryWithObject:[SNTool convertToJsonData:dic] forKey:@"buyerRegister"];
 //    [muDic setObject:[DEFAULTS objectForKey:@"token"] forKey:@"santieJwt"];

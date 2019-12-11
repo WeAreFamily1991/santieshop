@@ -154,7 +154,7 @@ static NSString * const DCFooterReusableViewID = @"DCFooterReusableView";
     }
     if ([[GoodsShareModel sharedManager].queryType isEqualToString:@"promotion"])
     {
-        NSDictionary *dic =@{@"level1Id":[GoodsShareModel sharedManager].level1Id?:@"",@"level2Id":[GoodsShareModel sharedManager].level2Id?:@"",@"categoryId":[GoodsShareModel sharedManager].categoryId?:@"",@"cz":@"",@"type":@"",@"subType":@"1",@"district":[DRBuyerModel sharedManager].locationcode};
+        NSDictionary *dic =@{@"level1Id":[GoodsShareModel sharedManager].level1Id?:@"",@"level2Id":[GoodsShareModel sharedManager].level2Id?:@"",@"categoryId":[GoodsShareModel sharedManager].categoryId?:@"",@"cz":@"",@"type":@"",@"subType":@"1",@"district":[DRUserInfoModel sharedManager].locationCode};
         _sendDataDictionary = [NSMutableDictionary dictionaryWithDictionary:dic];
         
     }

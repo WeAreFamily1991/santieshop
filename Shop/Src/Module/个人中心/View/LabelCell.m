@@ -68,32 +68,32 @@
         baseStr =@"吨";
     }
     NSString *nameStr,*cellStr;
-    if (goodSellOutModel.unitConversion1.length!=0) {
-        nameStr =[NSString stringWithFormat:@"%.3f%@/%@",[goodSellOutModel.unitConversion1 doubleValue],baseStr,goodSellOutModel.unitName1];
+    if (goodSellOutModel.unitConversion1!=0) {
+        nameStr =[NSString stringWithFormat:@"%.3ld%@/%@",(long)goodSellOutModel.unitConversion1 ,baseStr,goodSellOutModel.unitName1];
         cellStr =goodSellOutModel.unitName1;
     }
     if (goodSellOutModel.unitConversion2!=0) {
-        nameStr =[NSString stringWithFormat:@"%@ %@%@/%@",nameStr?:@"",goodSellOutModel.unitConversion2,baseStr,goodSellOutModel.unitName2];
+        nameStr =[NSString stringWithFormat:@"%@ %ld%@/%@",nameStr?:@"",(long)goodSellOutModel.unitConversion2,baseStr,goodSellOutModel.unitName2];
         if (cellStr.length==0) {
             cellStr =goodSellOutModel.unitName2;
         }
     }
     
     if (goodSellOutModel.unitConversion3!=0) {
-        nameStr =[NSString stringWithFormat:@"%@ %@%@/%@",nameStr?:@"",goodSellOutModel.unitConversion3,baseStr,goodSellOutModel.unitName1];
+        nameStr =[NSString stringWithFormat:@"%@ %ld%@/%@",nameStr?:@"",(long)goodSellOutModel.unitConversion3,baseStr,goodSellOutModel.unitName1];
         if (cellStr.length==0) {
             cellStr =goodSellOutModel.unitName3;
         }
     }
-    if (goodSellOutModel.unitConversion4.length!=0) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodSellOutModel.unitConversion4 doubleValue],baseStr,goodSellOutModel.unitName4];
+    if (goodSellOutModel.unitConversion4!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodSellOutModel.unitConversion4,baseStr,goodSellOutModel.unitName4];
         if (cellStr.length==0) {
             cellStr =goodSellOutModel.unitName4;
             
         }
     }
-    if (goodSellOutModel.unitConversion5.length!=0) {
-        nameStr =[NSString stringWithFormat:@"%@ %.3f%@/%@",nameStr?:@"",[goodSellOutModel.unitConversion5 doubleValue],baseStr,goodSellOutModel.unitName5];
+    if (goodSellOutModel.unitConversion5!=0) {
+        nameStr =[NSString stringWithFormat:@"%@ %.3ld%@/%@",nameStr?:@"",(long)goodSellOutModel.unitConversion5,baseStr,goodSellOutModel.unitName5];
         if (cellStr.length==0) {
             cellStr =goodSellOutModel.unitName5;
         

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BillApplicationModel.h"
 @class SalesOrderModel;
 NS_ASSUME_NONNULL_BEGIN
 
@@ -59,14 +60,31 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SaleOrderCell4 : UITableViewCell
 @property (strong , nonatomic)SalesOrderModel *saleModel;
 @property(nonatomic,assign)NSInteger status;
+@property (weak, nonatomic) IBOutlet UILabel *payLab;
 @property (weak, nonatomic) IBOutlet UILabel *orderLab;
 @property (weak, nonatomic) IBOutlet UILabel *getTimeLab;
 @property (weak, nonatomic) IBOutlet UILabel *saleTimeLab;
 @property (weak, nonatomic) IBOutlet UILabel *saleCountLab;
-@property (weak, nonatomic) IBOutlet UILabel *typeLab;
 @property (weak, nonatomic) IBOutlet UILabel *yunfeiLab;
 @property (weak, nonatomic) IBOutlet UIButton *detailBtn;
+@property (weak, nonatomic) IBOutlet UILabel *duizhangCountLab;
 @property (nonatomic, copy) dispatch_block_t detailClickBlock;
++(instancetype)cellWithTableView:(UITableView *)tableView;
+@end
+
+
+@interface SaleOrderCell5 : UITableViewCell
+@property (strong , nonatomic)SalesOrderModel *saleModel;
+@property(nonatomic,assign)NSInteger status;
+@property (weak, nonatomic) IBOutlet UILabel *orderLab;
+@property (weak, nonatomic) IBOutlet UILabel *orderStstus;
+@property (weak, nonatomic) IBOutlet UILabel *timeLab;
+@property (weak, nonatomic) IBOutlet UILabel *monenyLab;
+@property (weak, nonatomic) IBOutlet UILabel *returnLab;
+@property (weak, nonatomic) IBOutlet UILabel *canKPMoneyLab;
+@property (weak, nonatomic) IBOutlet UIButton *detailBtn;
+@property (nonatomic, copy) dispatch_block_t detailClickBlock;
+@property (nonatomic,strong) ShoppingModel *shoppingModel;
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 @end
 NS_ASSUME_NONNULL_END

@@ -16,6 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
     float Height;
 }
 @property(nonatomic,strong)UIImageView *productImg;  ///<产品图片
+@property(nonatomic,strong)UILabel *productType;     ///<产品类型
 @property(nonatomic,strong)UILabel *productName;     ///<产品名称
 @property(nonatomic,strong)UIView *standardView;     ///<规格
 @property(nonatomic,strong)UILabel *parameterLabel;  ///<产品参数

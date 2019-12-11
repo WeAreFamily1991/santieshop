@@ -260,14 +260,14 @@
 //            NSArray *IDArr =[_classListStr componentsSeparatedByString:@","];
             NSLog(@"");
           
-                _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",[DRBuyerModel sharedManager].locationcode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"sourceType",@"queryType",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+                _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",[DRUserInfoModel sharedManager].locationCode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"sourceType",@"queryType",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
             if ([self.queryTypeStr isEqualToString:@"search"]||[self.queryTypeStr isEqualToString:@"searchbrand"]) {
                [ _sendDataDictionary setObject:self.keyWordStr forKey:@"keyword"];
             }
         }
         else if ([self.queryTypeStr isEqualToString:@"shopnull"])
         {
-             _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRBuyerModel sharedManager].locationcode?:@"",self.nullShopModel.sellerId,self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"districtId",@"sellerId",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+             _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[[DRUserInfoModel sharedManager].locationCode?:@"",self.nullShopModel.sellerId,self.queryTypeStr,@"",@"",@"",@"",@"1",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"districtId",@"sellerId",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
         }
         else
         {
@@ -276,7 +276,7 @@
             if (IDArr.count>=3) {
                 [GoodsShareModel sharedManager].level1Id =IDArr[0];
                 [GoodsShareModel sharedManager].level2Id =IDArr[1];
-                _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",self.queryTypeStr,@"",IDArr[0],IDArr[1],_czID?:@"",@"1",IDArr[2],@"",@"",@"",@"",[DRBuyerModel sharedManager].locationcode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID?:@"",@"",@""] forKeys:@[@"sourceType",@"queryType",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+                _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",self.queryTypeStr,@"",IDArr[0],IDArr[1],_czID?:@"",@"1",IDArr[2],@"",@"",@"",@"",[DRUserInfoModel sharedManager].locationCode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID?:@"",@"",@""] forKeys:@[@"sourceType",@"queryType",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
             }
             
         }

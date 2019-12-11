@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic,strong)UIImageView *productImg;  ///<产品图片
 @property(nonatomic,strong)UIImageView *nullImg;  ///<产品图片
 @property(nonatomic,strong)UIButton *moreBtn;  ///<展示更多
+@property(nonatomic,strong)UILabel *productType;
 @property(nonatomic,strong)UILabel *productName;     ///<产品名称
 @property(nonatomic,strong)UIView *standardView;     ///<规格
 @property(nonatomic,strong)UILabel *parameterLabel;  ///<产品参数

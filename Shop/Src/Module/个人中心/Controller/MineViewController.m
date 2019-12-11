@@ -105,7 +105,7 @@
         NSString *urlStr =[DRUserInfoModel sharedManager].logo;
         [self.headerView.iconBtn sd_setImageWithURL:[NSURL URLWithString:urlStr] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"personal_img_head portrait"]];
         
-//        [[DRBuyerModel sharedManager] setValuesForKeysWithDictionary:result.data];
+//        [[DRUserInfoModel sharedManager] setValuesForKeysWithDictionary:result.data];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
 //          self.tabBarController.selectedIndex=0;

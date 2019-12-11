@@ -24,7 +24,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * expressType;
 @property (nonatomic , copy) NSString              * isHy;
 @property (nonatomic , copy) NSString              * storeName;
-@property (nonatomic , copy) NSArray<GoodModel *>              * list;
+@property (nonatomic , copy) NSArray<GoodModel *>              * goodsList;
 @property (nonatomic , copy) NSString              * sellerName;
 @property (nonatomic , assign) NSInteger              status;
 @end

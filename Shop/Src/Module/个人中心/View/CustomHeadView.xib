@@ -197,7 +197,7 @@
                 <outlet property="eDuBackLab" destination="ZGh-no-msX" id="i41-KA-Rz8"/>
                 <outlet property="onlineBackLab" destination="qVr-49-lyy" id="Ppp-3L-oqS"/>
                 <outlet property="onlineLab" destination="iIg-o2-QW3" id="OWO-Jn-Mjp"/>
-                <outlet property="payAllLab" destination="4fw-Rf-GDY" id="6Vd-YA-RDU"/>
+                <outlet property="payAllLab" destination="EgQ-Jn-xY1" id="vPo-Ps-1xv"/>
             </connections>
             <point key="canvasLocation" x="40.799999999999997" y="-153.37331334332833"/>
         </view>

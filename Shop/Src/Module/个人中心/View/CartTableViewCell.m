@@ -20,6 +20,9 @@
 //时间
 @property (nonatomic,retain) UILabel *dateLabel;
 
+//商品名
+@property (nonatomic,retain) UILabel *contentLabel;
+
 //line
 @property (nonatomic,retain) UIView *lineView;
 
@@ -83,37 +86,38 @@
     self.selectBtn.selected = self.isSelected;
 
 }
--(UIButton *)selectBtn
-{
-    if (!_selectBtn) {
-        self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        self.selectBtn.selected = self.isSelected;
-        [self.selectBtn setImage:[UIImage imageNamed:@"Unchecked"] forState:UIControlStateNormal];
-        [self.selectBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
-        [self.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:self.selectBtn];
-        [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self).offset(10);
-            make.centerY.equalTo(self);
-            make.width.equalTo(@30);
-            make.height.equalTo(@30);
-        }];
-    }
-    return _selectBtn;
-}
+//-(UIButton *)selectBtn
+//{
+//    if (!_selectBtn) {
+//        self.selectBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//        self.selectBtn.selected = self.isSelected;
+//        [self.selectBtn setImage:[UIImage imageNamed:@"Unchecked"] forState:UIControlStateNormal];
+//        [self.selectBtn setImage:[UIImage imageNamed:@"checked"] forState:UIControlStateSelected];
+//        [self.selectBtn addTarget:self action:@selector(selectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+//        [self addSubview:self.selectBtn];
+//        [self.selectBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(self).offset(10);
+//            make.centerY.equalTo(self);
+//            make.width.equalTo(@30);
+//            make.height.equalTo(@30);
+//        }];
+//    }
+//    return _selectBtn;
+//}
 
 -(UILabel *)nameLabel
 {
     if (!_nameLabel) {
         self.nameLabel = [[UILabel alloc]init];
         //    self.nameLabel.text = @"海报";
-        self.nameLabel.numberOfLines =0;
-        self.nameLabel.font = DR_FONT(15);
+        self.nameLabel.textColor =BLACKCOLOR;
+        self.nameLabel.font = DR_FONT(16);
         [self addSubview:self.nameLabel];
         [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(self.selectBtn.mas_right).offset(10);
-            make.top.equalTo(self).offset(10);
+            make.left.equalTo(self).offset(10);
+            make.top.equalTo(self).offset(13);
             make.right.equalTo(self).offset(-10);
+            make.height.mas_equalTo(WScale(16));
         }];
     }
     return _nameLabel;
@@ -123,19 +127,35 @@
     if (!_dateLabel) {
         self.dateLabel = [[UILabel alloc]init];
         self.dateLabel.font = DR_FONT(12);
-    
-        //    self.dateLabel.text = @"2015-12-03 17:49";
+        self.dateLabel.textColor =RGBHex(0XFFFFFF);
         [self addSubview:self.dateLabel];
         [self.dateLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(self.nameLabel.mas_left);
-            make.top.mas_equalTo(self.nameLabel.mas_bottom).offset(10);
+            make.top.mas_equalTo(self.nameLabel.mas_bottom).offset(5);
             make.right.mas_equalTo(WScale(-5));
-           make.bottom.mas_equalTo(WScale(-10));
+           make.height.mas_equalTo(WScale(12));
             
         }];
     }
     return _dateLabel;
 }
 
-
+-(UILabel *)contentLabel
+{
+    if (!_contentLabel) {
+        self.contentLabel = [[UILabel alloc]init];
+        //    self.nameLabel.text = @"海报";
+        self.contentLabel.numberOfLines =0;
+        self.contentLabel.font = DR_FONT(12);
+        self.contentLabel.textColor =RGBHex(0XFFFFFF);
+        [self addSubview:self.contentLabel];
+        [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.mas_equalTo(self.nameLabel.mas_left);
+             make.top.mas_equalTo(self.dateLabel.mas_bottom).offset(5);
+             make.right.mas_equalTo(WScale(-5));
+            make.height.mas_equalTo(WScale(36));
+        }];
+    }
+    return _contentLabel;
+}
 @end

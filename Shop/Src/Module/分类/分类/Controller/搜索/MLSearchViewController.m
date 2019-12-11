@@ -100,7 +100,7 @@
     NSArray * btnDataSource = @[@"搜商品", @"搜店铺"];
     
     //  第4部  调用创建
-    YJSegmentedControl * segment = [YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44) titleDataSource:btnDataSource backgroundColor:[UIColor whiteColor] titleColor:BLACKCOLOR titleFont:[UIFont fontWithName:@".Helvetica Neue Interface" size:16.0f] selectColor:REDCOLOR buttonDownColor:REDCOLOR Delegate:self];
+    YJSegmentedControl * segment = [YJSegmentedControl segmentedControlFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44) titleDataSource:btnDataSource backgroundColor:[UIColor whiteColor] titleColor:BLACKCOLOR titleFont:DR_FONT(14) selectColor:REDCOLOR buttonDownColor:REDCOLOR Delegate:self];
     // 第5步 添加到试图上
     [self.view addSubview:segment];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, SCREEN_HEIGHT-44) style:UITableViewStylePlain];
@@ -111,8 +111,8 @@
     
     
     // 创建搜索框
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW-64-20-40, 40)];
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-10, 3, titleView.frame.size.width, 34)
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW-64-20-40, WScale(40))];
+    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(-10, WScale(3), titleView.frame.size.width, WScale(34))
                               ];
     searchBar.placeholder = @"搜索内容";
     searchBar.delegate = self;
@@ -138,8 +138,7 @@
     self.headerView.mj_x = 0;
     self.headerView.mj_y = 0;
     self.headerView.mj_w = ScreenW;
-    
-    _titleHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, ScreenW-20, 30)];
+    _titleHeaderLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10, ScreenW-20, WScale(40))];
     _titleHeaderLabel.text = @"热门搜索";
     _titleHeaderLabel.font = [UIFont systemFontOfSize:13];
     _titleHeaderLabel.textColor = [UIColor grayColor];
@@ -148,16 +147,22 @@
     
   
     
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, 30)];
-    UILabel *footLabel = [[UILabel alloc] initWithFrame:footView.frame];
-    footLabel.textColor = [UIColor grayColor];
-    footLabel.font = [UIFont systemFontOfSize:13];
-    footLabel.userInteractionEnabled = YES;
-    footLabel.text = @"清空搜索记录";
-    footLabel.textAlignment = NSTextAlignmentCenter;
-    [footLabel addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emptySearchHistoryDidClick)]];
-    [footView addSubview:footLabel];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ScreenW, WScale(45))];
+    UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, 1)];
+    lineView.backgroundColor =BLACKCOLOR;
+    [footView addSubview:lineView];
     
+    UIButton *footBtn =[UIButton buttonWithLeftImage:@"分组 3" title:@"清空搜索记录" font:DR_FONT(12) titleColor:RGBHex(0X828282) backGroundColor:CLEARCOLOR target:self action:nil showView:footView];
+    footBtn.frame =footView.frame;
+//    UILabel *footLabel = [[UILabel alloc] initWithFrame:footView.frame];
+//    footLabel.textColor = [UIColor grayColor];
+//    footLabel.font = [UIFont systemFontOfSize:13];
+//    footLabel.userInteractionEnabled = YES;
+//    footLabel.text = @"清空搜索记录";
+//    footLabel.textAlignment = NSTextAlignmentCenter;
+    [footBtn addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(emptySearchHistoryDidClick)]];
+    [footView addSubview:footBtn];
+//    
     self.tableView.tableFooterView = footView;
     [self tagsViewWithTag];
  
@@ -191,7 +196,7 @@
     NSArray *bigArr =@[_hotSearchDic[@"item"]?:@"",_hotSearchDic[@"seller"]?:@""];
     NSMutableArray *titleArr=[NSMutableArray array];
     for (NSDictionary *dic in bigArr[self.selectIndex]) {
-        [titleArr addObject:dic[@"keywords"]];
+        [titleArr addObject:dic];
     }
     
     self.tagsArray=titleArr;
@@ -332,13 +337,15 @@
     UIButton *closetButton = [[UIButton alloc] init];
     // 设置图片容器大小、图片原图居中
     closetButton.mj_size = CGSizeMake(cell.mj_h, cell.mj_h);
-    [closetButton setTitle:@"x" forState:UIControlStateNormal];
+//    [closetButton setTitle:@"x" forState:UIControlStateNormal];
+    [closetButton setImage:[UIImage imageNamed:@"ico／close2"] forState:UIControlStateNormal];
     [closetButton addTarget:self action:@selector(closeDidClick:) forControlEvents:UIControlEventTouchUpInside];
     cell.accessoryView = closetButton;
     [closetButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     cell.selectionStyle =UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = [UIColor grayColor];
     cell.textLabel.font = [UIFont systemFontOfSize:14];
+    cell.imageView.image =[UIImage imageNamed:@"search_ico_lishi"];
     if (self.selectIndex==0) {
         cell.textLabel.text = self.searchHistories[indexPath.row];
     }
@@ -363,10 +370,12 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(10, 0, SCREEN_WIDTH-10, 60)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, WScale(50))];
     view.backgroundColor = [UIColor whiteColor];
-    
-    UILabel *titleLabel = [[UILabel alloc] initWithFrame:view.frame];
+    UIView *lineView =[[UIView alloc]initWithFrame:CGRectMake(0, 0, ScreenW, WScale(10))];
+    lineView.backgroundColor =BLACKCOLOR;
+    [view addSubview:lineView];
+    UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(WScale(10), WScale(10), ScreenW-WScale(20), WScale(40))];
     titleLabel.text = @"历史搜索";
     titleLabel.font = [UIFont systemFontOfSize:14];
     [titleLabel sizeToFit];

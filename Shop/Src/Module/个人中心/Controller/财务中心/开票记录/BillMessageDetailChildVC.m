@@ -46,7 +46,7 @@
     //    self.navigationController.navigationBar.barTintColor = REDCOLOR;
     //    [self.navigationController.navigationBar setTitleTextAttributes:
     //     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.tableView.separatorStyle =UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle =UITableViewCellSeparatorStyleSingleLine;
     [self getMsgList];
     //       self.tableView.height = self.tableView.height - 50 - DRTopHeight -100;
 }
@@ -61,7 +61,7 @@
 {
     NSMutableDictionary *dic =[NSMutableDictionary dictionaryWithObjects:@[self.MessageModel.message_id] forKeys:@[@"id"]];
     [SNAPI getWithURL:@"buyer/invoiceRecordInfo" parameters:dic success:^(SNResult *result) {
-        if (result.state==200) {
+       
             self.detailModel =[BillMessageDetailModel mj_objectWithKeyValues:result.data];
             if ([self.detailModel.invoiceType intValue]==0) {
                 self.titleArr =@[[NSString stringWithFormat:@"发票类型：%@",[self.MessageModel.invoiceType intValue]?@"增值税专用发票":@"增值税普通发票"],[NSString stringWithFormat:@"发票抬头：%@",self.detailModel.title],[NSString stringWithFormat:@"税号：%@",self.detailModel.taxNo],[NSString stringWithFormat:@"注册地址：%@",self.detailModel.invoiceAddress],[NSString stringWithFormat:@"注册电话：%@",self.detailModel.invoiceTel],];
@@ -71,7 +71,7 @@
                 self.titleArr =@[[NSString stringWithFormat:@"发票类型：%@",[self.MessageModel.invoiceType intValue]?@"增值税专用发票":@"增值税普通发票"],[NSString stringWithFormat:@"发票抬头：%@",self.detailModel.title],[NSString stringWithFormat:@"税号：%@",self.detailModel.taxNo],[NSString stringWithFormat:@"注册地址：%@",self.detailModel.invoiceAddress],[NSString stringWithFormat:@"注册电话：%@",self.detailModel.invoiceTel],[NSString stringWithFormat:@"开户行：%@",self.detailModel.bankName],[NSString stringWithFormat:@"银行账户：%@",self.detailModel.bankAccount]];
             }
             [self.tableView reloadData];
-        }
+       
     } failure:^(NSError *error) {
         [MBProgressHUD showError:error.domain];
     }];
@@ -108,8 +108,12 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
         MessageChildCell *cell = [MessageChildCell cellWithTableView:tableView];
-        cell.kpfangLab.text =[NSString stringWithFormat:@"开票方：%@",self.detailModel.fpPartyName];
-        cell.timeLab.text =[NSString stringWithFormat:@"申请时间：%@",self.detailModel.applyeTime];
+        cell.orderLab.text =[NSString stringWithFormat:@"申请单号：%@",self.detailModel.applyNo];
+        cell.kpfangLab.text =[NSString stringWithFormat:@"开票方：%@",self.detailModel.kpName];
+        cell.timeLab.text =[NSString stringWithFormat:@"申请时间：%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",(long)self.detailModel.applyTime]]];
+        cell.timeLab.text =[NSString stringWithFormat:@"申请时间：%@",[SNTool StringTimeFormat:self.detailModel.applyTime]];
+        
+       
         cell.moneyCountLab.text =[NSString stringWithFormat:@"金额：%.2f",self.detailModel.invoiceAmt];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         if (self.detailModel.status==0||self.detailModel.status==1||self.detailModel.status==2||self.detailModel.status==3) {
@@ -126,7 +130,7 @@
              cell.backBtn.hidden =YES;
         }
         cell.cancelBtnBlock = ^{
-            if ([cell.backBtn.titleLabel.text isEqualToString:@"撤回"]) {
+            if ([cell.backBtn.titleLabel.text isEqualToString:@"已撤回"]) {
                 
                 UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
                                                                                          message:@"确定撤回开票申请吗？"
@@ -205,23 +209,23 @@
         }
         if (indexPath.section==0) {
            
-            titleArr =@[[NSString stringWithFormat:@"开票方：%@",self.detailModel.fpPartyName],[NSString stringWithFormat:@"申请时间：%@",self.detailModel.applyeTime],[NSString stringWithFormat:@"金额：%.2f",self.detailModel.invoiceAmt]];
+            titleArr =@[[NSString stringWithFormat:@"开票方：%@",self.detailModel.kpName],[NSString stringWithFormat:@"申请时间：%@",self.detailModel.applyTime],[NSString stringWithFormat:@"金额：%.2f",self.detailModel.invoiceAmt]];
             cell.textLabel.text =titleArr[indexPath.row];
             cell.textLabel.textColor =BLACKCOLOR;
-            cell.textLabel.font =DR_FONT(12);
+            cell.textLabel.font =DR_FONT(14);
         }else if (indexPath.section==1)
         {
            
             cell.textLabel.text =self.titleArr[indexPath.row];
             cell.textLabel.textColor =BLACKCOLOR;
-            cell.textLabel.font =DR_FONT(12);
+            cell.textLabel.font =DR_FONT(14);
         }
         else if (indexPath.section==2)
         {
             titleArr =@[[NSString stringWithFormat:@"收票人：%@",self.detailModel.receiverName],[NSString stringWithFormat:@"详细地址：%@",self.detailModel.receiverAddress],[NSString stringWithFormat:@"联系电话：%@",self.detailModel.receiverPhone]];
             cell.textLabel.text =titleArr[indexPath.row];
             cell.textLabel.textColor =BLACKCOLOR;
-            cell.textLabel.font =DR_FONT(12);
+            cell.textLabel.font =DR_FONT(14);
         }
         return cell;
     }
@@ -243,10 +247,10 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==3) {
-        return 150;
+        return WScale(220);
     }
     if (indexPath.section==0) {
-        return HScale(80);
+        return WScale(110);
     }
     return HScale(30);
 }
@@ -260,13 +264,13 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *bgView = [[UIView alloc] init];
     bgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, HScale(35));
-    bgView.backgroundColor = BACKGROUNDCOLOR;
+    bgView.backgroundColor = WHITECOLOR;
     UILabel *label = [[UILabel alloc] init];
     label.frame = CGRectMake(15, 0, SCREEN_WIDTH-16, bgView.frame.size.height);
-    NSArray *titleArray=  @[[NSString stringWithFormat:@"申请单号：%@",self.detailModel.applyNo],@"开票信息",@"收票信息",@"订单信息"];
+    NSArray *titleArray=  @[@"",@"开票信息",@"收票信息",@"订单信息"];
     label.text =titleArray[section];
-    label.font =DR_FONT(15);
-    label.textColor = REDCOLOR;
+    label.font =DR_BoldFONT(14);
+    label.textColor = BLACKCOLOR;
     [bgView addSubview:label];
     if (section==0) {
         UILabel *detaillabel = [[UILabel alloc] init];
@@ -289,13 +293,16 @@
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (section==0) {
+        return 0.01;
+    }
    return HScale(35);
 }
 
 //区尾的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.01;
+    return WScale(10);
 }
 
 -(void)viewWillAppear:(BOOL)animated{

@@ -156,7 +156,7 @@
         NSLog(@"%@-%@",selectAddressArr,selectAddressRow);
         self.selectAreaCodeStr =[NSString stringWithFormat:@"%@",[selectAddressArr lastObject]];
         [DEFAULTS setObject:[NSString stringWithFormat:@"%@,%@,%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]] forKey:@"address"];
-        [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationcode"];
+        [DEFAULTS setObject:[selectAddressArr lastObject] forKey:@"locationCode"];
         //            weakSelf.navigationItem.title = [NSString stringWithFormat:@"%@%@%@", selectAddressArr[0], selectAddressArr[1],selectAddressArr[2]];
         
     }];
@@ -322,7 +322,7 @@
     [SNAPI userAvatar:image nickName:nil success:^(SNResult *result){
         [MBProgressHUD showSuccess:SNStandardString(@"上传成功")];
   
-        [DRBuyerModel sharedManager].businessLic =result.data[@"src"];
+        [DRUserInfoModel sharedManager].businessLic =result.data[@"src"];
 
        
     } failure:^(NSError *error) {

@@ -39,7 +39,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _sameArr =[NSMutableArray array];
-     _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"wechat",[DRBuyerModel sharedManager].locationcode?:@"",@"2",@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",self.nullGoodModel.lengthid?:@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"sourceType",@"districtId",@"burstType",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
+     _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"wechat",[DRUserInfoModel sharedManager].locationCode?:@"",@"2",@"",self.nullGoodModel.levelid?:@"",self.nullGoodModel.surfaceid?:@"",self.nullGoodModel.materialid?:@"",self.nullGoodModel.lengthid?:@"",@"",self.nullGoodModel.standardid?:@"",@""] forKeys:@[@"sourceType",@"districtId",@"burstType",@"sellerId",@"levelId",@"surfaceId",@"materialId",@"lengthId",@"diameterId",@"standardId",@"dcType"]];
      [self.view addSubview:self.bgTipButton];
     self.title =@"比价格";
 //    [self addSegentView];

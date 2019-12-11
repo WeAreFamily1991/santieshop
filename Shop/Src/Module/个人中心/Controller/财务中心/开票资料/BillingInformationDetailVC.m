@@ -124,9 +124,9 @@
     }
     
     [self.saveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.saveBtn.layer.cornerRadius =HScale(20);
-    self.saveBtn.layer.masksToBounds =HScale(20);
-    self.saveBtn.titleLabel.font = DR_FONT(15);
+    self.saveBtn.layer.cornerRadius =4;
+    self.saveBtn.layer.masksToBounds =4;
+    self.saveBtn.titleLabel.font = DR_FONT(18);
     self.saveBtn.backgroundColor =REDCOLOR;
     [self.saveBtn addTarget:self action:@selector(saveBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     [headView addSubview:self.saveBtn];
@@ -195,40 +195,50 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (self.status==1) {
-        return 4;
+        return 6;
     }
     if (section == 0) {
         if (self.selectBtn.selected==YES) {
-            return 7;
+            return 9;
         }
         else
         {
-            return 4;
+            return 5;
         }
         
-        return 7;
+        return 8;
     }
-    return 8;
+    return 9;
 }
 #pragma mark 表的行高
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     if (self.status==1) {
-        return HScale(50);
+        if (indexPath.row==0||indexPath.row==3) {
+            return WScale(10);
+        }
+        return WScale(50);
     }
-
     if (self.selectBtn.selected==YES) {
         if (indexPath.row==6) {
-            return HScale(60);
+            return WScale(60);
         }
-        return HScale(50);
+        if (indexPath.row==2||indexPath.row==5) {
+            return WScale(10);
+        }
+        return WScale(50);
     }
     else
     {
-        return HScale(50);
+        if (indexPath.row==2) {
+            return WScale(10);
+        }
+        return WScale(50);
     }
     
-     return HScale(50);
+     return WScale(50);
 }
 //区头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -244,75 +254,80 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ///司机信息
-   
-        
-        NSArray *titleArray =[NSArray array];
-        NSArray *placeholdArray=[NSArray array];
-        if (self.status==0) {
-            titleArray = @[@"单位名称：",@"税号：",@"注册地址：",@"注册电话：",@"开户行：",@"银行账号："];
-            placeholdArray= @[@"请输入发票抬头",@"请输入税号",@"请输入注册地址",@"请输入注册电话",@"请输入人开户行名称",@"请输入银行账号"];
-             if (indexPath.row <6) {
-                 NSArray *contentArray = @[self.infoModel.ticketCompany?:@"",self.infoModel.taxNumber?:@"",self.infoModel.regAddress?:@"",self.infoModel.regPhone?:@"",self.infoModel.bank?:@"",self.infoModel.bankNo?:@""];
-                 
-                 
-                 InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
-                 cell.titleLabel.text = titleArray[indexPath.row];
-                 cell.titleLabel.font = DR_FONT(15);
-                 cell.contentTF.placeholder = placeholdArray[indexPath.row];
-                 cell.contentTF.tag = indexPath.row;
-                 cell.contentTF.text = contentArray[indexPath.row];
-                 
-                 [cell.contentTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
-                 
-                 //            if (indexPath.row == 0) {
-                 //                cell.contentTF.hidden = YES;
-                 //                cell.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:WScale(15)];
-                 //            }
-                 //            if (indexPath.row == 2) {
-                 //                cell.contentTF.keyboardType = UIKeyboardTypePhonePad;
-                 //            }
-                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                 return cell;
-             }
-            ///身份证号码,上传照片
-             else
-             {
-                 InfoTableViewCell6 *cell = [InfoTableViewCell6 cellWithTableView:tableView];
-                 NSString *tagStr = [NSString stringWithFormat:@"%ld%@",indexPath.row-3,@"1"];
-                 cell.photoBtn.tag = [tagStr intValue];
-                 [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
-                 id imgStr1 = self.infoModel.imgUrl?:@"default_head";
-//                 cell.photoBtn sd_ba
-                 cell.titleLabel.text =@"营业执照";
-                 [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:imgStr1] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_head"] options:0];
-                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                 return cell;
-             }
-        }
-        else
-        {
-            NSArray *contentArray = @[self.receiverModel.invoiceReceiverlocationArea?:@"",self.receiverModel.invoiceReceiverAddress?:@"",self.receiverModel.invoiceReceiverName?:@"",self.receiverModel.invoiceReceiverMobile?:@""];
+    
+    
+    NSArray *titleArray =[NSArray array];
+    NSArray *placeholdArray=[NSArray array];
+    if (self.status==0) {
+        titleArray = @[@"单位名称：",@"税号：",@"",@"注册地址：",@"注册电话：",@"",@"开户行：",@"银行账号："];
+        placeholdArray= @[@"请输入发票抬头",@"请输入税号",@"",@"请输入注册地址",@"请输入注册电话",@"",@"请输入人开户行名称",@"请输入银行账号"];
+        if (indexPath.row <8) {
+            NSArray *contentArray = @[self.infoModel.ticketCompany?:@"",self.infoModel.taxNumber?:@"",@"",self.infoModel.regAddress?:@"",self.infoModel.regPhone?:@"",@"",self.infoModel.bank?:@"",self.infoModel.bankNo?:@""];
             
-            titleArray= @[@"所在地区：",@"详细地址：",@"收票人：",@"联系电话："];
-            placeholdArray = @[@"请选择所在地区",@"请输入详细地址",@"请输入收票人",@"请输入联系电话"];
+            
             InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
-            if (indexPath.row == 0)
-            {
-                cell.contentTF.enabled = NO;
-            }
             cell.titleLabel.text = titleArray[indexPath.row];
             cell.titleLabel.font = DR_FONT(15);
             cell.contentTF.placeholder = placeholdArray[indexPath.row];
             cell.contentTF.tag = indexPath.row;
             cell.contentTF.text = contentArray[indexPath.row];
-//            if (indexPath.row==3) {
-//                cell.contentTF.keyboardType =UIKeyboardTypeNumberPad;
-//            }
-            [cell.contentTF addTarget:self action:@selector(textFieldfirstChangeAction:) forControlEvents:UIControlEventEditingChanged];
+            if (indexPath.row==2||indexPath.row==5) {
+                cell.contentView.backgroundColor =BACKGROUNDCOLOR;
+            }
+            [cell.contentTF addTarget:self action:@selector(textFieldChangeAction:) forControlEvents:UIControlEventEditingChanged];
+            
+            //            if (indexPath.row == 0) {
+            //                cell.contentTF.hidden = YES;
+            //                cell.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:WScale(15)];
+            //            }
+            //            if (indexPath.row == 2) {
+            //                cell.contentTF.keyboardType = UIKeyboardTypePhonePad;
+            //            }
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
-          
         }
+        ///身份证号码,上传照片
+        else
+        {
+            InfoTableViewCell6 *cell = [InfoTableViewCell6 cellWithTableView:tableView];
+            NSString *tagStr = [NSString stringWithFormat:@"%ld%@",indexPath.row-5,@"1"];
+            cell.photoBtn.tag = [tagStr intValue];
+            [cell.photoBtn addTarget:self action:@selector(photoButton:) forControlEvents:UIControlEventTouchUpInside];
+            id imgStr1 = self.infoModel.imgUrl?:@"default_head";
+            //                 cell.photoBtn sd_ba
+            cell.titleLabel.text =@"营业执照";
+            [cell.photoBtn sd_setBackgroundImageWithURL:[NSURL URLWithString:imgStr1] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"default_head"] options:0];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+    }
+    else
+    {
+        NSArray *contentArray = @[@"",self.receiverModel.invoiceReceiverlocationArea?:@"",self.receiverModel.invoiceReceiverAddress?:@"",@"",self.receiverModel.invoiceReceiverName?:@"",self.receiverModel.invoiceReceiverMobile?:@""];
+        
+        titleArray= @[@"",@"收票人：",@"联系电话：",@"",@"所在地区：",@"详细地址："];
+        placeholdArray = @[@"",@"请输入收票人",@"请输入联系电话",@"",@"请选择所在地区",@"请输入详细地址"];
+        InfoTableViewCell *cell = [InfoTableViewCell cellWithTableView:tableView];
+        if (indexPath.row == 4)
+        {
+            cell.contentTF.enabled = NO;
+        }
+        if (indexPath.row==0||indexPath.row==3) {
+            cell.contentView.backgroundColor =BACKGROUNDCOLOR;
+        }
+        cell.titleLabel.text = titleArray[indexPath.row];
+        cell.titleLabel.font = DR_FONT(15);
+        cell.contentTF.placeholder = placeholdArray[indexPath.row];
+        cell.contentTF.tag = indexPath.row;
+        cell.contentTF.text = contentArray[indexPath.row];
+        //            if (indexPath.row==3) {
+        //                cell.contentTF.keyboardType =UIKeyboardTypeNumberPad;
+        //            }
+        [cell.contentTF addTarget:self action:@selector(textFieldfirstChangeAction:) forControlEvents:UIControlEventEditingChanged];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+        
+    }
 }
 -(void)textFieldfirstChangeAction:(UITextField *)textField
 {
@@ -364,7 +379,7 @@
 {
     [self.view endEditing:YES];
     
-    if (indexPath.row==0&&self.status==1) {
+    if (indexPath.row==4&&self.status==1) {
         [CGXPickerView showAddressPickerWithTitle:@"请选择你的城市" DefaultSelected:@[@0, @0,@0] IsAutoSelect:YES Manager:nil ResultBlock:^(NSArray *selectAddressArr, NSArray *selectAddressRow) {
             
             NSLog(@"%@-%@",selectAddressArr,selectAddressRow);

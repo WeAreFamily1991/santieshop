@@ -28,17 +28,17 @@
     
 }
 @end
-@implementation DRBuyerModel
-+(instancetype)sharedManager {
-    static dispatch_once_t pred;
-    static id ClassName;
-    dispatch_once(&pred, ^{
-        ClassName = [[super allocWithZone:NULL] init];
-    });
-    return ClassName;
-}
--(void)setValue:(id)value forUndefinedKey:(NSString *)key
-{
-    
-}
-@end
+//@implementation DRUserInfoModel
+//+(instancetype)sharedManager {
+//    static dispatch_once_t pred;
+//    static id ClassName;
+//    dispatch_once(&pred, ^{
+//        ClassName = [[super allocWithZone:NULL] init];
+//    });
+//    return ClassName;
+//}
+//-(void)setValue:(id)value forUndefinedKey:(NSString *)key
+//{
+//    
+//}
+//@end

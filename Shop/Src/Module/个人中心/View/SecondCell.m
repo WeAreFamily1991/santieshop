@@ -46,7 +46,8 @@
     [self.moreBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleBottom imageTitleSpace:5];
     self.moreBtn.hidden =YES;
     self.nullImg.hidden =NO;
-    NSArray * array = @[sameModel.spec?:@"",sameModel.materialName?:@"",sameModel.brandName?:@""];
+    NSArray * array = @[sameModel.spec?:@"",sameModel.levelName?:@"",sameModel.materialName?:@"",sameModel.surfaceName?:@""];
+    self.productType.text =sameModel.brandName;
     NSMutableArray *titArr =[NSMutableArray array];
     for (NSString *str in array) {
         if (str.length!=0) {
@@ -54,7 +55,7 @@
         }
     }
     Height = WScale(30);
-    [self setStandWithArray:titArr];
+    [self setStandWithArray:titArr.copy];
     
     NSString *baseStr;//basicUnitId 5千支  6公斤  7吨
     if ([sameModel.basicUnitId intValue]==5) {

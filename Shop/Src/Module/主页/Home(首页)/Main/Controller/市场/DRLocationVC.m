@@ -121,7 +121,7 @@
 //            [GoodsShareModel sharedManager].level1Id =IDArr[0];
 //            [GoodsShareModel sharedManager].level2Id =IDArr[1];
 //
-//            NSDictionary *mudic  = @{@"voucherType":sourceArr[1],@"sourceType":@"Wechat",@"queryType":@"normal",@"keyword":@"",@"level1Id":IDArr[0],@"level2Id":IDArr[1],@"cz":@"",@"subType":@"1",@"categoryId":sourceArr[2]?:@"",@"condition":@"",@"serviceType":@"",@"sellerType":@"",@"containzy":@"",@"districtid":[DRBuyerModel sharedManager].locationcode?:@"",@"orderBy":@"",@"onlyqty":sourceArr[0],@"standardid":@"",@"levelid":sourceArr[7]?:@"",@"surfaceid":sourceArr[8]?:@"",@"lengthid":sourceArr[6]?:@"",@"materialid":sourceArr[4]?:@"",@"toothdistanceid":sourceArr[10]?:@"",@"toothformid":sourceArr[9]?:@"",@"brandid":sourceArr[7]?:@"",@"czid":sourceArr[3]?:@"",@"diameterid":sourceArr[5]?:@""};
+//            NSDictionary *mudic  = @{@"voucherType":sourceArr[1],@"sourceType":@"Wechat",@"queryType":@"normal",@"keyword":@"",@"level1Id":IDArr[0],@"level2Id":IDArr[1],@"cz":@"",@"subType":@"1",@"categoryId":sourceArr[2]?:@"",@"condition":@"",@"serviceType":@"",@"sellerType":@"",@"containzy":@"",@"districtid":[DRUserInfoModel sharedManager].locationCode?:@"",@"orderBy":@"",@"onlyqty":sourceArr[0],@"standardid":@"",@"levelid":sourceArr[7]?:@"",@"surfaceid":sourceArr[8]?:@"",@"lengthid":sourceArr[6]?:@"",@"materialid":sourceArr[4]?:@"",@"toothdistanceid":sourceArr[10]?:@"",@"toothformid":sourceArr[9]?:@"",@"brandid":sourceArr[7]?:@"",@"czid":sourceArr[3]?:@"",@"diameterid":sourceArr[5]?:@""};
 //            [_sendDataDictionary addEntriesFromDictionary:mudic];
 //        NSMutableDictionary *mudic = [NSMutableDictionary dictionaryWithObjects:@[@"",@"",@"",@"",@"",muIDArr[1],@"",@"",@"",@"",@""] forKeys:@[@"keyWord",@"bz",@"jb",@"bmcl",@"pp",@"cl",@"yj",@"yx",@"zj",muIDArr[0],@"voucherType"]];
         NSArray *keyArr =@[@"voucherType",@"bz",@"cl",@"zj",@"cd",@"jb",@"bmcl",@"pp",@"yj",@"yx"];
@@ -150,24 +150,24 @@
         //sellerType  0自营 1月结卖家
         //containzy   是否包含自营 默认包含 0不包含
         //districtid  区域ID
-        //onlyqty  是否显示有货 0或者1[DRBuyerModel sharedManager].locationcode?:@""
+        //onlyqty  是否显示有货 0或者1[DRUserInfoModel sharedManager].locationCode?:@""
         //.addParam("voucherType", voucherTypes)// // 1 有店铺红包  0 全部
         _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@""] forKeys:@[@"keyWord",@"bz",@"jb",@"bmcl",@"pp",@"cl",@"yj",@"yx",@"zj",@"cd",@"voucherType"]];
         
     }
     if ([self.isHome isEqualToString:@"1"]) {
         [_sendDataDictionary setObject:self.type forKey:@"type"];
-          [_sendDataDictionary setObject:[DRBuyerModel sharedManager].locationcode?:@"" forKey:@"districtId"];
+          [_sendDataDictionary setObject:[DRUserInfoModel sharedManager].locationCode?:@"" forKey:@"districtId"];
     }
    else if ([self.isHome isEqualToString:@"0"])
    {
        [_sendDataDictionary setObject:self.factoryModel.factory_id forKey:@"factoryId"];
-       [_sendDataDictionary setObject:[DRBuyerModel sharedManager].locationcode?:@"" forKey:@"districtId"];
+       [_sendDataDictionary setObject:[DRUserInfoModel sharedManager].locationCode?:@"" forKey:@"districtId"];
    }
    else
    {
        
-        [_sendDataDictionary setObject:[DRBuyerModel sharedManager].locationcode?:@"" forKey:@"district"];
+        [_sendDataDictionary setObject:[DRUserInfoModel sharedManager].locationCode?:@"" forKey:@"district"];
    
    }
   
@@ -257,7 +257,7 @@
 //    NSDictionary *dic =[NSDictionary dictionary];
 //    NSString *urlStr;
 //    if ([HomeStr isEqualToString:@"1"]) {
-//         _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",@"normal",@"",IDArr[0],IDArr[1],_czID,@"1",IDArr[2],@"",@"",@"",@"",[DRBuyerModel sharedManager].locationcode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID,@"",@""] forKeys:@[@"type",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+//         _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",@"normal",@"",IDArr[0],IDArr[1],_czID,@"1",IDArr[2],@"",@"",@"",@"",[DRUserInfoModel sharedManager].locationCode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID,@"",@""] forKeys:@[@"type",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
 //        urlStr =@"mainPage/marketSellerList";
 //        dic =@{@"advType":self.advTypeDic[@"advType"],@"pageNum":@"1",@"pageSize":@"10"};
 //    }else

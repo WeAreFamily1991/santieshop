@@ -86,6 +86,9 @@
                     [weakSelf.dataArray addObject:weakSelf.model];
                 }
             }
+            for (CartModel *model in self.self.dataArray) {
+                [selectGoods addObject:model];
+            }
             [weakSelf.tableView reloadData];
         }
         
@@ -138,11 +141,11 @@
 //提交订单
 -(void)goPayBtnClick
 {
-    if (selectGoods.count==0)
-    {
-        [MBProgressHUD showError:@"未选中任何项"];
-        return;
-    }
+//    if (selectGoods.count==0)
+//    {
+//        [MBProgressHUD showError:@"未选中任何项"];
+//        return;
+//    }
     UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil
                                                                              message:@"此操作将永久删除该消息, 是否继续?"
                                                                       preferredStyle:UIAlertControllerStyleAlert];
@@ -182,7 +185,7 @@
 -(void)setupBottomView
 {
     //底部视图的 背景
-    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50-DRTopHeight, SCREEN_WIDTH, 50)];
+    UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 50-DRTopHeight-kIPhoneXBottomHeight, SCREEN_WIDTH, 50)];
     bgView.backgroundColor =BACKGROUNDCOLOR;
     [self.view addSubview:bgView];
     
@@ -198,7 +201,7 @@
     [selectAll setImage:[UIImage imageNamed:@"cart_selected_btn"] forState:UIControlStateSelected];
     [selectAll setTitleColor:BLACKCOLOR forState:UIControlStateNormal];
     [selectAll addTarget:self action:@selector(selectAllBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    [bgView addSubview:selectAll];
+//    [bgView addSubview:selectAll];
 //
 //    //合计
 //    UILabel *label = [[UILabel alloc]init];
@@ -217,7 +220,7 @@
     //结算按钮
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.backgroundColor = BASECOLOR_RED;
-    [btn setTitle:@"批量删除" forState:UIControlStateNormal];
+    [btn setTitle:@"清空消息" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(goPayBtnClick) forControlEvents:UIControlEventTouchUpInside];
     [bgView addSubview:btn];
     
@@ -236,7 +239,7 @@
         make.top.equalTo(bgView);
         make.right.equalTo(bgView);
         make.bottom.equalTo(bgView);
-        make.width.equalTo(@100);
+        make.width.mas_equalTo(ScreenW);
         
     }];
 }
@@ -282,7 +285,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     return UITableViewAutomaticDimension;
+     return WScale(100);
 }
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

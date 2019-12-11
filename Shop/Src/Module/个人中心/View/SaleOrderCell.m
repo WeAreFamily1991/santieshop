@@ -22,9 +22,11 @@
 //    [cell.collectSelectBtn addTarget:cell action:@selector(collectSelectBtnClick:) forControlEvents:UIControlEventTouchUpInside];
 //    [cell.phoneBtn addTarget:cell action:@selector(phoneBtnBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     
-//    cell.detailBtn.layer.masksToBounds=cell.detailBtn.dc_height/2;
-//    cell.detailBtn.layer.cornerRadius =cell.detailBtn.dc_height/2;
-//    cell.detailBtn.backgroundColor =REDCOLOR;
+    cell.detailBtn.layer.masksToBounds=4;
+    cell.detailBtn.layer.cornerRadius =4;
+    cell.detailBtn.layer.borderColor =REDCOLOR.CGColor;
+    cell.detailBtn.layer.borderWidth =0.5;
+    
     return cell;
 }
 -(void)setSaleModel:(SalesOrderModel *)saleModel
@@ -126,6 +128,20 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    cell.detailBtn.layer.cornerRadius =4;
+    cell.detailBtn.layer.masksToBounds =4;
+    cell.detailBtn.layer.borderColor =REDCOLOR.CGColor;
+    cell.detailBtn.layer.borderWidth =0.5;
+    
+    cell.contentBtn.layer.cornerRadius =4;
+    cell.contentBtn.layer.masksToBounds =4;
+    cell.contentBtn.layer.borderColor =REDCOLOR.CGColor;
+    cell.contentBtn.layer.borderWidth =0.5;
+    
+    cell.returnBackBtn.layer.cornerRadius =4;
+    cell.returnBackBtn.layer.masksToBounds =4;
+    cell.returnBackBtn.layer.borderColor =BACKGROUNDCOLOR.CGColor;
+    cell.returnBackBtn.layer.borderWidth =0.5;
     //    cell.groundView.layer.cornerRadius =5;
     //    cell.groundView.layer.masksToBounds =5;
     //    [cell.shopOrderBtn layoutButtonWithEdgeInsetsStyle:MKButtonEdgeInsetsStyleTop imageTitleSpace:10];
@@ -221,7 +237,10 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"SaleOrderCell" owner:nil options:nil] objectAtIndex:4];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
-    
+    cell.detailBtn.layer.masksToBounds=4;
+    cell.detailBtn.layer.cornerRadius =4;
+    cell.detailBtn.layer.borderColor =REDCOLOR.CGColor;
+    cell.detailBtn.layer.borderWidth =0.5;
     return cell;
 }
 -(void)setSaleModel:(SalesOrderModel *)saleModel
@@ -233,6 +252,49 @@
     [SNTool setTextColor:self.saleTimeLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5, self.saleTimeLab.text.length-5) AndColor:REDCOLOR];
     self.saleCountLab.text =[NSString stringWithFormat:@"费用金额：￥%@",saleModel.qty?:@""];
     [SNTool setTextColor:self.saleCountLab FontNumber:DR_FONT(12) AndRange:NSMakeRange(5, self.saleCountLab.text.length-5) AndColor:REDCOLOR];
+}
+- (IBAction)detailBtnClick:(id)sender {
+    !_detailClickBlock ? : _detailClickBlock();
+}
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+    
+    // Configure the view for the selected state
+}
+@end
+
+
+@implementation SaleOrderCell5
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+}
++(instancetype)cellWithTableView:(UITableView *)tableView
+{
+    static NSString *identify = @"SaleOrderCell5";
+    SaleOrderCell5 *cell = [tableView dequeueReusableCellWithIdentifier:identify];
+    if (cell == nil)
+    {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"SaleOrderCell" owner:nil options:nil] objectAtIndex:5];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    cell.detailBtn.layer.masksToBounds=4;
+    cell.detailBtn.layer.cornerRadius =4;
+    cell.detailBtn.layer.borderColor =REDCOLOR.CGColor;
+    cell.detailBtn.layer.borderWidth =0.5;
+    return cell;
+}
+-(void)setShoppingModel:(ShoppingModel *)shoppingModel{
+    
+    _shoppingModel = shoppingModel;
+    self.orderLab.text = [NSString stringWithFormat:@"%@",shoppingModel.orderNo];
+    
+    self.timeLab.text  = [NSString stringWithFormat:@"%@",[SNTool StringTimeFormat:[NSString stringWithFormat:@"%ld",(long)shoppingModel.createTime]]];
+    self.monenyLab.text =[NSString stringWithFormat:@"%.2f",shoppingModel.orderAmt];
+    self.returnLab.text =[NSString stringWithFormat:@"%.2f",[shoppingModel.returnedAmt doubleValue]];
+   
+    self.canKPMoneyLab.text =[NSString stringWithFormat:@"可开票金额：%.2f",shoppingModel.canReturnAmt];
+    
 }
 - (IBAction)detailBtnClick:(id)sender {
     !_detailClickBlock ? : _detailClickBlock();

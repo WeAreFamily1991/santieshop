@@ -98,7 +98,7 @@
 -(void)getMsgList
 {
     if (!_sendDataDictionary) {
-        _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[self.keywordStr,[DRBuyerModel sharedManager].locationcode?:@"",@""] forKeys:@[@"keyWord",@"districtId",@"voucherType"]];
+        _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[self.keywordStr,[DRUserInfoModel sharedManager].locationCode?:@"",@""] forKeys:@[@"keyWord",@"districtId",@"voucherType"]];
     }
     [self loadDataSource:_sendDataDictionary withpagecount:[NSString stringWithFormat:@"%d",pageCount]];
 }
@@ -191,7 +191,7 @@
 //    NSDictionary *dic =[NSDictionary dictionary];
 //    NSString *urlStr;
 //    if ([HomeStr isEqualToString:@"1"]) {
-//         _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",@"normal",@"",IDArr[0],IDArr[1],_czID,@"1",IDArr[2],@"",@"",@"",@"",[DRBuyerModel sharedManager].locationcode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID,@"",@""] forKeys:@[@"type",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
+//         _sendDataDictionary = [NSMutableDictionary dictionaryWithObjects:@[@"Wechat",@"normal",@"",IDArr[0],IDArr[1],_czID,@"1",IDArr[2],@"",@"",@"",@"",[DRUserInfoModel sharedManager].locationCode?:@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",@"",_czID,@"",@""] forKeys:@[@"type",@"keyword",@"level1Id",@"level2Id",@"cz",@"subType",@"categoryId",@"condition",@"serviceType",@"sellerType",@"containzy",@"districtid",@"orderBy",@"onlyqty",@"standardid",@"levelid",@"surfaceid",@"lengthid",@"materialid",@"toothdistanceid",@"toothformid",@"brandid",@"czid",@"diameterid",@"voucherType"]];
 //        urlStr =@"mainPage/marketSellerList";
 //        dic =@{@"advType":self.advTypeDic[@"advType"],@"pageNum":@"1",@"pageSize":@"10"};
 //    }else

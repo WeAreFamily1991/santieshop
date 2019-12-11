@@ -21,6 +21,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak, nonatomic) IBOutlet UILabel *returnBackLab;
 @property (weak, nonatomic) IBOutlet UILabel *realCountLab;
 @property (weak, nonatomic) IBOutlet UILabel *orderTimeLab;
+@property (weak, nonatomic) IBOutlet UIButton *detailBtn;
 
 @end
 

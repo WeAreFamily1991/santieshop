@@ -91,6 +91,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="morenLab" destination="nzm-Ce-Hae" id="DfP-o1-SDK"/>
                 <outlet property="perDetailLabel" destination="OKM-Eq-zbs" id="sjs-Tq-GN6"/>
                 <outlet property="perNameLabel" destination="7nk-Yn-gfA" id="y1t-Kr-EMl"/>
                 <outlet property="perPhoneLabel" destination="TEV-AG-VJH" id="qmE-TD-AvW"/>

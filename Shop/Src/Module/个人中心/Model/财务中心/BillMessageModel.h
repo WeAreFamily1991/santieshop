@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * compType;
 @property (nonatomic , copy) NSString              * checkTime;
 @property (nonatomic , copy) NSString              * checkUser;
-@property (nonatomic , copy) NSString              * applyeTime;
+@property (nonatomic , copy) NSString              * applyTime;
 @property (nonatomic , copy) NSString              * compId;
 @property (nonatomic , copy) NSString              * sellerId;
 @property (nonatomic , copy) NSString              * sellerName;
@@ -40,7 +40,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic , copy) NSString              * bankName;
 @property (nonatomic , copy) NSString              * bankAccount;
 @property (nonatomic , copy) NSString              * expressComp;
-@property (nonatomic , copy) NSString              * fpPartyName;
+@property (nonatomic , copy) NSString              * kpName;
 @end
 
 NS_ASSUME_NONNULL_END
